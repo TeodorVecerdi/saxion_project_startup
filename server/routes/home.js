@@ -4,7 +4,7 @@ let serverState = require("../js/ServerState");
 
 /* GET home page. */
 router.get('/', (req, res, next) => {
-    if(!req.cookies.hasOwnProperty("logged-in")) {
+    if(!serverState.isAuthenticated(req)) {
         res.redirect("/login");
         return;
     }
@@ -18,7 +18,7 @@ router.get('/', (req, res, next) => {
 });
 
 router.get('/logout', (req, res, next) => {
-    if(req.cookies.hasOwnProperty("logged-in")) {
+    if(serverState.isAuthenticated(req)) {
         let loginCookie = req.cookies['logged-in'];
         res.clearCookie('logged-in');
 

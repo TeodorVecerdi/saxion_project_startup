@@ -3,7 +3,7 @@ let router = express.Router();
 let serverState = require("../js/ServerState");
 
 router.get('/active-users', (req, res) => {
-    if(!serverState.isAuthenticated(req.cookies)) {
+    if(!serverState.isAuthenticated(req)) {
         res.status(403).end();
         return;
     }

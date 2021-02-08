@@ -33,13 +33,21 @@ class ServerState {
         return this.loggedUsers[id].username === cookie['username'];
     }
 
-    isAuthenticated(cookies) {
-        if(!cookies.hasOwnProperty('logged-in')) return false;
-        return this.isCookieValid(cookies['logged-in']);
+    isAuthenticated(request) {
+        if(request.headers.cookie === undefined) return false;
+        if(!request.cookies.hasOwnProperty('logged-in')) return false;
+        return true;
     }
 
     getUsers() {
-        return this.loggedUsers;
+        let users = {};
+        for(let key of Object.keys(this.loggedUsers)) {
+            users[key] = {
+                username: this.loggedUsers[key].username,
+                id: this.loggedUsers[key].id
+            }
+        }
+        return users;
     }
 }
 

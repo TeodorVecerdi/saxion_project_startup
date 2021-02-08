@@ -6,23 +6,29 @@
 </head>
 
 <body class="bg-dark">
-<div class="container">
-    <div class="text-center text-light">
-        <h1 class="mt-5">Hello, world!</h1>
+
+<div id="activeUsers"></div>
+<div id="activeChat">
+    <div class="d-none" id="no-chat-open">No chat open</div>
+    <div id="chat">
+        <div id="chat-person">Teodor Vecerdi</div>
+        <div id="chat-messages">
+            <div class="message self"><div class="message-body">Hello, world</div></div>
+            <div class="message other"><div class="message-body">Hello, world indeed</div></div>
+        </div>
+        <input id="chat-input" class="form-control" type="text" aria-label="Message" placeholder="Message">
     </div>
-    <div id="activeUsers"></div>
 </div>
 
 <% include ../partials/footer.ejs %>
 
 <script>
     const activeUsers = $("#activeUsers");
-    let selfUser;
+    let selfUser, chattingWith;
 
     $(() => {
-        selfUser = document.cookie;
-        console.log(selfUser);
-       loadActiveUsers();
+        selfUser = JSON.parse(Cookies.get('logged-in').substr(2));
+        loadActiveUsers();
     });
 
     function loadActiveUsers() {
@@ -33,18 +39,40 @@
             success: data => {
                 let html = "";
                 console.log(data);
-                for(let userId in data) {
+                for (let userId in data) {
                     let user = data[userId];
-                    html += `<li><h2>${user.username}</h2><p>${user.id}</p></li>`;
+                    if(user.id === selfUser.id) continue;
+                    if(chattingWith !== undefined && chattingWith == user.id) openChat(user.id);
+                    html += `<li class="user" data-user-id="${user.id}"><span title="${user.username}">${user.username}</span></li>`;
                 }
 
-                html = `<ul>${html}</ul>`;
+                html = `
+<div class="title">Users</div>
+<ul id="userList"">${html}</ul>`;
                 activeUsers.html(html);
+
+                $('.user').on('click', event => {
+                    let user = $(event.currentTarget);
+                    $('.user.selected').removeClass('selected');
+                    user.addClass('selected')
+                    let userId = user.data('user-id');
+                    openChat(userId)
+                })
             },
             error: err => {
                 console.error(err);
             }
         });
+    }
+
+    function openChat(userId) {
+        if(chattingWith === undefined) {
+            $('#no-chat-open').addClass('d-none')
+            $('#chat').removeClass('d-none');
+        }
+
+        chattingWith = userId;
+        console.log(`Chatting with ${chattingWith}`)
     }
 </script>
 </body>
