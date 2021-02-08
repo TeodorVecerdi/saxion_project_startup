@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <% include ../partials/head.ejs %>
+</head>
+
+<body class="bg-dark">
+<div class="container">
+    <div class="text-center text-light">
+        <h1 class="mt-5">Hello, world!</h1>
+    </div>
+    <div id="activeUsers"></div>
+</div>
+
+<% include ../partials/footer.ejs %>
+
+<script>
+    const activeUsers = $("#activeUsers");
+    let selfUser;
+
+    $(() => {
+        selfUser = document.cookie;
+        console.log(selfUser);
+       loadActiveUsers();
+    });
+
+    function loadActiveUsers() {
+        activeUsers.html("");
+        $.ajax({
+            url: '/chat/active-users',
+            type: 'get',
+            success: data => {
+                let html = "";
+                console.log(data);
+                for(let userId in data) {
+                    let user = data[userId];
+                    html += `<li><h2>${user.username}</h2><p>${user.id}</p></li>`;
+                }
+
+                html = `<ul>${html}</ul>`;
+                activeUsers.html(html);
+            },
+            error: err => {
+                console.error(err);
+            }
+        });
+    }
+</script>
+</body>
+</html>
