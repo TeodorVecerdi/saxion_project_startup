@@ -14,7 +14,11 @@ router.get('/', (req, res, next) => {
         res.redirect("/login");
         return;
     }
-    res.render('pages/index');
+
+    let account = serverState.getUserByID(cookie.id);
+    if(JSON.stringify(account.profile) === JSON.stringify({}))
+        res.render('pages/profile');
+    else res.render('pages/index');
 });
 
 router.get('/logout', (req, res, next) => {
