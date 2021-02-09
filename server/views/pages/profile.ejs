@@ -6,7 +6,161 @@
 </head>
 
 <body class="bg-dark">
+<div class="container">
+    <form id="profileForm" class="form-horizontal pt-5">
+        <fieldset class="row">
+            <legend class="text-white">Set up profile</legend>
+
+            <div class="row">
+                <label id="nameLabel" class="text-white col-md-12 control-label" for="firstName">Name</label>
+                <div class="col-md-6">
+                    <input id="firstName" name="firstName" type="text" placeholder="First Name" class="form-control" required>
+                </div>
+                <div class="col-md-6">
+                    <input id="lastName" name="lastName" type="text" placeholder="Last Name" class="form-control" aria-labelledby="nameLabel" aria-label="Last Name" required>
+                </div>
+            </div>
+
+            <div class="row pt-4">
+                <label class="text-white col-md-12 control-label" for="dateOfBirth">Date of birth</label>
+                <div class="col-md-6">
+                    <input id="dateOfBirth" name="dateOfBirth" type="date" class="form-control" required>
+                </div>
+            </div>
+
+            <div class="row pt-4 text-white">
+                <p class="col-md-2 control-label">Interests</p>
+                <div class="row col-md-10">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="romanticInterest">
+                        <label class="form-check-label" for="romanticInterest">
+                            Romantic relationships
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="friendshipInterest">
+                        <label class="form-check-label" for="friendshipInterest">
+                            Friendships
+                        </label>
+                    </div>
+                </div>
+                <input name="interests" id="interests" type="text" class="col-md-7 bg-dark" tabindex="-1" onfocus="this.blur()"
+                       style="pointer-events: none; height: 1px; border: none; padding: 0">
+
+            </div>
+
+            <div class="row pt-4 text-white">
+                <p class="col-md-3 control-label">Romantic interests - Settings</p>
+                <div class="row col-md-12">
+                    <label id="romanticAgeLabel" class="text-white col-md-12 control-label mb-1" for="romanticMinAge">Age</label>
+                    <div class="col-md-2">
+                        <input id="romanticMinAge" name="romanticMinAge" type="number" placeholder="Minimum Age" class="form-control form-control-sm">
+                    </div>
+                    to<div class="col-md-2">
+                        <input id="romanticMaxAge" name="romanticMaxAge" type="number" placeholder="Maximum Age" class="form-control form-control-sm" aria-labelledby="romanticAgeLabel"
+                               aria-label="Maximum Age">
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="row pt-4 text-white">
+                <p class="col-md-3 control-label">Friendship interests - Settings</p>
+                <div class="row col-md-12">
+                    <label id="friendshipAgeLabel" class="text-white col-md-12 control-label mb-1" for="friendshipMinAge">Age</label>
+                    <div class="col-md-2">
+                        <input id="friendshipMinAge" name="friendshipMinAge" type="number" placeholder="Minimum Age" class="form-control form-control-sm">
+                    </div>
+                    to<div class="col-md-2">
+                        <input id="friendshipMaxAge" name="friendshipMaxAge" type="number" placeholder="Maximum Age" class="form-control form-control-sm" aria-labelledby="friendshipAgeLabel"
+                               aria-label="Maximum Age">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Button -->
+            <div class="form-group mt-3">
+                <div class="col-md-12">
+                    <input type="submit" id="submit" value="Finish Profile" name="submit" class="btn w-100 btn-danger">
+                </div>
+            </div>
+
+        </fieldset>
+        <output class="mt-2 col-md-12 text-warning text-center" id="profileFailedOutput"></output>
+    </form>
+</div>
 
 <% include ../partials/footer.ejs %>
+
+<script>
+    $(() => {
+        $("#romanticInterest").on('change', updateInterestsRequired)
+        $("#friendshipInterest").on('change', updateInterestsRequired)
+
+        $('#profileForm').on('submit', event => {
+            event.preventDefault();
+            finishProfile();
+        })
+
+        updateInterestsRequired();
+    });
+
+    function updateInterestsRequired() {
+        let romantic = $("#romanticInterest").prop("checked");
+        let friendship = $("#friendshipInterest").prop("checked");
+
+        if (romantic || friendship) $('#interests')[0].setCustomValidity("")
+        else $('#interests')[0].setCustomValidity("Please select at least one option")
+    }
+
+    function finishProfile() {
+        let firstName = $('#firstName').val(), lastName = $('#lastName').val(),
+            dob = $('#dateOfBirth').val().split('-');
+        let romantic = $("#romanticInterest").prop("checked");
+        let friendship = $("#friendshipInterest").prop("checked");
+        let romMin = $('#romanticMinAge').val(), romMax = $('#romanticMaxAge').val();
+        let friMin = $('#friendshipMinAge').val(), friMax = $('#friendshipMaxAge').val();
+
+        let romanticData = undefined;
+        if (romantic) {
+            romanticData = {
+                ageMin: romMin,
+                ageMax: romMax
+            }
+        }
+        let friendshipData = undefined;
+        if (friendship) {
+            friendshipData = {
+                ageMin: friMin,
+                ageMax: friMax
+            }
+        }
+
+        let data = {
+            firstName: firstName,
+            lastName: lastName,
+            dateOfBirth: {
+                day: dob[2],
+                month: dob[1],
+                year: dob[0]
+            },
+            romantic: romanticData,
+            friendship: friendshipData
+        }
+
+        $.ajax({
+            url: '/profile',
+            type: 'post',
+            data: data,
+            success: () => {
+                window.location.href = "/";
+            },
+            error: err => {
+                $('#profileFailedOutput').text(`Server error. Status code: ${err.status} (${err.statusText})`);
+                console.log(err);
+            }
+        });
+    }
+</script>
 </body>
 </html>
