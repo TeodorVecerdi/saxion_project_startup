@@ -20,19 +20,48 @@ class ServerState {
         this.socketToId = {};
         this.idToSocket = {};
         this.messages = {};
-        this.restored = false;
+        this.restoreBackup();
     }
 
     getJSON() {
         return JSON.stringify({
-           loggedUsers: this.loggedUsers,
-           messages: this.messages
+            registeredUsers: this.registeredUsers,
+            loggedUsers: this.loggedUsers,
+            messages: this.messages
         });
     }
 
-    load(backupJSON) {
-        this.loggedUsers = backupJSON.loggedUsers || {};
-        this.messages = backupJSON.messages || {};
+    createBackup() {
+        let backupJSON = this.getJSON();
+
+        fs.writeFile("./data/backup.json", backupJSON, err => {
+            if(err) throw err;
+            console.log("Backup success!");
+        });
+    }
+
+    restoreBackup() {
+        fs.access("./data/backup.json", err => {
+            if (err === null) {
+                fs.readFile("./data/backup.json", (err1, data) => {
+                    if(err1) throw err1;
+                    let backupJSON = JSON.parse(data);
+
+                    this.loggedUsers = backupJSON.loggedUsers || {};
+                    this.registeredUsers = backupJSON.registeredUsers || [];
+                    this.messages = backupJSON.messages || {};
+
+                    console.log("Backup restored successfully!")
+                });
+            }
+        })
+    }
+
+    clearBackup() {
+        fs.writeFile("./data/backup.json", "{}", err => {
+            if(err) throw err;
+            console.log("Cleared backup successfully!");
+        });
     }
 
     loginUser(username) {
@@ -42,7 +71,7 @@ class ServerState {
             id: account.id,
             username: username
         }
-
+        this.createBackup();
         return account.id;
     }
     logoutUser(uuid) {
@@ -52,6 +81,7 @@ class ServerState {
         }
 
         delete this.loggedUsers[uuid]
+        this.createBackup();
         return true;
     }
 
@@ -104,6 +134,7 @@ class ServerState {
         this.messages[from].push(messageObj);
         this.messages[to].push(messageObj);
 
+        this.createBackup();
         this.emitMessage(messageObj)
     }
     getMessages(from, to) {
