@@ -9,26 +9,16 @@ router.get('/', (req, res, next) => {
         return;
     }
     let cookie = req.cookies['logged-in'];
-    if(!serverState.isCookieValid(cookie)) {
+    if(!serverState.isCookieValid(cookie) || !serverState.userExists(cookie)) {
         res.clearCookie('logged-in');
         res.redirect("/login");
         return;
     }
-    if(!serverState.userExists(cookie)) {
-        if(cookie.hasOwnProperty('noState') && serverState.restored) {
-            res.clearCookie('logged-in');
-            res.redirect("/login");
-            return;
-        }
-        cookie.noState = true;
-        res.cookie('logged-in', cookie);
-    } else {
-        if(cookie.hasOwnProperty('noState')) {
-            delete cookie['noState'];
-            res.cookie('logged-in', cookie);
-        }
-    }
-    res.render('pages/index');
+
+    let account = serverState.getUserByID(cookie.id);
+    if(JSON.stringify(account.profile) === JSON.stringify({}))
+        res.render('pages/profile');
+    else res.render('pages/index');
 });
 
 router.get('/logout', (req, res, next) => {

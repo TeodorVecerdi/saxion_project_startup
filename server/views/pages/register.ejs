@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <% include ../partials/head.ejs %>
+</head>
+
+<body class="bg-dark">
+
+<div class="container">
+    <form id="registerForm" class="form-horizontal">
+        <fieldset>
+            <!-- Form Name -->
+            <legend class="text-white">Register</legend>
+
+            <!-- Text input-->
+            <div class="form-group">
+                <label class="text-white col-md-4 control-label" for="username">Username</label>
+                <div class="col-md-4">
+                    <input id="username" name="username" type="text" placeholder="Username"
+                           class="form-control input-md" autocomplete="username" required>
+                </div>
+            </div>
+
+            <!-- Password input-->
+            <div class="form-group mt-2">
+                <label class="text-white col-md-4 control-label" for="password">Password</label>
+                <div class="col-md-4">
+                    <input id="password" name="password" type="password" placeholder="Password"
+                           class="form-control input-md" required>
+
+                </div>
+            </div>
+
+            <div class="form-group mt-2">
+                <label class="text-white col-md-4 control-label" for="password">Repeat Password</label>
+                <div class="col-md-4">
+                    <input id="repeatPassword" name="repeatPassword" type="password" placeholder="Repeat Password"
+                           class="form-control input-md" required>
+
+                </div>
+            </div>
+
+            <!-- Button -->
+            <div class="form-group mt-3">
+                <div class="col-md-4">
+                    <input type="submit" id="submit" value="Register" name="submit" class="btn w-100 btn-danger">
+                </div>
+            </div>
+
+        </fieldset>
+        <output class="mt-2 col-md-4 text-warning text-center" id="registerFailedOutput"></output>
+    </form>
+</div>
+
+<% include ../partials/footer.ejs %>
+
+<script>
+    const passwordInput = $("#password");
+    const repeatPasswordInput = $("#repeatPassword");
+
+    $(() => {
+        $('#registerForm').on('submit', event => {
+            event.preventDefault();
+            register();
+        })
+
+        passwordInput.on('change', checkPasswords);
+        repeatPasswordInput.on('keyup', checkPasswords);
+    })
+
+    function checkPasswords() {
+        if (passwordInput.val() !== repeatPasswordInput.val()) {
+            repeatPasswordInput[0].setCustomValidity("Passwords don't match.");
+        } else if(passwordInput.val().trim() === "") {
+            passwordInput[0].setCustomValidity("Please fill out this field.")
+        } else {
+            repeatPasswordInput[0].setCustomValidity("");
+        }
+    }
+
+    function register() {
+        let username = $('#username').val();
+        let password = $('#password').val();
+
+        $.ajax({
+            url: '/register',
+            type: 'post',
+            data: {
+                username: username,
+                password: password
+            },
+            success: () => {
+                window.location.href = "/login";
+            },
+            error: err => {
+                if (err.status === 409) {
+                    $('#registerFailedOutput').text("Username already exists!");
+                } else {
+                    $('#registerFailedOutput').text(`Server error. Status code: ${err.status} (${err.statusText})`);
+                }
+                console.log(err);
+            }
+        });
+    }
+</script>
+</body>
+</html>
