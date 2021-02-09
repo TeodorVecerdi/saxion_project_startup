@@ -3,6 +3,11 @@ const {v4} = require('uuid')
 class ServerState {
     constructor() {
         this.loggedUsers = {};
+        this.restored = false;
+    }
+
+    load(backupJSON) {
+        this.loggedUsers = backupJSON.loggedUsers;
     }
 
     loginUser(username) {
@@ -27,7 +32,10 @@ class ServerState {
     }
 
     isCookieValid(cookie) {
-        if(!cookie.hasOwnProperty('username') || !cookie.hasOwnProperty('id')) return false;
+        return (cookie.hasOwnProperty('username') && cookie.hasOwnProperty('id'));
+    }
+
+    userExists(cookie) {
         let id = cookie['id'];
         if(!this.loggedUsers.hasOwnProperty(id)) return false;
         return this.loggedUsers[id].username === cookie['username'];

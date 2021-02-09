@@ -14,6 +14,20 @@ router.get('/', (req, res, next) => {
         res.redirect("/login");
         return;
     }
+    if(!serverState.userExists(cookie)) {
+        if(cookie.hasOwnProperty('noState') && serverState.restored) {
+            res.clearCookie('logged-in');
+            res.redirect("/login");
+            return;
+        }
+        cookie.noState = true;
+        res.cookie('logged-in', cookie);
+    } else {
+        if(cookie.hasOwnProperty('noState')) {
+            delete cookie['noState'];
+            res.cookie('logged-in', cookie);
+        }
+    }
     res.render('pages/index');
 });
 
@@ -39,11 +53,6 @@ router.get('/logout', (req, res, next) => {
         message_redirect: `Click <a href=\"/\">here</a> to login`,
         message_page: ""
     })
-})
-
-router.get('/ping', (req, res) => {
-    console.log(serverState);
-    res.redirect('/');
 })
 
 module.exports = {url: "/", router: router};
