@@ -73,7 +73,7 @@
         if (passwordInput.val() !== repeatPasswordInput.val()) {
             repeatPasswordInput[0].setCustomValidity("Passwords don't match.");
         } else if(passwordInput.val().trim() === "") {
-            passwordInput[0].setCustomValidity("Please fill out this field. (hello)")
+            passwordInput[0].setCustomValidity("Please fill out this field.")
         } else {
             repeatPasswordInput[0].setCustomValidity("");
         }
