@@ -99,7 +99,8 @@ class ServerState {
 
     getMessages(from, to) {
         if(!this.messages.hasOwnProperty(from) || !this.messages.hasOwnProperty(to)) return [];
-        return this.messages[from];
+        return this.messages[from].filter(message => (message.to == to && message.from == from) || (message.to == from && message.from == to));
+
     }
 
     emitMessage(message) {
