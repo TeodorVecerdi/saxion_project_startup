@@ -11,7 +11,29 @@ function makeAccount(username, password) {
     }
 }
 
-function makeProfile() {}
+function makeProfile(firstName, lastName, dateOfBirth, romantic, friendship) {
+    let profile = {
+        name: {first: firstName, last: lastName},
+        dateOfBirth: dateOfBirth,
+        interests: {}
+    }
+
+    if(romantic !== undefined) {
+        profile.interests['romantic'] = {
+            minimumAge: romantic.ageMin,
+            maximumAge: romantic.ageMax,
+        }
+    }
+
+    if(friendship !== undefined) {
+        profile.interests['friendship'] = {
+            minimumAge: friendship.ageMin,
+            maximumAge: friendship.ageMax,
+        }
+    }
+
+    return profile;
+}
 
 class ServerState {
     constructor() {
@@ -168,6 +190,13 @@ class ServerState {
     }
     getUserByID(ID) {
         return this.registeredUsers.find(account => account.id === ID)
+    }
+    setupProfile(request) {
+        let userId = request.cookies['logged-in'].id;
+        let profile = makeProfile(request.body.firstName, request.body.lastName, request.body.dateOfBirth, request.body.romantic, request.body.friendship);
+
+        let accIdx = this.registeredUsers.findIndex(account => account.id == userId);
+        this.registeredUsers[accIdx].profile = profile;
     }
 }
 
