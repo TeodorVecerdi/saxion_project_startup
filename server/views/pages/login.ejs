@@ -7,39 +7,78 @@
 
 <body class="bg-dark">
 <div class="container">
-    <div class="text-center text-light">
-        <h1 class="mt-5">Login Page</h1>
-        <h2>Set your username</h2>
-        <div class="col-3 position-absolute start-50 translate-middle-x py-2">
-                <input id="username" style="border-radius: 0" class="bg-transparent text-white border-1 border-info form-control py-2" type="text" aria-label="Username" placeholder="Username">
-        </div>
-        <div class="col-3 mt-5 position-absolute start-50 translate-middle-x">
-            <div id="loginButton" style="border-radius: 0" class="btn w-100 btn-outline-info mt-2">Sign in</div>
-        </div>
+    <form id="loginForm" class="form-horizontal">
+        <fieldset>
+            <!-- Form Name -->
+            <legend class="text-white">Log In</legend>
 
-    </div>
+            <!-- Text input-->
+            <div class="form-group">
+                <label class="text-white col-md-4 control-label" for="username">Username</label>
+                <div class="col-md-4">
+                    <input id="username" name="username" type="text" placeholder="Username"
+                           class="form-control input-md" autocomplete="username" required>
+                </div>
+            </div>
+
+            <!-- Password input-->
+            <div class="form-group mt-2">
+                <label class="text-white col-md-4 control-label" for="password">Password</label>
+                <div class="col-md-4">
+                    <input id="password" name="password" type="password" placeholder="Password"
+                           class="form-control input-md" required>
+
+                </div>
+            </div>
+
+            <!-- Button -->
+            <div class="form-group mt-3">
+                <div class="col-md-4">
+                    <input type="submit" id="submit" value="Log In" name="submit" class="btn w-100 btn-danger">
+                </div>
+            </div>
+
+        </fieldset>
+        <output class="mt-2 col-md-4 text-warning text-center" id="loginFailedOutput"></output>
+
+        <div class="text-white col-md-4 mt-3 text-center">Don't have an account? <a class="text-info text-decoration-none" href="/register">Register now!</a></div>
+    </form>
 </div>
 
 <% include ../partials/footer.ejs %>
 
 <script>
-    $("#loginButton").on('click', () => {
-        let username = $("#username").val();
-        if(username !== "") {
-            $("#username").val("");
-            $.ajax({
-                url: '/login/set-user',
-                type: 'post',
-                data: {username: username},
-                success: () => {
-                    window.location.href = "/";
-                },
-                error: err => {
-                    console.error(err);
+    $(() => {
+        $('#loginForm').on('submit', event => {
+            event.preventDefault();
+            login();
+        });
+    });
+
+    function login() {
+        let username = $('#username').val();
+        let password = $('#password').val();
+
+        $.ajax({
+            url: '/login',
+            type: 'post',
+            data: {
+                username: username,
+                password: password
+            },
+            success: () => {
+                window.location.href = "/";
+            },
+            error: err => {
+                if (err.status === 404) {
+                    $('#loginFailedOutput').text("Username and password don't match.");
+                } else {
+                    $('#loginFailedOutput').text(`Server error. Status code: ${err.status} (${err.statusText})`);
                 }
-            })
-        }
-    })
+                console.log(err);
+            }
+        });
+    }
 </script>
 </body>
 </html>
