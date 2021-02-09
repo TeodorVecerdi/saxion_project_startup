@@ -5,11 +5,20 @@ class ServerState {
         this.loggedUsers = {};
         this.socketToId = {};
         this.idToSocket = {};
+        this.messages = {};
         this.restored = false;
+    }
+
+    getJSON() {
+        return JSON.stringify({
+           loggedUsers: this.loggedUsers,
+           messages: this.messages
+        });
     }
 
     load(backupJSON) {
         this.loggedUsers = backupJSON.loggedUsers || {};
+        this.messages = backupJSON.messages || {};
     }
 
     loginUser(username) {
@@ -75,4 +84,32 @@ class ServerState {
             }
         }
     }
+
+    addMessage(from, to, message) {
+        if(!this.messages.hasOwnProperty(from) || !this.messages.hasOwnProperty(to)) {
+            this.messages[from] = [];
+            this.messages[to] = [];
+        }
+        let messageObj = ({from: from, to: to, message: message});
+        this.messages[from].push(messageObj);
+        this.messages[to].push(messageObj);
+
+        this.emitMessage(messageObj)
+    }
+
+    getMessages(from, to) {
+        if(!this.messages.hasOwnProperty(from) || !this.messages.hasOwnProperty(to)) return [];
+        return this.messages[from];
+    }
+
+    emitMessage(message) {
+        let sendTo = message.to;
+        if(this.idToSocket.hasOwnProperty(sendTo)) {
+            let socket = this.idToSocket[sendTo];
+            socket.emit('new message', JSON.stringify(message));
+        }
+    }
+
+}
+
 module.exports = new ServerState();

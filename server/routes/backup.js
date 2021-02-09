@@ -9,7 +9,7 @@ router.get('/ping', (req, res) => {
 })
 
 router.get('/backup', (req, res) => {
-    fs.writeFile("./data/backup.json", JSON.stringify(serverState), err => {
+    fs.writeFile("./data/backup.json", serverState.getJSON(), err => {
         if(err) throw err;
         console.log("Backup success!");
         res.render("pages/empty")
