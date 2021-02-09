@@ -16,17 +16,23 @@ router.get('/', (req, res, next) => {
     res.render('pages/login');
 });
 
-router.post('/set-user', (req, res, next) => {
+router.post('/', (req, res, next) => {
     let username = req.body.username;
-    if(username === undefined || username === "") {
-        console.log(`Username is undefined: ${username}`)
-        res.status(404).end()
+    let password = req.body.password;
+
+    if(username === undefined || password === undefined) {
+        res.status(400).end();
+        return;
+    }
+
+    if(!serverState.usernameExists(username) || !serverState.passwordMatches(username, password)) {
+        res.status(404).end();
         return;
     }
 
     let userID = serverState.loginUser(username);
-    res.cookie('logged-in', {'username': req.body.username, 'id': userID});
-    res.status(201).end();
+    res.cookie('logged-in', {'username': username, 'id': userID});
+    res.status(200).end();
 });
 
 module.exports = {url: "/login", router: router};
