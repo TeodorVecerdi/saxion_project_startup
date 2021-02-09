@@ -3,11 +3,13 @@ const {v4} = require('uuid')
 class ServerState {
     constructor() {
         this.loggedUsers = {};
+        this.socketToId = {};
+        this.idToSocket = {};
         this.restored = false;
     }
 
     load(backupJSON) {
-        this.loggedUsers = backupJSON.loggedUsers;
+        this.loggedUsers = backupJSON.loggedUsers || {};
     }
 
     loginUser(username) {
@@ -57,6 +59,20 @@ class ServerState {
         }
         return users;
     }
-}
 
+    linkSocket(socket, cookie) {
+        this.socketToId[socket.id] = cookie.id;
+        this.idToSocket[cookie.id] = socket;
+    }
+
+    unlinkSocket(socket) {
+        if(this.socketToId.hasOwnProperty(socket.id)) {
+            let userId = this.socketToId[socket.id]
+            delete this.socketToId[socket.id];
+
+            if(this.idToSocket.hasOwnProperty(userId)) {
+                delete this.idToSocket[userId];
+            }
+        }
+    }
 module.exports = new ServerState();

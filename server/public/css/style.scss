@@ -90,10 +90,11 @@
     left:0;
     height: calc(100vh - 6rem);
     padding: 1.5rem;
+    overflow-y: auto;
 
     & .message {
       color: aliceblue;
-      margin-top: 8px;
+      margin-top: 1rem;
 
       &:nth-of-type(1) {
         margin-top: 0;

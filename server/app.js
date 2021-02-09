@@ -4,8 +4,14 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const bodyParser = require('body-parser');
+const http = require('http');
+const sio = require('socket.io')
+
+const socketSetup = require('./js/SocketSetup');
 
 let app = express();
+const server = http.createServer(app);
+let io = sio(server);
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -19,6 +25,10 @@ app.use(bodyParser.json());
 
 let routes = require('./routes/_router');
 routes.forEach(route => app.use(route.url, route.router));
+
+io.on('connection', socket => {
+    socketSetup(socket);
+})
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
@@ -41,4 +51,4 @@ app.use(function (err, req, res, next) {
     })
 });
 
-module.exports = app;
+module.exports = {app:app, server:server};

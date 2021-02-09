@@ -85,10 +85,11 @@
   left: 0;
   height: calc(100vh - 6rem);
   padding: 1.5rem;
+  overflow-y: auto;
 }
 #activeChat #chat-messages .message {
   color: aliceblue;
-  margin-top: 8px;
+  margin-top: 1rem;
 }
 #activeChat #chat-messages .message:nth-of-type(1) {
   margin-top: 0;
