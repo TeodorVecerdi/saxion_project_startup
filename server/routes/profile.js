@@ -8,7 +8,7 @@ router.get('/', (req, res) => {
         return;
     }
     let cookie = req.cookies['logged-in'];
-    if(!serverState.isCookieValid(cookie) || !serverState.userExists(cookie)) {
+    if(!serverState.isCookieValid(cookie) || !serverState.userIsLoggedIn(cookie)) {
         res.clearCookie('logged-in');
         res.redirect("/login");
         return;

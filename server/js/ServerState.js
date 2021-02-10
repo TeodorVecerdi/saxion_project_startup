@@ -83,6 +83,7 @@ class ServerState {
         fs.writeFile("./data/backup.json", "{}", err => {
             if(err) throw err;
             console.log("Cleared backup successfully!");
+            this.restoreBackup()
         });
     }
 
@@ -94,31 +95,18 @@ class ServerState {
             username: username
         }
         this.createBackup();
-        return account.id;
+        return account;
     }
     logoutUser(uuid) {
-        if(!this.loggedUsers.hasOwnProperty(uuid)) {
-            console.warn(`Trying to log out user with id ${uuid} when it doesn't exist!`);
-            return false;
-        }
-
         delete this.loggedUsers[uuid]
         this.createBackup();
         return true;
     }
-
-    isCookieValid(cookie) {
-        return (cookie.hasOwnProperty('username') && cookie.hasOwnProperty('id'));
-    }
-    userExists(cookie) {
-        let id = cookie['id'];
-        if(!this.loggedUsers.hasOwnProperty(id)) return false;
-        return this.loggedUsers[id].username === cookie['username'];
+    userIsLoggedIn(id) {
+        return this.loggedUsers.hasOwnProperty(id);
     }
     isAuthenticated(request) {
-        if(request.headers.cookie === undefined) return false;
-        if(!request.cookies.hasOwnProperty('logged-in')) return false;
-        return true;
+        return request.body.hasOwnProperty("id");
     }
 
     getUsers() {
@@ -132,9 +120,9 @@ class ServerState {
         return users;
     }
 
-    linkSocket(socket, cookie) {
-        this.socketToId[socket.id] = cookie.id;
-        this.idToSocket[cookie.id] = socket;
+    linkSocket(socket, userId) {
+        this.socketToId[socket.id] = userId;
+        this.idToSocket[userId] = socket;
     }
     unlinkSocket(socket) {
         if(this.socketToId.hasOwnProperty(socket.id)) {
@@ -192,7 +180,7 @@ class ServerState {
         return this.registeredUsers.find(account => account.id === ID)
     }
     setupProfile(request) {
-        let userId = request.cookies['logged-in'].id;
+        let userId = request.body.id;
         let profile = makeProfile(request.body.firstName, request.body.lastName, request.body.dateOfBirth, request.body.romantic, request.body.friendship);
 
         let accIdx = this.registeredUsers.findIndex(account => account.id == userId);
