@@ -28,6 +28,7 @@ MonoBehaviour:
     m_Name: package.openupm.com
     m_Url: https://package.openupm.com
     m_Scopes:
+    - com.coffee.csharp-compiler-settings
     - com.dbrizov.naughtyattributes
     - com.github.teodorvecerdi.unitycommons
     - com.openupm
@@ -42,6 +43,7 @@ MonoBehaviour:
       m_Name: package.openupm.com
       m_Url: https://package.openupm.com
       m_Scopes:
+      - com.coffee.csharp-compiler-settings
       - com.dbrizov.naughtyattributes
       - com.github.teodorvecerdi.unitycommons
       - com.openupm
@@ -51,6 +53,7 @@ MonoBehaviour:
     m_Name: package.openupm.com
     m_Url: https://package.openupm.com
     m_Scopes:
+    - com.coffee.csharp-compiler-settings
     - com.dbrizov.naughtyattributes
     - com.github.teodorvecerdi.unitycommons
     - com.openupm
