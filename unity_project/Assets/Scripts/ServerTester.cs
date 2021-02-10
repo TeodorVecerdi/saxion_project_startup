@@ -6,6 +6,8 @@ using RestSharp;
 using UnityEngine;
 
 public class ServerTester : MonoBehaviour {
+    public string SteamUsername;
+    
     public List<Request> Requests;
     [Dropdown("GetRequests")] public string Request;
 
@@ -15,6 +17,14 @@ public class ServerTester : MonoBehaviour {
         var requests = Requests.Select(request => request.RequestName).ToList();
         requests.Insert(0, "None");
         return requests;
+    }
+
+    [Button]
+    private void Test() {
+        var steamClient = new RestClient($"https://steamcommunity.com/profiles/");
+        var request = new RestRequest($"{SteamUsername}", Method.GET);
+        var response = steamClient.Get(request);
+        Debug.Log(response.Content);
     }
     
     
