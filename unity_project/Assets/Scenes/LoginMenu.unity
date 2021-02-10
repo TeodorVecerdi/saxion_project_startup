@@ -1215,6 +1215,7 @@ GameObject:
   - component: {fileID: 216674016115421248}
   - component: {fileID: 216674016115421251}
   - component: {fileID: 216674016115421250}
+  - component: {fileID: 216674016115421280}
   - component: {fileID: 216674016115421249}
   m_Layer: 5
   m_Name: InputPass
@@ -1223,6 +1224,18 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &216674016115421280
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 216674016115421279}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5b8fe637ecf49db940926be55c51c43, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &216674016120186953
 GameObject:
   m_ObjectHideFlags: 0
@@ -2074,6 +2087,7 @@ GameObject:
   - component: {fileID: 216674016682733464}
   - component: {fileID: 216674016682733467}
   - component: {fileID: 216674016682733466}
+  - component: {fileID: 216674016682733468}
   - component: {fileID: 216674016682733465}
   m_Layer: 5
   m_Name: InputUser
@@ -2238,6 +2252,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 216674016682733463}
   m_CullTransparentMesh: 0
+--- !u!114 &216674016682733468
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 216674016682733463}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad21771210b643d1a32127997f139c3c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!222 &216674016987468960
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2259,7 +2285,7 @@ GameObject:
   - component: {fileID: 216674016987468991}
   - component: {fileID: 216674016987468990}
   m_Layer: 5
-  m_Name: SignUp
+  m_Name: SignUpBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2328,7 +2354,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 216674016987468991}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 11500000, guid: 391c5cf508058a74ea9cee273ebb2f34, type: 3}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &216674016987468991
 MonoBehaviour:
   m_ObjectHideFlags: 0
