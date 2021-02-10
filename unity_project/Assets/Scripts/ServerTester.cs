@@ -16,8 +16,7 @@ public class ServerTester : MonoBehaviour {
         requests.Insert(0, "None");
         return requests;
     }
-    
-    
+
     [Button]
     private void Execute() {
         if(string.IsNullOrEmpty(Request) || Request == "None") return;
