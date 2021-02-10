@@ -152,8 +152,8 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 100}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 880497936}
   - {fileID: 365859129}
+  - {fileID: 880497936}
   - {fileID: 673598635}
   - {fileID: 2090067839}
   m_Father: {fileID: 710527666}
@@ -325,7 +325,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 168026549}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -498,12 +498,12 @@ GameObject:
   - component: {fileID: 673598637}
   - component: {fileID: 673598636}
   m_Layer: 5
-  m_Name: Safe Areas
+  m_Name: SAFE AREAS
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &673598635
 RectTransform:
   m_ObjectHideFlags: 0
@@ -520,8 +520,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -1.499939, y: 0}
-  m_SizeDelta: {x: -174.99988, y: -160}
+  m_AnchoredPosition: {x: -1.5, y: 0}
+  m_SizeDelta: {x: -175, y: -160}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &673598636
 MonoBehaviour:
@@ -690,7 +690,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 168026549}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
