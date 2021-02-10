@@ -30,9 +30,8 @@ router.post('/', (req, res, next) => {
         return;
     }
 
-    let userID = serverState.loginUser(username);
-    res.cookie('logged-in', {'username': username, 'id': userID});
-    res.status(200).end();
+    let account = serverState.loginUser(username);
+    res.send({account: {id: account.id ,username: account.username, profile: account.profile}}).status(200).end();
 });
 
 module.exports = {url: "/login", router: router};

@@ -9,7 +9,7 @@ function setup(socket) {
     })
     socket.on('auth', data => {
         let signIn = JSON.parse(data);
-        if(serverState.isCookieValid(signIn) && serverState.userExists(signIn)) {
+        if(serverState.isCookieValid(signIn) && serverState.userIsLoggedIn(signIn)) {
             serverState.linkSocket(socket, signIn);
             socket.broadcast.emit('new client');
             console.log(`User ${data} exists.`)
