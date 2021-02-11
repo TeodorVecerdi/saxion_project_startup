@@ -6,11 +6,11 @@ public class UserModel {
     public string Name;
     public Date BirthDate;
     public string About;
-    public bool Gender;
+    public Gender Gender = Gender.Male;
     public List<int> GenrePreferences = new List<int>();
     public List<int> PlayedGames = new List<int>();
-    public GenderPreference GenderPreference = GenderPreference.Invalid;
-    public RelationshipPreference RelationshipPreference = RelationshipPreference.Invalid;
+    public GenderPreference GenderPreference = GenderPreference.None;
+    public RelationshipPreference RelationshipPreference = RelationshipPreference.None;
     public ProfilePictureType ProfilePictureType = ProfilePictureType.Avatar;
     public List<string> ProfilePictures;
     public AvatarConfiguration Avatar;
