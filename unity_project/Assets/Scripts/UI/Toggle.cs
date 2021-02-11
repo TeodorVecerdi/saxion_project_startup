@@ -31,7 +31,7 @@ public class Toggle : MonoBehaviour {
         }
         isActive = state;
         TweenSequence();
-        if(isActive && OnSetActive != null) OnSetActive.Invoke();
+        if(isActive) OnSetActive?.Invoke();
     }
 
     public void ToggleState() {
