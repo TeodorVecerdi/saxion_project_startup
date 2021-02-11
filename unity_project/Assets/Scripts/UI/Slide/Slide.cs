@@ -21,11 +21,14 @@ public class Slide : MonoBehaviour {
     }
 
     private void EnableTweenSequence() {
+        gameObject.SetActive(true);
         rectTransform.DOAnchorPosX(0f, AnimationDuration, true).From(new Vector2(ExitPosition, 0));
     }
 
     private void DisableTweenSequence() {
-        rectTransform.DOAnchorPosX(-ExitPosition, AnimationDuration, true).From(new Vector2(0, 0));
+        rectTransform.DOAnchorPosX(-ExitPosition, AnimationDuration, true).From(new Vector2(0, 0)).OnComplete(() => {
+            gameObject.SetActive(false);
+        });
     }
 }
 
