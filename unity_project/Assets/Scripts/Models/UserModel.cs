@@ -13,21 +13,3 @@ public struct UserModel {
     public List<int> PlayedGames;
 }
 
-[Serializable]
-public struct Date {
-    public string Day;
-    public string Month;
-    public string Year;
-}
-
-public enum GenderPreference {
-    Male,
-    Female,
-    Both
-}
-
-public enum RelationshipPreference {
-    Friendship,
-    RomanticRelationship,
-    MeetNewPeople
-}
