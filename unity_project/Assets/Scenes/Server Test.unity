@@ -390,7 +390,7 @@ MonoBehaviour:
     Resource: profile
     Parameters:
     - Key: id
-      Value: 3d41ea5a-8d88-4a85-a8e8-a920b6abafdc
+      Value: 42b35e03-ec5f-49a3-b957-062244efc54b
     - Key: firstName
       Value: Teodor
     - Key: lastName
@@ -402,7 +402,7 @@ MonoBehaviour:
     Resource: logout
     Parameters:
     - Key: id
-      Value: 3d41ea5a-8d88-4a85-a8e8-a920b6abafdc
+      Value: 42b35e03-ec5f-49a3-b957-062244efc54b
   - RequestName: DEV
     Method: 0
     Resource: dev/ping
@@ -415,7 +415,7 @@ MonoBehaviour:
       Value: teo
     - Key: password
       Value: 123
-  Request: DEV
+  Request: Log Out
 --- !u!114 &1835008266
 MonoBehaviour:
   m_ObjectHideFlags: 0
