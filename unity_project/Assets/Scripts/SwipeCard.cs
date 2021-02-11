@@ -32,8 +32,8 @@ public class SwipeCard : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDra
         rectTransform.eulerAngles = new Vector3(0, 0, -dragAmount);
         
         // Check threshold
-        Nope.SetActive(dragAmount <= -MaxDrag * ConfirmThreshold);
-        Yes.SetActive(dragAmount >= MaxDrag * ConfirmThreshold);
+        if (Nope != null) Nope.SetActive(dragAmount <= -MaxDrag * ConfirmThreshold);
+        if (Yes != null) Yes.SetActive(dragAmount >= MaxDrag * ConfirmThreshold);
     }
 
     public void OnBeginDrag(PointerEventData eventData) {
@@ -44,8 +44,8 @@ public class SwipeCard : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDra
         rectTransform.eulerAngles = Vector3.zero;
         rectTransform.anchoredPosition = new Vector2(0, baseAnchoredY);
         
-        Nope.SetActive(false);
-        Yes.SetActive(false);
+        if (Nope != null) Nope.SetActive(false);
+        if (Yes != null) Yes.SetActive(false);
     }
 }
 
