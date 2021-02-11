@@ -1,5 +1,6 @@
 ﻿public enum RelationshipPreference {
-    Friendship,
-    RomanticRelationship,
-    MeetNewPeople
+    Invalid = 1,
+    Friendship = 2,
+    RomanticRelationship = 4,
+    MeetNewPeople = 8
 }

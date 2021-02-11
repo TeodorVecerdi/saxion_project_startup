@@ -2,14 +2,17 @@ using System;
 using System.Collections.Generic;
 
 [Serializable]
-public struct UserModel {
+public class UserModel {
     public string Name;
     public Date BirthDate;
     public string About;
     public bool Gender;
-    public GenderPreference GenderPreference;
-    public RelationshipPreference RelationshipPreference;
-    public List<int> GenrePreferences;
-    public List<int> PlayedGames;
+    public List<int> GenrePreferences = new List<int>();
+    public List<int> PlayedGames = new List<int>();
+    public GenderPreference GenderPreference = GenderPreference.Invalid;
+    public RelationshipPreference RelationshipPreference = RelationshipPreference.Invalid;
+    public ProfilePictureType ProfilePictureType = ProfilePictureType.Avatar;
+    public List<string> ProfilePictures;
+    public AvatarConfiguration Avatar;
 }
 

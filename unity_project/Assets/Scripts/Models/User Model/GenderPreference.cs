@@ -1,5 +1,5 @@
 ﻿public enum GenderPreference {
-    Male,
-    Female,
-    Both
+    Invalid = 1,
+    Male = 2,
+    Female = 4
 }

@@ -1,5 +1,4 @@
-﻿namespace UnityTemplateProjects {
-    public enum ProfilePictureType {
-        
-    }
+﻿public enum ProfilePictureType {
+    Avatar,
+    Pictures
 }
