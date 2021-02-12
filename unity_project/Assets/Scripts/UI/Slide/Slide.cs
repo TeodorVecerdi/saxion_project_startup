@@ -15,10 +15,21 @@ public class Slide : MonoBehaviour {
     }
 
     public void SetActive(bool isActive) {
-        RaycastBlocker.SetActive(!isActive);
+        if(RaycastBlocker != null) RaycastBlocker.SetActive(!isActive);
         
         if(isActive) EnableTweenSequence();
         else DisableTweenSequence();
+    }
+
+    public void SetActive(bool isActive, bool reverse) {
+        if (!reverse) {
+            SetActive(isActive);
+            return;
+        }
+        if(RaycastBlocker != null) RaycastBlocker.SetActive(!isActive);
+
+        if (isActive) EnableTweenSequenceReverse();
+        else DisableTweenSequenceReverse();
     }
 
     private void EnableTweenSequence() {
@@ -26,10 +37,23 @@ public class Slide : MonoBehaviour {
         rectTransform.DOAnchorPosX(0f, AnimationDuration, true).From(new Vector2(ExitPosition, 0));
         rectTransform.DOLocalRotate(Vector3.zero, AnimationDuration).From(new Vector3(0, 0, -RotationMagnitude));
     }
+    
+    private void EnableTweenSequenceReverse() {
+        gameObject.SetActive(true);
+        rectTransform.DOAnchorPosX(0f, AnimationDuration, true).From(new Vector2(-ExitPosition, 0));
+        rectTransform.DOLocalRotate(Vector3.zero, AnimationDuration).From(new Vector3(0, 0, RotationMagnitude));
+    }
 
     private void DisableTweenSequence() {
         rectTransform.DOLocalRotate(new Vector3(0, 0, RotationMagnitude), AnimationDuration).From(Vector3.zero);
         rectTransform.DOAnchorPosX(-ExitPosition, AnimationDuration, true).From(new Vector2(0, 0)).OnComplete(() => {
+            gameObject.SetActive(false);
+        });
+    }
+    
+    private void DisableTweenSequenceReverse() {
+        rectTransform.DOLocalRotate(new Vector3(0, 0, -RotationMagnitude), AnimationDuration).From(Vector3.zero);
+        rectTransform.DOAnchorPosX(ExitPosition, AnimationDuration, true).From(new Vector2(0, 0)).OnComplete(() => {
             gameObject.SetActive(false);
         });
     }
