@@ -11,25 +11,24 @@ function makeAccount(username, password) {
     }
 }
 
-function makeProfile(firstName, lastName, dateOfBirth, romantic, friendship) {
+function makeProfile(jsonString) {
+    let values = JSON.parse(jsonString)
     let profile = {
-        name: {first: firstName, last: lastName},
-        dateOfBirth: dateOfBirth,
-        interests: {}
+        name: values["name"],
+        birthDate: values["birthDate"],
+        about: values["about"],
+        gender: values["gender"],
+        genderPreference: values["genderPreference"],
+        relationshipPreference: values["relationshipPreference"],
+        genrePreference: values["genrePreference"],
+        playedGames: values["playedGames"],
+        profilePictureType: values["profilePictureType"]
     }
 
-    if(romantic !== undefined) {
-        profile.interests['romantic'] = {
-            minimumAge: romantic.ageMin,
-            maximumAge: romantic.ageMax,
-        }
-    }
-
-    if(friendship !== undefined) {
-        profile.interests['friendship'] = {
-            minimumAge: friendship.ageMin,
-            maximumAge: friendship.ageMax,
-        }
+    if(profile.profilePictureType === 0) {
+        profile["avatar"] = values["avatar"];
+    } else {
+        profile["pictures"] = values["profilePictures"]
     }
 
     return profile;
@@ -181,7 +180,9 @@ class ServerState {
     }
     setupProfile(request) {
         let userId = request.body.id;
-        let profile = makeProfile(request.body.firstName, request.body.lastName, request.body.dateOfBirth, request.body.romantic, request.body.friendship);
+        let profile = makeProfile(request.body.profile);
+        console.log(profile);
+        return;
 
         let accIdx = this.registeredUsers.findIndex(account => account.id == userId);
         this.registeredUsers[accIdx].profile = profile;
