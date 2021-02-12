@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using DG.Tweening;
 using NaughtyAttributes;
+using RestSharp;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -46,7 +47,9 @@ public class OnboardingController : MonoBehaviour {
             ProfilePictures = new List<string>(),
             Avatar = null
         };
-        Debug.Log(userModel.Serialize());
+        var json = userModel.Serialize();
+        var response = ServerConnection.Instance.MakeRequest("/profile", Method.POST, new List<(string key, string value)> {("profile", json)});
+        Debug.Log($"{response.IsSuccessful}\n{response.StatusCode}\n{response.StatusDescription}\n{response.Content}\n{response.ErrorMessage}");
     }
 
     public void OnGenderChange(int mask) {
