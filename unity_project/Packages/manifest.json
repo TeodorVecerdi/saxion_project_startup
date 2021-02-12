@@ -4,7 +4,7 @@
     "com.coffee.csharp-compiler-settings": "1.4.0",
     "com.github.teodorvecerdi.unitycommons": "1.3.1",
     "com.glitchenzo.nugetforunity": "1.2.3",
-	"judah4.hsvcolorpickerunity": "https://github.com/judah4/HSV-Color-Picker-Unity.git#upm",
+    "judah4.hsvcolorpickerunity": "https://github.com/judah4/HSV-Color-Picker-Unity.git#upm",
     "com.unity.2d.sprite": "1.0.0",
     "com.unity.collab-proxy": "1.3.9",
     "com.unity.ide.rider": "2.0.7",
@@ -46,7 +46,8 @@
     "com.unity.modules.vr": "1.0.0",
     "com.unity.modules.wind": "1.0.0",
     "com.unity.modules.xr": "1.0.0",
-	"com.unity.vectorgraphics": "2.0.0-preview.14"
+    "com.unity.vectorgraphics": "2.0.0-preview.14",
+    "jillejr.newtonsoft.json-for-unity": "12.0.301"
   },
   "scopedRegistries": [
     {
@@ -58,7 +59,8 @@
         "com.dbrizov.naughtyattributes",
         "com.github.teodorvecerdi.unitycommons",
         "com.glitchenzo.nugetforunity",
-        "com.openupm"
+        "com.openupm",
+        "jillejr.newtonsoft.json-for-unity"
       ]
     }
   ]
