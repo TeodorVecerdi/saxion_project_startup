@@ -32,7 +32,7 @@ public class UserModel {
         }
 
         json["gender"] = genderIdx;
-        json["genderPreferences"] = new JArray(GetEnumIndices(GenderPreference).Cast<object>().ToArray());
+        json["genderPreference"] = new JArray(GetEnumIndices(GenderPreference).Cast<object>().ToArray());
         json["relationshipPreference"] = new JArray(GetEnumIndices(RelationshipPreference).Cast<object>().ToArray());
         json["genrePreference"] = new JArray(GetEnumIndices(GenrePreferences).Cast<object>().ToArray());
         json["playedGames"] = new JArray(GetEnumIndices(PlayedGames).Cast<object>().ToArray());
