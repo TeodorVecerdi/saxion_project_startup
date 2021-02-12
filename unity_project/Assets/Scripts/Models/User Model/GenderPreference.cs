@@ -1,4 +1,5 @@
-﻿public enum GenderPreference {
+﻿[System.Flags]
+public enum GenderPreference {
     None = 0,
     Male = 1 << 0,
     Female = 1 << 1,
