@@ -29,6 +29,7 @@ public class OnboardingController : MonoBehaviour {
     private string about;
     private GameGenre gameGenres = GameGenre.None;
     private GamePlayed gamesPlayed = GamePlayed.None;
+    private ProfilePictureType profilePictureType = ProfilePictureType.Avatar; 
 
     public void OnGenderChange(int mask) {
         gender = (Gender) Enum.ToObject(typeof(Gender), mask);
@@ -52,6 +53,10 @@ public class OnboardingController : MonoBehaviour {
     public void OnGamesPlayedChange(int mask) {
         gamesPlayed = (GamePlayed) Enum.ToObject(typeof(GamePlayed), mask);
         GamesPlayedButton.interactable = gamesPlayed != GamePlayed.None;
+    }
+    
+    public void OnProfilePictureTypeChange(int mask) {
+        profilePictureType = (ProfilePictureType) Enum.ToObject(typeof(ProfilePictureType), mask);
     }
 
     public void OnNameChange(string newName) {
