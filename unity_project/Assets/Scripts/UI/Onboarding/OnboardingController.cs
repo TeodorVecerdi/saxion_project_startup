@@ -48,8 +48,9 @@ public class OnboardingController : MonoBehaviour {
             Avatar = null
         };
         var json = userModel.Serialize();
-        var response = ServerConnection.Instance.MakeRequest("/profile", Method.POST, new List<(string key, string value)> {("profile", json)});
-        Debug.Log($"{response.IsSuccessful}\n{response.StatusCode}\n{response.StatusDescription}\n{response.Content}\n{response.ErrorMessage}");
+        ServerConnection.Instance.MakeRequestAsync("/profile", Method.POST, new List<(string key, string value)> {("profile", json)}, response => {
+            Debug.Log($"{response.IsSuccessful}\n{response.StatusCode}\n{response.StatusDescription}\n{response.Content}\n{response.ErrorMessage}");
+        });
     }
 
     public void OnGenderChange(int mask) {

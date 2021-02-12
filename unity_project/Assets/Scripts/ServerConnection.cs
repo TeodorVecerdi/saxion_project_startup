@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using RestSharp;
 using UnityCommons;
 
@@ -23,6 +25,26 @@ public class ServerConnection : MonoSingleton<ServerConnection> {
             Content = response.Content,
             ErrorMessage = response.ErrorMessage
         };
+    }
+
+    public void MakeRequestAsync(string endpoint, Method method, List<(string key, string value)> data, Action<Response> onComplete) {
+        var thread = new Thread(() => {
+            var request = new RestRequest(endpoint, method);
+            foreach (var parameter in data) {
+                request.AddParameter(parameter.key, parameter.value);
+            }
+
+            var restResponse = client.Execute(request);
+            var response = new Response {
+                IsSuccessful = restResponse.IsSuccessful,
+                StatusCode = (int) restResponse.StatusCode,
+                StatusDescription = restResponse.StatusDescription,
+                Content = restResponse.Content,
+                ErrorMessage = restResponse.ErrorMessage
+            };
+            onComplete?.Invoke(response);
+        });
+        thread.Start();
     }
 
     public class Response {
