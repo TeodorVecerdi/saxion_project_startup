@@ -12,6 +12,7 @@ public class Toggle : MonoBehaviour {
     [SerializeField] private Image TargetGraphic;
     [SerializeField] private bool Active;
     [SerializeField] private bool CanBeDisabled;
+    [SerializeField] private bool AllowMultiple;
     [SerializeField] private List<Toggle> ToggleGroup;
     [SerializeField] private UnityEvent OnSetActive;
 
@@ -25,10 +26,11 @@ public class Toggle : MonoBehaviour {
     private void SetState(bool state) {
         if(isActive == state) return;
         
-        foreach (var toggle in ToggleGroup) {
-            if(toggle != this)
-                toggle.SetState(false);
-        }
+        if(!AllowMultiple)
+            foreach (var toggle in ToggleGroup) {
+                if(toggle != this)
+                    toggle.SetState(false);
+            }
         isActive = state;
         TweenSequence();
         if(isActive) OnSetActive?.Invoke();
