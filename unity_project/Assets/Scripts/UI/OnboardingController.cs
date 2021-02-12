@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using DG.Tweening;
 using NaughtyAttributes;
 using UnityEngine;
@@ -29,7 +30,24 @@ public class OnboardingController : MonoBehaviour {
     private string about;
     private GameGenre gameGenres = GameGenre.None;
     private GamePlayed gamesPlayed = GamePlayed.None;
-    private ProfilePictureType profilePictureType = ProfilePictureType.Avatar; 
+    private ProfilePictureType profilePictureType = ProfilePictureType.Avatar;
+
+    public void Finish() {
+        var userModel = new UserModel {
+            Name = name,
+            BirthDate = birthDate,
+            About = about,
+            Gender = gender,
+            GenderPreference = genderPreference,
+            RelationshipPreference = relationshipPreference,
+            GenrePreferences = gameGenres,
+            PlayedGames = gamesPlayed,
+            ProfilePictureType = profilePictureType,
+            ProfilePictures = new List<string>(),
+            Avatar = null
+        };
+        Debug.Log(userModel.Serialize());
+    }
 
     public void OnGenderChange(int mask) {
         gender = (Gender) Enum.ToObject(typeof(Gender), mask);
