@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Slide : MonoBehaviour {
     [SerializeField] private float ExitPosition = 1170f;
+    [SerializeField] private float RotationMagnitude = 10.0f;
     [SerializeField] private float AnimationDuration = 0.5f;
     [SerializeField] private GameObject RaycastBlocker;
 
@@ -23,9 +24,11 @@ public class Slide : MonoBehaviour {
     private void EnableTweenSequence() {
         gameObject.SetActive(true);
         rectTransform.DOAnchorPosX(0f, AnimationDuration, true).From(new Vector2(ExitPosition, 0));
+        rectTransform.DOLocalRotate(Vector3.zero, AnimationDuration).From(new Vector3(0, 0, -RotationMagnitude));
     }
 
     private void DisableTweenSequence() {
+        rectTransform.DOLocalRotate(new Vector3(0, 0, RotationMagnitude), AnimationDuration).From(Vector3.zero);
         rectTransform.DOAnchorPosX(-ExitPosition, AnimationDuration, true).From(new Vector2(0, 0)).OnComplete(() => {
             gameObject.SetActive(false);
         });
