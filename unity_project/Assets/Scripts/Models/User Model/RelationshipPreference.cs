@@ -1,6 +1,7 @@
-﻿public enum RelationshipPreference {
-    Invalid = 1,
-    Friendship = 2,
-    RomanticRelationship = 4,
-    MeetNewPeople = 8
+﻿[System.Flags]
+public enum RelationshipPreference {
+    None = 0,
+    Friendship = 1 << 0,
+    RomanticRelationship = 1 << 1,
+    MeetNewPeople = 1 << 2
 }
