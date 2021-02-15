@@ -516,7 +516,6 @@ GameObject:
   - component: {fileID: 403851393}
   - component: {fileID: 403851397}
   - component: {fileID: 403851396}
-  - component: {fileID: 403851395}
   - component: {fileID: 403851394}
   m_Layer: 5
   m_Name: ForgotBtn
@@ -588,31 +587,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 403851396}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 403851395}
-        m_TargetAssemblyTypeName: LoginUIEvents, Assembly-CSharp
-        m_MethodName: OnForgotClick
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
---- !u!114 &403851395
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 403851392}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 391c5cf508058a74ea9cee273ebb2f34, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+      m_Calls: []
 --- !u!114 &403851396
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1603,7 +1578,6 @@ GameObject:
   - component: {fileID: 890063524}
   - component: {fileID: 890063528}
   - component: {fileID: 890063527}
-  - component: {fileID: 890063526}
   - component: {fileID: 890063525}
   m_Layer: 5
   m_Name: LoginBtn
@@ -1675,31 +1649,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 890063527}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 890063526}
-        m_TargetAssemblyTypeName: LoginUIEvents, Assembly-CSharp
-        m_MethodName: OnLoginClick
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
---- !u!114 &890063526
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 890063523}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 391c5cf508058a74ea9cee273ebb2f34, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+      m_Calls: []
 --- !u!114 &890063527
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1962,83 +1912,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 955775591}
   m_CullTransparentMesh: 0
---- !u!1001 &1077981199
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 2336871534972332464, guid: 5f409c84cbf13194f93c9e33dad30caa, type: 3}
-      propertyPath: Cursors.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2336871534972332464, guid: 5f409c84cbf13194f93c9e33dad30caa, type: 3}
-      propertyPath: Cursors.Array.data[0].State
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2336871534972332464, guid: 5f409c84cbf13194f93c9e33dad30caa, type: 3}
-      propertyPath: Cursors.Array.data[0].Texture
-      value: 
-      objectReference: {fileID: 2800000, guid: becef7cbb7b241342abf56f7e21edea1, type: 3}
-    - target: {fileID: 2336871534972332464, guid: 5f409c84cbf13194f93c9e33dad30caa, type: 3}
-      propertyPath: Cursors.Array.data[0].Hotspot.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2336871534972332464, guid: 5f409c84cbf13194f93c9e33dad30caa, type: 3}
-      propertyPath: Cursors.Array.data[0].Hotspot.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2336871534972332465, guid: 5f409c84cbf13194f93c9e33dad30caa, type: 3}
-      propertyPath: m_RootOrder
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 2336871534972332465, guid: 5f409c84cbf13194f93c9e33dad30caa, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2336871534972332465, guid: 5f409c84cbf13194f93c9e33dad30caa, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2336871534972332465, guid: 5f409c84cbf13194f93c9e33dad30caa, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2336871534972332465, guid: 5f409c84cbf13194f93c9e33dad30caa, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2336871534972332465, guid: 5f409c84cbf13194f93c9e33dad30caa, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2336871534972332465, guid: 5f409c84cbf13194f93c9e33dad30caa, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2336871534972332465, guid: 5f409c84cbf13194f93c9e33dad30caa, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2336871534972332465, guid: 5f409c84cbf13194f93c9e33dad30caa, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2336871534972332465, guid: 5f409c84cbf13194f93c9e33dad30caa, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2336871534972332465, guid: 5f409c84cbf13194f93c9e33dad30caa, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2336871534972332467, guid: 5f409c84cbf13194f93c9e33dad30caa, type: 3}
-      propertyPath: m_Name
-      value: Cursor Controller
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 5f409c84cbf13194f93c9e33dad30caa, type: 3}
 --- !u!1 &1080835673
 GameObject:
   m_ObjectHideFlags: 0
@@ -2050,7 +1923,6 @@ GameObject:
   - component: {fileID: 1080835674}
   - component: {fileID: 1080835678}
   - component: {fileID: 1080835677}
-  - component: {fileID: 1080835676}
   - component: {fileID: 1080835675}
   m_Layer: 5
   m_Name: InputPass
@@ -2177,18 +2049,6 @@ MonoBehaviour:
   m_isRichTextEditingAllowed: 0
   m_LineLimit: 0
   m_InputValidator: {fileID: 0}
---- !u!114 &1080835676
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1080835673}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f5b8fe637ecf49db940926be55c51c43, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1080835677
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3164,7 +3024,6 @@ GameObject:
   - component: {fileID: 2140285867}
   - component: {fileID: 2140285871}
   - component: {fileID: 2140285870}
-  - component: {fileID: 2140285869}
   - component: {fileID: 2140285868}
   m_Layer: 5
   m_Name: InputUser
@@ -3291,18 +3150,6 @@ MonoBehaviour:
   m_isRichTextEditingAllowed: 0
   m_LineLimit: 0
   m_InputValidator: {fileID: 0}
---- !u!114 &2140285869
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2140285866}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ad21771210b643d1a32127997f139c3c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &2140285870
 MonoBehaviour:
   m_ObjectHideFlags: 0
