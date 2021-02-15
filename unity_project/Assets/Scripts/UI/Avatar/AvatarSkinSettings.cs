@@ -20,7 +20,7 @@ public class AvatarSkinSettings : MonoBehaviour {
             color.Image.color = color.Color;
         }
 
-        SelectColor(3);
+        SelectColor(2);
     }
 
     public void OnSliderChanged(float value) {
