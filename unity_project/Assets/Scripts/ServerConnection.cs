@@ -1,14 +1,16 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using RestSharp;
 using UnityCommons;
-using UnityEngine;
 
 public class ServerConnection : MonoSingleton<ServerConnection> {
     private static readonly RestClient client = new RestClient("http://localhost:3000");
+
+    protected override void OnAwake() {
+        DontDestroyOnLoad(gameObject);
+    }
 
     public Response MakeRequest(string endpoint, Method method, List<(string key, string value)> data) {
         var request = new RestRequest(endpoint, method);
