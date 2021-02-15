@@ -1,8 +1,10 @@
 using System.Collections.Generic;
 using DG.Tweening;
+using Newtonsoft.Json.Linq;
 using RestSharp;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class LoginRegisterController : MonoBehaviour {
@@ -25,11 +27,27 @@ public class LoginRegisterController : MonoBehaviour {
                                                        if (response.StatusCode == 404) {
                                                            LoginServerResponseText.text = "Invalid username or password";
                                                        } else if (response.StatusCode == 200) {
-                                                           var account = response.Content;
-                                                           LoginServerResponseText.text = "Login successful";
-                                                           Debug.Log(account);
+                                                           OnLoginSuccessful(response.Content);
                                                        }
                                                    });
+    }
+
+    private void OnLoginSuccessful(string accountJson) {
+        var json = JObject.Parse(accountJson)["account"];
+        
+        UserState.Instance.UserId = json.Value<string>("id");
+        var profile = json["profile"];
+        var profileSetUp = profile["name"] != null;
+        if (profileSetUp) {
+            SceneLoader.Instance.LoadScene(Scenes.SwipeMenu, () => {
+               SceneManager.UnloadSceneAsync(Scenes.LoginRegister);
+            });
+        } else {
+            // load onboarding
+           SceneLoader.Instance.LoadScene(Scenes.Onboarding, () => {
+               SceneManager.UnloadSceneAsync(Scenes.LoginRegister);
+           });
+        }
     }
 
     public void OnRegisterClick() {
