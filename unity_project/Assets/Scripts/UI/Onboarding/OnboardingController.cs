@@ -48,7 +48,7 @@ public class OnboardingController : MonoBehaviour {
             Avatar = null
         };
         var json = userModel.Serialize();
-        ServerConnection.Instance.MakeRequestAsync("/profile", Method.POST, new List<(string key, string value)> {("profile", json)}, response => {
+        ServerConnection.Instance.MakeRequestAsync("/profile", Method.POST, new List<(string key, string value)> {("id", UserState.Instance.UserId), ("profile", json)}, response => {
             Debug.Log($"{response.IsSuccessful}\n{response.StatusCode}\n{response.StatusDescription}\n{response.Content}\n{response.ErrorMessage}");
         });
     }
