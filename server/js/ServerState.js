@@ -181,8 +181,6 @@ class ServerState {
     setupProfile(request) {
         let userId = request.body.id;
         let profile = makeProfile(request.body.profile);
-        console.log(profile);
-        return;
 
         let accIdx = this.registeredUsers.findIndex(account => account.id == userId);
         this.registeredUsers[accIdx].profile = profile;

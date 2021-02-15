@@ -1,6 +1,6 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using RestSharp;
 using UnityCommons;
@@ -8,10 +8,10 @@ using UnityCommons;
 public class ServerConnection : MonoSingleton<ServerConnection> {
     private static readonly RestClient client = new RestClient("http://localhost:3000");
 
-    public Response MakeRequest(string endpoint, Method method, Dictionary<string, string> data) {
-        return MakeRequest(endpoint, method, data.Select(pair => (pair.Key, pair.Value)).ToList());
+    protected override void OnAwake() {
+        DontDestroyOnLoad(gameObject);
     }
-    
+
     public Response MakeRequest(string endpoint, Method method, List<(string key, string value)> data) {
         var request = new RestRequest(endpoint, method);
         foreach (var parameter in data) {
@@ -28,23 +28,34 @@ public class ServerConnection : MonoSingleton<ServerConnection> {
     }
 
     public void MakeRequestAsync(string endpoint, Method method, List<(string key, string value)> data, Action<Response> onComplete) {
-        var thread = new Thread(() => {
+        StartCoroutine(RunThreadRequest(endpoint, method, data, onComplete));
+    }
+
+    private IEnumerator RunThreadRequest(string endpoint, Method method, IReadOnlyCollection<(string key, string value)> data, Action<Response> onComplete) {
+        Response response = null;
+        
+        var thread = new Thread(() => { 
             var request = new RestRequest(endpoint, method);
-            foreach (var parameter in data) {
-                request.AddParameter(parameter.key, parameter.value);
+            foreach (var (key, value) in data) {
+                request.AddParameter(key, value);
             }
 
             var restResponse = client.Execute(request);
-            var response = new Response {
+            response = new Response {
                 IsSuccessful = restResponse.IsSuccessful,
                 StatusCode = (int) restResponse.StatusCode,
                 StatusDescription = restResponse.StatusDescription,
                 Content = restResponse.Content,
                 ErrorMessage = restResponse.ErrorMessage
             };
-            onComplete?.Invoke(response);
         });
         thread.Start();
+        
+        while (thread.IsAlive) {
+            yield return null;
+        }
+
+        onComplete?.Invoke(response);
     }
 
     public class Response {

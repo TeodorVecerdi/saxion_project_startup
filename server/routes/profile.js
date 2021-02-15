@@ -4,7 +4,6 @@ const serverState = require("../js/ServerState");
 
 router.post('/', (req, res) => {
     console.log(req.body.profile);
-    console.log(JSON.stringify(JSON.parse(req.body.profile)));
 
     serverState.setupProfile(req);
     res.status(200).end();
