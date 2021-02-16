@@ -273,9 +273,8 @@ GameObject:
   - component: {fileID: 867075885294902343}
   - component: {fileID: 867075885294902342}
   - component: {fileID: 867075885294902341}
-  - component: {fileID: 867075885294902362}
   m_Layer: 5
-  m_Name: TextBubble
+  m_Name: TextBubbleUser
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -455,18 +454,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HorizontalFit: 0
   m_VerticalFit: 2
---- !u!114 &867075885294902362
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 867075885294902336}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a5ccaa4a6aa44c14ca6434dcf992d828, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &5844636024911956847
 GameObject:
   m_ObjectHideFlags: 0

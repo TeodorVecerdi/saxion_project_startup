@@ -1,22 +1,36 @@
 ﻿using System;
+using DG.Tweening;
 using UnityEngine;
 using Unity;
 using TMPro;
+using UnityEngine.Rendering;
+using UnityEngine.Serialization;
+using UnityEngine.UI;
 
-[RequireComponent(typeof(TMP_InputField))]
 public class BtnTextSend : MonoBehaviour
 {
-    private TMP_InputField inputField;
     [SerializeField]
-    private TMP_InputField target;
+    private GameObject messagePrefab;
+    [SerializeField]
+    private TMP_InputField inputField;
+    [SerializeField] 
+    private GameObject contentPanel;
 
-    private void Awake()
+    private RectTransform _panelRectTransform;
+    private float gap = 100f;
+    
+    public void Awake()
     {
-        inputField = gameObject.GetComponent<TMP_InputField>();
+        _panelRectTransform = contentPanel.GetComponent<RectTransform>();
     }
 
     public void OnClick()
     {
-        target.text = inputField.text;
+        var newMessage = Instantiate(messagePrefab, _panelRectTransform);
+        var outputField = newMessage.GetComponent<TMP_InputField>();
+        outputField.text = inputField.text;
+        var messageRectTransform = newMessage.GetComponent<RectTransform>();
+        messageRectTransform.Translate(0,-1 * gap * (_panelRectTransform.transform.childCount - 1f),0); //TODO: change gap
+        
     }
 }
