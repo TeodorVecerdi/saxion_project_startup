@@ -319,8 +319,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 107242603}
-  - component: {fileID: 107242605}
-  - component: {fileID: 107242604}
   m_Layer: 5
   m_Name: Swipe Container
   m_TagString: Untagged
@@ -349,40 +347,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 64}
   m_SizeDelta: {x: 0, y: -511.99994}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &107242604
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 107242602}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9239e02cd8b7458e9b74c8f771d62ad3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Name: {fileID: 2008468099}
-  Age: {fileID: 847793180}
---- !u!114 &107242605
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 107242602}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: db797d4aa5810bf4eb9570adfefbbd3e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Skin: {fileID: 524207895}
-  Clothing: {fileID: 1772708633}
-  Eyes: {fileID: 287447216}
-  Eyebrows: {fileID: 33918026}
-  Mouth: {fileID: 1354283576}
-  FacialHair: {fileID: 1211275616}
-  Hair: {fileID: 1477029251}
-  Accessories: {fileID: 432387210}
 --- !u!1 &142151211
 GameObject:
   m_ObjectHideFlags: 0
@@ -2657,11 +2621,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69a80f44a517486882def950e3f92516, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BuilderA: {fileID: 902889125}
-  BuilderB: {fileID: 1581951602}
-  BuilderC: {fileID: 107242605}
-  BuilderD: {fileID: 107242604}
-  About: {fileID: 349355410}
+  Builders:
+  - {fileID: 880497935}
 --- !u!1 &768173518
 GameObject:
   m_ObjectHideFlags: 0
@@ -2964,6 +2925,9 @@ GameObject:
   - component: {fileID: 880497936}
   - component: {fileID: 880497937}
   - component: {fileID: 880497938}
+  - component: {fileID: 880497941}
+  - component: {fileID: 880497940}
+  - component: {fileID: 880497939}
   m_Layer: 5
   m_Name: EVERYTHING GOES IN HERE
   m_TagString: Untagged
@@ -3024,6 +2988,63 @@ MonoBehaviour:
   AnimationDurationSwipeContainer: 0.5
   AnimationDurationGamesListButton: 0.25
   GamesListButton: {fileID: 1572312956}
+--- !u!114 &880497939
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 880497935}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db797d4aa5810bf4eb9570adfefbbd3e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Skin: {fileID: 524207895}
+  Clothing: {fileID: 1772708633}
+  Eyes: {fileID: 287447216}
+  Eyebrows: {fileID: 33918026}
+  Mouth: {fileID: 1354283576}
+  FacialHair: {fileID: 1211275616}
+  Hair: {fileID: 1477029251}
+  Accessories: {fileID: 432387210}
+--- !u!114 &880497940
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 880497935}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9239e02cd8b7458e9b74c8f771d62ad3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: {fileID: 2008468099}
+  Age: {fileID: 847793180}
+  About: {fileID: 349355410}
+--- !u!114 &880497941
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 880497935}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f6273900cccd854cb4e6940181994e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GameListPrefab: {fileID: 176242862918109619, guid: 9e3a0c5e254a0484ca3aa7a9e0c84e36, type: 3}
+  GameListContainer: {fileID: 902889122}
+  GamePicturePrefab: {fileID: 796401530876716431, guid: afc6c3fba10b71f428f1f22cdc874916, type: 3}
+  GamePictureContainer: {fileID: 374283188}
+  GamePictureParent: {fileID: 1581951601}
+  NoGamesText: {fileID: 2068613406}
+  OpenGamesButton: {fileID: 1572312954}
+  LastItem: {fileID: 1379124424}
+  EmptySprite: {fileID: 21300000, guid: eac7b1433ff043f4695067aac9201c00, type: 3}
+  EmptyColor: {r: 0.34901962, g: 0.34901962, b: 0.34901962, a: 0.2}
 --- !u!1 &902889121
 GameObject:
   m_ObjectHideFlags: 0
@@ -3035,7 +3056,6 @@ GameObject:
   - component: {fileID: 902889122}
   - component: {fileID: 902889124}
   - component: {fileID: 902889123}
-  - component: {fileID: 902889125}
   m_Layer: 5
   m_Name: Content
   m_TagString: Untagged
@@ -3102,29 +3122,6 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
---- !u!114 &902889125
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 902889121}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6f6273900cccd854cb4e6940181994e1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  GameData:
-  - {fileID: 11400000, guid: d7a77c0198e4f8a4bb9c0b47abbe870c, type: 2}
-  - {fileID: 11400000, guid: ace8d2363cdba14478726b59620a6d13, type: 2}
-  - {fileID: 11400000, guid: 429ed2088f258d2429b60b44ac33bcd4, type: 2}
-  - {fileID: 11400000, guid: 74975ca9ae5a8d34997c7645e7cfbff0, type: 2}
-  - {fileID: 11400000, guid: 37fc41565057a0f4c90979c436ee4877, type: 2}
-  - {fileID: 11400000, guid: 8d74edf6f4e9f6f42985ba8f69dd5355, type: 2}
-  - {fileID: 11400000, guid: 26a33698553bee54791a30621c3995d8, type: 2}
-  - {fileID: 11400000, guid: 90777c4115ea2a7459223761947f644a, type: 2}
-  GamePrefab: {fileID: 176242862918109619, guid: 9e3a0c5e254a0484ca3aa7a9e0c84e36, type: 3}
-  TargetTransform: {fileID: 902889122}
 --- !u!1 &957299288
 GameObject:
   m_ObjectHideFlags: 0
@@ -5521,7 +5518,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1581951601}
-  - component: {fileID: 1581951602}
   m_Layer: 5
   m_Name: Games Section
   m_TagString: Untagged
@@ -5552,35 +5548,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 1029.0001, y: 768}
   m_Pivot: {x: 0.5, y: 1}
---- !u!114 &1581951602
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1581951600}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e22dd21242ecd0c4b96e1506a7796abc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TargetTransform: {fileID: 374283188}
-  Container: {fileID: 1581951601}
-  NoGamesText: {fileID: 2068613406}
-  OpenGamesButton: {fileID: 1572312954}
-  Prefab: {fileID: 796401530876716431, guid: afc6c3fba10b71f428f1f22cdc874916, type: 3}
-  LastItem: {fileID: 1379124424}
-  GameData:
-  - {fileID: 11400000, guid: d7a77c0198e4f8a4bb9c0b47abbe870c, type: 2}
-  - {fileID: 11400000, guid: ace8d2363cdba14478726b59620a6d13, type: 2}
-  - {fileID: 11400000, guid: 429ed2088f258d2429b60b44ac33bcd4, type: 2}
-  - {fileID: 11400000, guid: 74975ca9ae5a8d34997c7645e7cfbff0, type: 2}
-  - {fileID: 11400000, guid: 37fc41565057a0f4c90979c436ee4877, type: 2}
-  - {fileID: 11400000, guid: 8d74edf6f4e9f6f42985ba8f69dd5355, type: 2}
-  - {fileID: 11400000, guid: 26a33698553bee54791a30621c3995d8, type: 2}
-  - {fileID: 11400000, guid: 90777c4115ea2a7459223761947f644a, type: 2}
-  EmptySprite: {fileID: 1526516042813948006, guid: b3f5a04a15cecd8469ae2d163b68dab8, type: 3}
-  EmptyColor: {r: 0.34901962, g: 0.34901962, b: 0.34901962, a: 0.2}
 --- !u!224 &1637468382 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7560963807371534902, guid: e6b8ee5a372337e429e5f251793c8abb, type: 3}

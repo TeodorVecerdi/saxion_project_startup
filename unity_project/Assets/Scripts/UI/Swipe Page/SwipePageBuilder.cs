@@ -3,15 +3,12 @@ using NaughtyAttributes;
 using Newtonsoft.Json.Linq;
 using RestSharp;
 using TMPro;
+using UnityCommons;
 using UnityEngine;
+using Extensions = UnityCommons.Extensions;
 
 public class SwipePageBuilder : MonoBehaviour {
-    [SerializeField] private TestGameListBuilder BuilderA;
-    [SerializeField] private TestGameListBuilder2 BuilderB;
-    [SerializeField] private TestAvatarBuilder BuilderC;
-    [SerializeField] private TestUserInfoBuilder BuilderD;
-    [SerializeField] private TextMeshProUGUI About;
-    
+    [SerializeField] private List<GameObject> Builders;
     private JArray usersArray;
 
     private void Start() {
@@ -48,10 +45,12 @@ public class SwipePageBuilder : MonoBehaviour {
     private void LoadUser() {
         var user0 = usersArray[0];
         var userModel = UserModel.Deserialize(user0["profile"]);
-        BuilderA.Build(userModel);
-        BuilderB.Build(userModel);
-        BuilderC.Build(userModel);
-        BuilderD.Build(userModel);
-        About.text = userModel.About;
+        Builders.ForEach(@object => {
+            var builders = @object.GetComponents<IBuilder>();
+            foreach (var builder in builders) {
+                builder.Cleanup();
+                builder.Build(userModel);
+            }
+        });
     }
 }

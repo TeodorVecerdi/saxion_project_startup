@@ -1,7 +1,7 @@
 using DG.Tweening;
 using UnityEngine;
 
-public class TestGamePage : MonoBehaviour {
+public class ProfileTransition : MonoBehaviour {
     [SerializeField] private RectTransform Profile;
     [SerializeField] private RectTransform GameList;
     [SerializeField] private float AnimationDuration = 0.5f;
