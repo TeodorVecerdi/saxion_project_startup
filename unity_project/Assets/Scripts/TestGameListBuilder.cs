@@ -5,20 +5,21 @@ using UnityEngine;
 
 public class TestGameListBuilder : MonoBehaviour {
     [SerializeField] private List<Game> GameData;
-    [SerializeField] private List<int> GameIDs;
     [SerializeField] private GameListItem GamePrefab;
     [SerializeField] private RectTransform TargetTransform;
 
-    private void Start() {
-        if (TargetTransform == null) TargetTransform = GetComponent<RectTransform>();
-        
-        GameData.QuickSort((game, game1) => game.GameID.CompareTo(game1.GameID));
-        
-        GameIDs.ForEach(id => {
+    public void Build(UserModel model) {
+        var games = UserModel.GetEnumIndices(model.PlayedGames);
+        games.ForEach(id => {
             var gameItem = Instantiate(GamePrefab, TargetTransform);
             gameItem.Poster.sprite = GameData[id].GameTexture;
             gameItem.Description.text = GameData[id].GameDescription;
         });
+    }
+
+    private void Awake() {
+        if (TargetTransform == null) TargetTransform = GetComponent<RectTransform>();
+        GameData.QuickSort((game, game1) => game.GameID.CompareTo(game1.GameID));
     }
 }
 

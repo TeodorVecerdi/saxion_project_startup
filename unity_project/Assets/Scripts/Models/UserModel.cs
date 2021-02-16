@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using UnityCommons;
+using UnityEngine;
 
 [Serializable]
 public class UserModel {
@@ -45,23 +47,21 @@ public class UserModel {
         return json.ToString(Formatting.None);
     }
 
-    public static UserModel Deserialize(string json) {
-        var user = JObject.Parse(json);
+    public static UserModel Deserialize(JToken user) {
         var userModel = new UserModel();
         
         userModel.Name = user.Value<string>("name");
-        userModel.BirthDate = new Date {
-            Day = user["birthDate"].Value<string>("day"),
-            Month = user["birthDate"].Value<string>("month"),
-            Year = user["birthDate"].Value<string>("year")
-        };
-        
+        userModel.BirthDate = new Date();
+        userModel.BirthDate.Day = user["birthDate"].Value<string>("day");
+        userModel.BirthDate.Month = user["birthDate"].Value<string>("month");
+        userModel.BirthDate.Year = user["birthDate"].Value<string>("year");
+
         userModel.About = user.Value<string>("about");
         userModel.Gender = GetEnumFromIndex<Gender>(user.Value<int>("gender"), 0);
-        userModel.GenderPreference = GetEnumFromIndex<GenderPreference>(user.Value<int>("genderPreference"));
-        userModel.RelationshipPreference = GetEnumFromIndex<RelationshipPreference>(user.Value<int>("relationshipPreference"));
-        userModel.GenrePreferences = GetEnumFromIndex<GameGenre>(user.Value<int>("genrePreference"));
-        userModel.PlayedGames = GetEnumFromIndex<GamePlayed>(user.Value<int>("playedGames"));
+        userModel.GenderPreference = IndicesToMask<GenderPreference>(user["genderPreference"].ToList().Select(token => token.Value<int>()));
+        userModel.RelationshipPreference = IndicesToMask<RelationshipPreference>(user["relationshipPreference"].ToList().Select(token => token.Value<int>()));
+        userModel.GenrePreferences = IndicesToMask<GameGenre>(user["genrePreference"].ToList().Select(token => token.Value<int>()));
+        userModel.PlayedGames = IndicesToMask<GamePlayed>(user["playedGames"].ToList().Select(token => token.Value<int>()));
         userModel.ProfilePictureType = GetEnumFromIndex<ProfilePictureType>(user.Value<int>("profilePictureType"), 0);
         if (userModel.ProfilePictureType == ProfilePictureType.Pictures) {
             if (user.Value<string>("profilePictures") != "null")
@@ -70,13 +70,20 @@ public class UserModel {
             userModel.Avatar = null;
         } else {
             userModel.ProfilePictures = null;
-            userModel.Avatar = JsonConvert.DeserializeObject<AvatarConfiguration>(user.Value<string>("avatar"));
+            if (user.Value<string>("avatar") != "null")
+                userModel.Avatar = JsonConvert.DeserializeObject<AvatarConfiguration>(user.Value<string>("avatar"));
+            else userModel.Avatar = null;
         }
 
         return userModel;
     }
 
-    private static List<int> GetEnumIndices<T>(T enumValue) where T : Enum {
+    public static UserModel Deserialize(string json) {
+        var user = JObject.Parse(json);
+        return Deserialize(user["profile"]);
+    }
+
+    public static List<int> GetEnumIndices<T>(T enumValue) where T : Enum {
         var indices = new List<int>();
         var enumValues = Enum.GetValues(typeof(T)).Cast<object>().ToList();
         for (var i = 0; i < enumValues.Count; i++) {
@@ -90,5 +97,17 @@ public class UserModel {
     private static T GetEnumFromIndex<T>(int index, int offset = 1) where T : Enum {
         var enumValues = Enum.GetValues(typeof(T)).Cast<object>().ToList();
         return (T) enumValues[index + offset];
+    }
+
+    private static T IndicesToMask<T>(IEnumerable<int> indices, int offset = 1) where T : Enum {
+        var mask = (T)(object)0;
+        var enumValues = Enum.GetValues(typeof(T)).Cast<object>().ToList();
+        foreach (var i in indices) {
+            var maskInt = (int) (object) mask;
+            maskInt |= (int) enumValues[i + offset];
+            mask = (T) (object) maskInt;
+        }
+
+        return mask;
     }
 }
