@@ -22,6 +22,10 @@ public class OnboardingController : MonoBehaviour {
     [SerializeField] private Button AboutNextButton;
     [SerializeField] private Button GameGenreButton;
     [SerializeField] private Button GamesPlayedButton;
+    [Space]
+    [SerializeField] private GameObject Slides;
+    [SerializeField] private OnboardingTransition Transition;
+    [SerializeField] private AvatarCustomizer Customizer;
 
     private Gender gender = Gender.Male;
     private GenderPreference genderPreference = GenderPreference.None;
@@ -34,6 +38,27 @@ public class OnboardingController : MonoBehaviour {
     private ProfilePictureType profilePictureType = ProfilePictureType.Avatar;
 
     public void Finish() {
+        if (profilePictureType == ProfilePictureType.Avatar) {
+            ShowAvatar();
+        } else {
+            FinishProfile();
+        }
+    }
+
+    public void AvatarComplete() {
+        Customizer.gameObject.SetActive(false);
+        FinishProfile();
+    }
+
+    private void ShowAvatar() {
+        Customizer.gameObject.SetActive(true);
+        Slides.SetActive(false);
+    }
+
+    private void FinishProfile() {
+        Transition.Activate();
+        AvatarConfiguration avatarConfiguration = null;
+        if (profilePictureType == ProfilePictureType.Avatar) avatarConfiguration = Customizer.BuildAvatarModel();
         var userModel = new UserModel {
             Name = name,
             BirthDate = birthDate,
@@ -45,7 +70,7 @@ public class OnboardingController : MonoBehaviour {
             PlayedGames = gamesPlayed,
             ProfilePictureType = profilePictureType,
             ProfilePictures = new List<string>(),
-            Avatar = null
+            Avatar = avatarConfiguration
         };
         var json = userModel.Serialize();
         ServerConnection.Instance.MakeRequestAsync("/profile", Method.POST, new List<(string key, string value)> {("id", UserState.Instance.UserId), ("profile", json)}, response => {

@@ -17,8 +17,8 @@ public class AvatarMouthSettings : MonoBehaviour {
     [Space, SerializeField] private List<Image> MouthStyles;
     [SerializeField] private Image AvatarMouthStyle;
 
-    private int selectedMouthStyle;
-    private Color mouthColor;
+    public int SelectedMouthStyle;
+    public Color MouthColor;
 
     private void Start() {
         SelectMouthStyle(0);
@@ -38,21 +38,21 @@ public class AvatarMouthSettings : MonoBehaviour {
 
     public void SelectMouthStyle(int index) {
         if (!Utils.RangeCheck(index, MouthStyles.Count)) return;
-        selectedMouthStyle = index;
+        SelectedMouthStyle = index;
 
         AvatarMouthStyle.sprite = MouthStyles[index].sprite;
     }
 
     private void UpdateSliderColor() {
-        mouthColor = new Color(RedSlider.value, GreenSlider.value, BlueSlider.value, 1f);
+        MouthColor = new Color(RedSlider.value, GreenSlider.value, BlueSlider.value, 1f);
         RedSliderSelectedImage.color = new Color(RedSlider.value, 0f, 0f, 1f);
         GreenSliderSelectedImage.color = new Color(0f, GreenSlider.value, 0f, 1f);
         BlueSliderSelectedImage.color = new Color(0f, 0f, BlueSlider.value, 1f);
-        ColorImage.color = mouthColor;
+        ColorImage.color = MouthColor;
         
-        AvatarMouthStyle.color = mouthColor;
+        AvatarMouthStyle.color = MouthColor;
         foreach (var graphic in MouthStyles) {
-            graphic.color = mouthColor;
+            graphic.color = MouthColor;
         }
     }
 }

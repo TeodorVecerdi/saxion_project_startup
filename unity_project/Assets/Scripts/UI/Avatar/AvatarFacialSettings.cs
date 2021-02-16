@@ -13,9 +13,9 @@ public class AvatarFacialSettings : MonoBehaviour {
     [Space, SerializeField] private List<Image> FacialHairStyles;
     [SerializeField] private Image AvatarFacialHairStyle;
 
-    private int selectedColor;
-    private int selectedHairStyle;
-    private Color hairColor;
+    public int SelectedColor;
+    public int SelectedHairStyle;
+    public Color HairColor;
 
     private void Start() {
         foreach (var color in HairColors) {
@@ -32,29 +32,29 @@ public class AvatarFacialSettings : MonoBehaviour {
 
     public void SelectColor(int index) {
         if (!Utils.RangeCheck(index, HairColors.Count)) return;
-        selectedColor = index;
+        SelectedColor = index;
         SetSliderColor();
         UpdateSliderColor();
     }
 
     public void SelectHairStyle(int index) {
         if (!Utils.RangeCheck(index, FacialHairStyles.Count)) return;
-        selectedHairStyle = index;
+        SelectedHairStyle = index;
 
         AvatarFacialHairStyle.sprite = FacialHairStyles[index].sprite;
     }
 
     private void SetSliderColor() {
-        SliderBackgroundImage.color = HairColors[selectedColor].SliderMinColor;
+        SliderBackgroundImage.color = HairColors[SelectedColor].SliderMinColor;
     }
 
     private void UpdateSliderColor() {
-        hairColor = Color.Lerp(HairColors[selectedColor].SliderMinColor, new Color(0, 0, 0, 1), Slider.value);
-        SliderSelectedImage.color = hairColor;
+        HairColor = Color.Lerp(HairColors[SelectedColor].SliderMinColor, new Color(0, 0, 0, 1), Slider.value);
+        SliderSelectedImage.color = HairColor;
 
-        AvatarFacialHairStyle.color = hairColor;
+        AvatarFacialHairStyle.color = HairColor;
         foreach (var graphic in FacialHairStyles) {
-            graphic.color = hairColor;
+            graphic.color = HairColor;
         }
     }
 }

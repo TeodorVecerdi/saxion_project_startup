@@ -12,9 +12,9 @@ public class AvatarEyebrowSettings : MonoBehaviour {
     [Space, SerializeField] private List<Image> EyebrowStyles;
     [SerializeField] private Image AvatarEyebrowStyle;
 
-    private int selectedColor;
-    private int selectedEyebrowStyle;
-    private Color eyebrowColor;
+    public int SelectedColor;
+    public int SelectedEyebrowStyle;
+    public Color Color;
 
     private void Start() {
         foreach (var color in EyebrowColors) {
@@ -31,29 +31,29 @@ public class AvatarEyebrowSettings : MonoBehaviour {
 
     public void SelectColor(int index) {
         if (!Utils.RangeCheck(index, EyebrowColors.Count)) return;
-        selectedColor = index;
+        SelectedColor = index;
         SetSliderColor();
         UpdateSliderColor();
     }
 
     public void SelectEyebrowStyle(int index) {
         if (!Utils.RangeCheck(index, EyebrowStyles.Count)) return;
-        selectedEyebrowStyle = index;
+        SelectedEyebrowStyle = index;
 
         AvatarEyebrowStyle.sprite = EyebrowStyles[index].sprite;
     }
 
     private void SetSliderColor() {
-        SliderBackgroundImage.color = EyebrowColors[selectedColor].SliderMinColor;
+        SliderBackgroundImage.color = EyebrowColors[SelectedColor].SliderMinColor;
     }
 
     private void UpdateSliderColor() {
-        eyebrowColor = Color.Lerp(EyebrowColors[selectedColor].SliderMinColor, new Color(0, 0, 0, 1), Slider.value);
-        SliderSelectedImage.color = eyebrowColor;
+        Color = Color.Lerp(EyebrowColors[SelectedColor].SliderMinColor, new Color(0, 0, 0, 1), Slider.value);
+        SliderSelectedImage.color = Color;
 
-        AvatarEyebrowStyle.color = eyebrowColor;
+        AvatarEyebrowStyle.color = Color;
         foreach (var graphic in EyebrowStyles) {
-            graphic.color = eyebrowColor;
+            graphic.color = Color;
         }
     }
 

@@ -9,7 +9,7 @@ public class AvatarEyeSettings : MonoBehaviour {
     [Space, SerializeField] private List<Image> EyeStyles;
     [SerializeField] private Image AvatarEyeStyle;
 
-    private int selectedEyeStyle;
+    public int SelectedEyeStyle;
 
     private void Start() {
         SelectEyeStyle(0);
@@ -18,7 +18,7 @@ public class AvatarEyeSettings : MonoBehaviour {
 
     public void SelectEyeStyle(int index) {
         if (!Utils.RangeCheck(index, EyeStyles.Count)) return;
-        selectedEyeStyle = index;
+        SelectedEyeStyle = index;
 
         AvatarEyeStyle.sprite = EyeStyles[index].sprite;
     }

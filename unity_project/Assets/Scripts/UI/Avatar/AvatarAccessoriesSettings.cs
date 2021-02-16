@@ -17,8 +17,8 @@ public class AvatarAccessoriesSettings : MonoBehaviour {
     [Space, SerializeField] private List<Image> AccessoryStyles;
     [SerializeField] private Image AvatarAccessoryStyle;
 
-    private int selectedAccessoryStyle;
-    private Color accessoryColor;
+    public int SelectedAccessoryStyle;
+    public Color AccessoryColor;
 
     private void Start() {
         SelectAccessoryStyle(0);
@@ -38,21 +38,21 @@ public class AvatarAccessoriesSettings : MonoBehaviour {
 
     public void SelectAccessoryStyle(int index) {
         if (!Utils.RangeCheck(index, AccessoryStyles.Count)) return;
-        selectedAccessoryStyle = index;
+        SelectedAccessoryStyle = index;
 
         AvatarAccessoryStyle.sprite = AccessoryStyles[index].sprite;
     }
 
     private void UpdateSliderColor() {
-        accessoryColor = new Color(RedSlider.value, GreenSlider.value, BlueSlider.value, 1f);
+        AccessoryColor = new Color(RedSlider.value, GreenSlider.value, BlueSlider.value, 1f);
         RedSliderSelectedImage.color = new Color(RedSlider.value, 0f, 0f, 1f);
         GreenSliderSelectedImage.color = new Color(0f, GreenSlider.value, 0f, 1f);
         BlueSliderSelectedImage.color = new Color(0f, 0f, BlueSlider.value, 1f);
-        ColorImage.color = accessoryColor;
+        ColorImage.color = AccessoryColor;
         
-        AvatarAccessoryStyle.color = accessoryColor;
+        AvatarAccessoryStyle.color = AccessoryColor;
         foreach (var graphic in AccessoryStyles) {
-            graphic.color = accessoryColor;
+            graphic.color = AccessoryColor;
         }
     }
 }

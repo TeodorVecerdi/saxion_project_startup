@@ -17,8 +17,8 @@ public class AvatarClothingSettings : MonoBehaviour {
     [Space, SerializeField] private List<Image> ClothingStyles;
     [SerializeField] private Image AvatarClothingStyle;
 
-    private int selectedClothingStyle;
-    private Color clothingColor;
+    public int SelectedClothingStyle;
+    public Color ClothingColor;
 
     private void Start() {
         SelectClothingStyle(0);
@@ -38,21 +38,21 @@ public class AvatarClothingSettings : MonoBehaviour {
 
     public void SelectClothingStyle(int index) {
         if (!Utils.RangeCheck(index, ClothingStyles.Count)) return;
-        selectedClothingStyle = index;
+        SelectedClothingStyle = index;
 
         AvatarClothingStyle.sprite = ClothingStyles[index].sprite;
     }
 
     private void UpdateSliderColor() {
-        clothingColor = new Color(RedSlider.value, GreenSlider.value, BlueSlider.value, 1f);
+        ClothingColor = new Color(RedSlider.value, GreenSlider.value, BlueSlider.value, 1f);
         RedSliderSelectedImage.color = new Color(RedSlider.value, 0f, 0f, 1f);
         GreenSliderSelectedImage.color = new Color(0f, GreenSlider.value, 0f, 1f);
         BlueSliderSelectedImage.color = new Color(0f, 0f, BlueSlider.value, 1f);
-        ColorImage.color = clothingColor;
+        ColorImage.color = ClothingColor;
         
-        AvatarClothingStyle.color = clothingColor;
+        AvatarClothingStyle.color = ClothingColor;
         foreach (var graphic in ClothingStyles) {
-            graphic.color = clothingColor;
+            graphic.color = ClothingColor;
         }
     }
 }
