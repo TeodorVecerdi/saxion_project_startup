@@ -1,9 +1,16 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class SlideController : MonoBehaviour {
     [SerializeField] private List<Slide> Slides;
     [SerializeField] private bool WrapAtEnd;
+    [SerializeField] private int StartingSlide;
+
+    private void Start() {
+        currentSlide = StartingSlide;
+    }
+
     private int currentSlide;
 
     public void NextSlide() {
