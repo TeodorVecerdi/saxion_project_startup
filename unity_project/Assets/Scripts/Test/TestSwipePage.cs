@@ -75,10 +75,9 @@ public class TestSwipePage : MonoBehaviour {
                 GamesListButton.interactable = true;
             });
         } else {
+            GamesListButton.interactable = false;
             SwipeContainer.DOAnchorPosY(swipeStartPosition, AnimationDurationSwipeContainer).From(new Vector2(0, swipeEndPosition));
-            ProfileContainer.DOAnchorPosY(profilePosition, AnimationDurationProfileContainer).From(Vector2.zero).OnComplete(() => {
-                GamesListButton.interactable = false;
-            });
+            ProfileContainer.DOAnchorPosY(profilePosition, AnimationDurationProfileContainer).From(Vector2.zero);
         }
     }
 }

@@ -1,15 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using NaughtyAttributes;
 using Newtonsoft.Json.Linq;
 using RestSharp;
 using TMPro;
 using UnityEngine;
 
-public class TestGetUsers : MonoBehaviour {
-    public TestGameListBuilder BuilderA;
-    public TestGameListBuilder2 BuilderB;
-    public TextMeshProUGUI About;
+public class SwipePageBuilder : MonoBehaviour {
+    [SerializeField] private TestGameListBuilder BuilderA;
+    [SerializeField] private TestGameListBuilder2 BuilderB;
+    [SerializeField] private TestAvatarBuilder BuilderC;
+    [SerializeField] private TestUserInfoBuilder BuilderD;
+    [SerializeField] private TextMeshProUGUI About;
     
     private JArray usersArray;
 
@@ -49,6 +50,8 @@ public class TestGetUsers : MonoBehaviour {
         var userModel = UserModel.Deserialize(user0["profile"]);
         BuilderA.Build(userModel);
         BuilderB.Build(userModel);
+        BuilderC.Build(userModel);
+        BuilderD.Build(userModel);
         About.text = userModel.About;
     }
 }
