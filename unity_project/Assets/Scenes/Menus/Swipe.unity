@@ -340,7 +340,7 @@ RectTransform:
   - {fileID: 631370220}
   - {fileID: 175983527}
   m_Father: {fileID: 880497936}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -2327,7 +2327,7 @@ RectTransform:
   - {fileID: 1565022260}
   - {fileID: 1267687212}
   m_Father: {fileID: 880497936}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -2946,9 +2946,9 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 1421724423}
   - {fileID: 107242603}
   - {fileID: 682598401}
+  - {fileID: 1421724423}
   m_Father: {fileID: 1325297053}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2988,6 +2988,17 @@ MonoBehaviour:
   AnimationDurationSwipeContainer: 0.5
   AnimationDurationGamesListButton: 0.25
   GamesListButton: {fileID: 1572312956}
+  gamesListStartSizeDelta: {x: -64, y: -64}
+  gamesListStartAnchored: {x: 0, y: 0}
+  gamesListEndSizeDelta: {x: -64, y: -160}
+  gamesListEndAnchored: {x: 0, y: -48}
+  gamesListButtonStartSizeDelta: {x: -60, y: -60}
+  gamesListButtonStartAnchored: {x: 0, y: 0}
+  gamesListButtonEndSizeDelta: {x: -60, y: -156}
+  gamesListButtonEndAnchored: {x: 0, y: -48}
+  profilePosition: -1629
+  swipeStartPosition: 64
+  swipeEndPosition: 2161
 --- !u!114 &880497939
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4789,7 +4800,7 @@ RectTransform:
   - {fileID: 1004208148}
   - {fileID: 957299289}
   m_Father: {fileID: 880497936}
-  m_RootOrder: 0
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
