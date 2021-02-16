@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using NaughtyAttributes;
 using Newtonsoft.Json.Linq;
 using RestSharp;
@@ -11,6 +12,15 @@ public class TestGetUsers : MonoBehaviour {
     public TextMeshProUGUI About;
     
     private JArray usersArray;
+
+    private void Start() {
+        ServerConnection.Instance.MakeRequestAsync("/users", Method.GET, new List<(string key, string value)>(), response => {
+            usersArray = JArray.Parse(response.Content);
+            Debug.Log(response.Content);
+
+            LoadUser();
+        });
+    }
 
     [Button]
     public void GetUsers() {
