@@ -30,7 +30,7 @@ public class OnboardingController : MonoBehaviour {
     private Gender gender = Gender.Male;
     private GenderPreference genderPreference = GenderPreference.None;
     private RelationshipPreference relationshipPreference = RelationshipPreference.None;
-    private string name;
+    private string firstName;
     private Date birthDate;
     private string about;
     private GameGenre gameGenres = GameGenre.None;
@@ -60,7 +60,7 @@ public class OnboardingController : MonoBehaviour {
         AvatarConfiguration avatarConfiguration = null;
         if (profilePictureType == ProfilePictureType.Avatar) avatarConfiguration = Customizer.BuildAvatarModel();
         var userModel = new UserModel {
-            Name = name,
+            Name = firstName,
             BirthDate = birthDate,
             About = about,
             Gender = gender,
@@ -107,7 +107,7 @@ public class OnboardingController : MonoBehaviour {
     }
 
     public void OnNameChange(string newName) {
-        name = newName;
+        firstName = newName;
         CheckAboutValid();
     }
 
@@ -131,7 +131,7 @@ public class OnboardingController : MonoBehaviour {
     }
 
     private void CheckAboutValid() {
-        var valid = !string.IsNullOrWhiteSpace(name) &&
+        var valid = !string.IsNullOrWhiteSpace(firstName) &&
                     !string.IsNullOrWhiteSpace(birthDate.Day) &&
                     !string.IsNullOrWhiteSpace(birthDate.Month) &&
                     !string.IsNullOrWhiteSpace(birthDate.Year);
