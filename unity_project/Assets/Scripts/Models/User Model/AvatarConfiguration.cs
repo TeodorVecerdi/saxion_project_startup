@@ -3,25 +3,25 @@ using UnityEngine;
 
 [Serializable]
 public class AvatarConfiguration {
-    public Color SkinColor;
+    public SerializableColor SkinColor;
 
     public int FacialHairStyle;
-    public Color FacialHairColor;
+    public SerializableColor FacialHairColor;
 
     public int EyebrowStyle;
-    public Color EyebrowColor;
+    public SerializableColor EyebrowColor;
 
     public int HairStyle;
-    public Color HairColor;
+    public SerializableColor HairColor;
 
     public int EyeStyle;
     
     public int ClothingStyle;
-    public Color ClothingColor;
+    public SerializableColor ClothingColor;
     
     public int MouthStyle;
-    public Color MouthColor;
+    public SerializableColor MouthColor;
     
     public int AccessoryStyle;
-    public Color AccessoryColor;
+    public SerializableColor AccessoryColor;
 }

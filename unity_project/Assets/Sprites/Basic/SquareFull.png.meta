@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 4a81f8d1c67902b4fb49296c150e6a46
+guid: b3f5a04a15cecd8469ae2d163b68dab8
 TextureImporter:
   internalIDToNameTable:
   - first:
@@ -8,6 +8,12 @@ TextureImporter:
   - first:
       213: 7502894752496598917
     second: Square_1
+  - first:
+      213: -5610988293075988209
+    second: SquareFull_0
+  - first:
+      213: 1526516042813948006
+    second: SquareFull_1
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -47,13 +53,13 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
-  spriteMeshType: 1
+  spriteMeshType: 0
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 100
-  spriteBorder: {x: 8, y: 8, z: 8, w: 8}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
   alphaIsTransparency: 1
@@ -109,13 +115,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Square
+      name: SquareFull_1
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 256
-        height: 256
+        x: 8
+        y: 8
+        width: 240
+        height: 240
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -123,29 +129,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2d009a6b596c7d760800000000000000
-      internalID: 7482667652216324306
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Square_1
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 0
-        width: 256
-        height: 256
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 8, y: 8, z: 8, w: 8}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 58fb3bd7603af1860800000000000000
-      internalID: 7502894752496598917
+      spriteID: 6604cdbc0464f2510800000000000000
+      internalID: 1526516042813948006
       vertices: []
       indices: 
       edges: []
