@@ -1,5 +1,6 @@
 const {v4} = require('uuid')
 const fs = require('fs');
+const v8 = require('v8')
 
 function makeAccount(username, password) {
     let userId = v4();
@@ -109,12 +110,11 @@ class ServerState {
     }
 
     getUsers() {
-        let users = {};
-        for(let key of Object.keys(this.loggedUsers)) {
-            users[key] = {
-                username: this.loggedUsers[key].username,
-                id: this.loggedUsers[key].id
-            }
+        let users = [];
+        for(let key of Object.keys(this.registeredUsers)) {
+            let user = v8.deserialize(v8.serialize(this.registeredUsers[key]));
+            delete user['password'];
+            users.push(user);
         }
         return users;
     }
@@ -184,6 +184,7 @@ class ServerState {
 
         let accIdx = this.registeredUsers.findIndex(account => account.id == userId);
         this.registeredUsers[accIdx].profile = profile;
+        this.createBackup();
     }
 }
 
