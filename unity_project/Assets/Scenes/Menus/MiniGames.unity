@@ -314,7 +314,7 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
+  m_PixelsPerUnitMultiplier: 0.3
 --- !u!222 &215830158
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1838,7 +1838,7 @@ MonoBehaviour:
   truth1: {fileID: 8950012083571361650}
   truth2: {fileID: 8950012084066865382}
   lie: {fileID: 8950012083999210890}
-  outputButtons:
+  outputTexts:
   - {fileID: 1311687054}
   - {fileID: 1778491554}
   - {fileID: 1535378878}
