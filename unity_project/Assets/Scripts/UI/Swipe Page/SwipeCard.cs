@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityCommons;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
@@ -16,6 +17,8 @@ public class SwipeCard : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDra
     [SerializeField] private List<ImageIndicatorPair> Slides;
     [SerializeField] private Color ActiveColor;
     [SerializeField] private Color InactiveColor;
+    [Space]
+    [SerializeField] private UnityEvent<bool> OnSwipe;
     private bool confirmed = false;
     private bool confirmValue = false;
 
@@ -64,7 +67,7 @@ public class SwipeCard : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDra
         if (Yes != null) Yes.SetActive(false);
 
         if (confirmed) {
-            Debug.Log($"You chose: {(confirmValue ? "YES" : "NO")}");
+            OnSwipe?.Invoke(confirmValue);
         }
     }
 

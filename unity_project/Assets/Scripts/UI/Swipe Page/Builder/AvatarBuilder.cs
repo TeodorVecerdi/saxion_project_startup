@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class TestAvatarBuilder : MonoBehaviour {
+public class AvatarBuilder : MonoBehaviour, IBuilder {
     [SerializeField] private Image Skin;
     [SerializeField] private Image Clothing;
     [SerializeField] private Image Eyes;
@@ -39,5 +39,7 @@ public class TestAvatarBuilder : MonoBehaviour {
         Accessories.sprite = avatarSprites.Accessory[model.Avatar.AccessoryStyle];
         Accessories.color = model.Avatar.AccessoryColor;
     }
+
+    public void Cleanup() {}
 }
 

@@ -1,11 +1,4 @@
-﻿using System;
-using TMPro;
-using Unity;
-using Unity.VectorGraphics;
-using UnityEditor.Rendering;
-using UnityEngine;
-using UnityEngine.Rendering;
-using UnityEngine.UI;
+﻿using UnityEngine;
 
 public class ArrowButton : MonoBehaviour
 {

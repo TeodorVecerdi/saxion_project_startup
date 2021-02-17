@@ -12,6 +12,13 @@ public class FadeOut : MonoBehaviour {
     [SerializeField] private UnityEvent OnFadeOut;
     [SerializeField] private UnityEvent OnBeforeFadeOut;
 
+    public void Reset(bool state) {
+        if(Graphics.Count <= 0) return;
+        foreach (var graphic in Graphics) {
+            graphic.DOFade(state ? 0 : 1, 0).From(state ? 0 : 1);
+        }
+    }
+    
     public void Fade(bool state) {
         if(Graphics.Count <= 0) return;
         (state ? OnBeforeFadeOut : OnBeforeFadeIn)?.Invoke();

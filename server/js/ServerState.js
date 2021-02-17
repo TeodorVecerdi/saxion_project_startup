@@ -42,14 +42,19 @@ class ServerState {
         this.socketToId = {};
         this.idToSocket = {};
         this.messages = {};
+        this.swipes = {};
+        this.matches = {};
+        this.unconfirmedMatches = {};
         this.restoreBackup();
     }
 
     getJSON() {
         return JSON.stringify({
             registeredUsers: this.registeredUsers,
-            loggedUsers: this.loggedUsers,
-            messages: this.messages
+            messages: this.messages,
+            swipes: this.swipes,
+            matches: this.matches,
+            unconfirmedMatches: this.unconfirmedMatches
         });
     }
 
@@ -69,9 +74,11 @@ class ServerState {
                     if(err1) throw err1;
                     let backupJSON = JSON.parse(data);
 
-                    this.loggedUsers = backupJSON.loggedUsers || {};
                     this.registeredUsers = backupJSON.registeredUsers || [];
                     this.messages = backupJSON.messages || {};
+                    this.swipes = backupJSON.swipes || {};
+                    this.matches = backupJSON.matches || {};
+                    this.unconfirmedMatches = backupJSON.unconfirmedMatches || {};
 
                     console.log("Backup restored successfully!")
                 });
@@ -184,6 +191,63 @@ class ServerState {
 
         let accIdx = this.registeredUsers.findIndex(account => account.id == userId);
         this.registeredUsers[accIdx].profile = profile;
+        this.createBackup();
+    }
+
+    swipe(from, to, swipe) {
+        if(!this.swipes.hasOwnProperty(from))
+            this.swipes[from] = {};
+        this.swipes[from][to] = swipe;
+        this.createBackup();
+
+        this.checkMatches(from, to);
+    }
+    checkMatches(from, to) {
+        if(!this.swipes.hasOwnProperty(from) || !this.swipes.hasOwnProperty(to) || !this.swipes[from].hasOwnProperty(to) || !this.swipes[to].hasOwnProperty(from)) return;
+
+        if(this.swipes[from][to] == 1 && this.swipes[to][from] == 1) {
+            if(!this.matches.hasOwnProperty(from)) this.matches[from] = {};
+            if(!this.matches.hasOwnProperty(to)) this.matches[to] = {};
+
+            if(!this.unconfirmedMatches.hasOwnProperty(from)) this.unconfirmedMatches[from] = {};
+            if(!this.unconfirmedMatches.hasOwnProperty(to)) this.unconfirmedMatches[to] = {};
+
+
+            this.matches[from][to] = {};
+            this.matches[to][from] = {};
+            this.unconfirmedMatches[from][to] = {}
+            this.unconfirmedMatches[to][from] = {}
+
+            this.createBackup();
+        }
+    }
+    hasMatch(from, to) {
+        if(!this.matches.hasOwnProperty(from) || !this.matches.hasOwnProperty(to) || !this.matches[from].hasOwnProperty(to) || !this.matches[to].hasOwnProperty(from)) return false;
+        return true;
+    }
+    getMatches(userId) {
+        if(!this.matches.hasOwnProperty(userId)) return [];
+        return Object.keys(this.matches[userId]);
+    }
+    getSwipes(userId) {
+        if(!this.swipes.hasOwnProperty(userId)) return [];
+        let swipes = [];
+        for(let key of Object.keys(this.swipes[userId])) {
+            swipes.push({"id": key, "swipe": this.swipes[userId][key]})
+        }
+        return swipes;
+    }
+    getUnconfirmedMatches(userId) {
+        if(!this.unconfirmedMatches.hasOwnProperty(userId)) return [];
+        return Object.keys(this.unconfirmedMatches[userId]);
+    }
+    confirmMatches(userId, ids) {
+        if(!this.unconfirmedMatches.hasOwnProperty(userId)) return;
+
+        for(let id of ids) {
+            if(this.unconfirmedMatches[userId].hasOwnProperty(id))
+                delete this.unconfirmedMatches[userId][id];
+        }
         this.createBackup();
     }
 }
