@@ -17,8 +17,7 @@ public class BtnTextSend : MonoBehaviour
     private GameObject contentPanel;
 
     private RectTransform _panelRectTransform;
-    private float gap = 100f;
-    
+
     public void Awake()
     {
         _panelRectTransform = contentPanel.GetComponent<RectTransform>();
