@@ -12,6 +12,7 @@ public class MatchAnimation : MonoBehaviour {
     [SerializeField] private float AnimationDurationOut = 0.5f;
     [SerializeField] private float AnimationDurationIn = 0.25f;
     [SerializeField] private List<GameObject> Builders;
+    [SerializeField] private Button HideButton;
 
     public void Match(UserModel model) {
         foreach (var builder in Builders) {
@@ -21,7 +22,8 @@ public class MatchAnimation : MonoBehaviour {
                 builderComp.Build(model);
             }
         }
-        
+
+        HideButton.enabled = true;
         NotificationFader.Reset(false);
         gameObject.SetActive(true);
         Show();
@@ -35,6 +37,7 @@ public class MatchAnimation : MonoBehaviour {
     public void Hide() {
         NotificationFader.Fade(true);
         AnimationFader.Fade(false);
+        HideButton.enabled = false;
     }
 
     public void SecondAnimation() {
