@@ -2714,6 +2714,7 @@ MonoBehaviour:
   - {fileID: 633189600}
   - {fileID: 1990776283}
   - {fileID: 1082243048}
+  HideButton: {fileID: 673102710}
 --- !u!114 &673102709
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3288,6 +3289,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  Temp_ShowAlreadySwiped: 1
+  currentUser: 0
 --- !u!114 &710527668
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3508,7 +3511,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.034425, g: 0.075723685, b: 0.135, a: 1}
+  m_Color: {r: 0.8509804, g: 0.05882353, b: 0.24705882, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
