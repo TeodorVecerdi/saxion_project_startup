@@ -23,14 +23,12 @@ public class SwipePageTransition : MonoBehaviour {
         ChangeProfile_Buttons(true);
         ChangeProfile_GameList(true);
         ChangeProfile_ContainerPosition(true);
-        Debug.Log("Opened profile");
     }
 
     public void CloseProfile() {
         ChangeProfile_Buttons(false);
         ChangeProfile_GameList(false);
         ChangeProfile_ContainerPosition(false);
-        Debug.Log("Closed profile");
     }
 
     private void ChangeProfile_Buttons(bool open) {

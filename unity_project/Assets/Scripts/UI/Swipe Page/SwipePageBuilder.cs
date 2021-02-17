@@ -1,55 +1,74 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using NaughtyAttributes;
 using Newtonsoft.Json.Linq;
 using RestSharp;
-using TMPro;
 using UnityCommons;
 using UnityEngine;
-using Extensions = UnityCommons.Extensions;
+using UnityEngine.Events;
 
 public class SwipePageBuilder : MonoBehaviour {
     [SerializeField] private List<GameObject> Builders;
-    private JArray usersArray;
+    private List<AccountModel> allUsers = new List<AccountModel>();
+    private Dictionary<int, bool> parseCoroutines = new Dictionary<int, bool>();
+
+    private int currentUser;
 
     private void Start() {
         ServerConnection.Instance.MakeRequestAsync("/users", Method.GET, new List<(string key, string value)>(), response => {
-            usersArray = JArray.Parse(response.Content);
-            Debug.Log(response.Content);
+            allUsers.Clear();
+            var usersArray = JArray.Parse(response.Content);
+            for (var index = 0; index < usersArray.Count; index++) {
+                var account = usersArray[index];
+                parseCoroutines[index] = false;
+                StartCoroutine(ParseAccount(index, account));
+            }
 
-            LoadUser();
+            IDisposable cancelToken = null;
+            cancelToken = UpdateUtility.Create(() => {
+                if (!parseCoroutines.All(pair => pair.Value))
+                    return;
+
+                // ReSharper disable once AccessToModifiedClosure
+                // It's supposed to be this way ^
+                cancelToken?.Dispose();
+                Initialize();
+            });
         });
     }
 
-    [Button]
-    public void GetUsers() {
-        ServerConnection.Instance.MakeRequestAsync("/users", Method.GET, new List<(string key, string value)>(), response => {
-            usersArray = JArray.Parse(response.Content);
-            Debug.Log(response.Content);
-
-            LoadUser();
-        });
+    public void OnSwipe(bool swipe) {
+        currentUser++;
+        if (currentUser >= allUsers.Count) currentUser = 0;
+        LoadUser();
     }
 
-    [Button]
-    public void DeserializeUser() {
-        var user0 = usersArray[0];
-        var userModel = UserModel.Deserialize(user0["profile"]);
-        Debug.Log(userModel.GenrePreferences);
-        Debug.Log(userModel.PlayedGames);
-        Debug.Log(userModel.RelationshipPreference);
-        Debug.Log(userModel.GenderPreference);
-        // var serialized = userModel.Serialize();
-        // Debug.Log(serialized);
+    private void Initialize() {
+        currentUser = 0;
+        LoadUser();
+    }
+
+    private IEnumerator ParseAccount(int index, JToken account) {
+        yield return null;
+        if (account["profile"].ToString() == "{}") {
+            parseCoroutines[index] = true;
+            yield break;
+        }
+        var acc = AccountModel.Deserialize(account);
+        parseCoroutines[index] = true;
+        allUsers.Add(acc);
     }
 
     private void LoadUser() {
-        var user0 = usersArray[0];
-        var userModel = UserModel.Deserialize(user0["profile"]);
+        if(currentUser >= allUsers.Count) return;
+        
         Builders.ForEach(@object => {
             var builders = @object.GetComponents<IBuilder>();
             foreach (var builder in builders) {
                 builder.Cleanup();
-                builder.Build(userModel);
+                builder.Build(allUsers[currentUser].UserModel);
             }
         });
     }

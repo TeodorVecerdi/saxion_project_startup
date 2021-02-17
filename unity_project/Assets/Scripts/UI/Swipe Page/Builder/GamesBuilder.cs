@@ -1,9 +1,11 @@
 using NaughtyAttributes;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GamesBuilder : MonoBehaviour, IBuilder {
     [SerializeField, Foldout("Games List")] private GameListItem GameListPrefab;
     [SerializeField, Foldout("Games List")] private RectTransform GameListContainer;
+    [SerializeField, Foldout("Games List")] private ScrollRect GameListScrollRect;
     
     [SerializeField, Foldout("Games Picture")] private GameListItem GamePicturePrefab;
     [SerializeField, Foldout("Games Picture")] private RectTransform GamePictureContainer;
@@ -56,13 +58,15 @@ public class GamesBuilder : MonoBehaviour, IBuilder {
             LastItem.Poster.sprite = gameData.Games[games[games.Count - 1]].GameTexture;
             LastItem.transform.SetAsLastSibling();
         }
+        
+        GameListScrollRect.normalizedPosition = Vector2.zero;
     }
 
     public void Cleanup() {
         while (GameListContainer.childCount > 0) {
             var child = GameListContainer.GetChild(0);
             child.SetParent(null);
-            Destroy(child);
+            Destroy(child.gameObject);
         }
         
         GamePictureParent.sizeDelta = new Vector2(1029, 768);
@@ -72,7 +76,7 @@ public class GamesBuilder : MonoBehaviour, IBuilder {
         while (GamePictureContainer.childCount > 1) {
             var child = GamePictureContainer.GetChild(0);
             child.SetParent(null);
-            Destroy(child);
+            Destroy(child.gameObject);
         }
     }
 }

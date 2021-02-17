@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using UnityCommons;
-using UnityEngine;
 
 [Serializable]
 public class UserModel {
