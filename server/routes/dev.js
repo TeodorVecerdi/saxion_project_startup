@@ -4,7 +4,7 @@ const serverState = require("../js/ServerState");
 
 router.get('/ping', (req, res) => {
     console.log(serverState.getJSON());
-    res.render("pages/empty")
+    res.send(serverState.getJSON());
 })
 
 router.get('/clear', (req, res) => {
