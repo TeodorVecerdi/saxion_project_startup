@@ -1,3 +1,8 @@
 ﻿fileFormatVersion: 2
+<<<<<<< develop
 guid: ef431143cdb04fd2beb68e8670c988d7
 timeCreated: 1613478378
+=======
+guid: 0c3c0bf273404c3d871b04f29d187daf
+timeCreated: 1613504558
+>>>>>>> Fixed chat yPos between texts

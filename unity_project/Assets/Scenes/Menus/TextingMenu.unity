@@ -386,7 +386,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 33618610}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 47b79f74ead84a28a0d205d1b2008ff9, type: 3}
+  m_Script: {fileID: 11500000, guid: fc945c561303ada4bbe1235edcf1ad73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   messagePrefab: {fileID: 867075885294902336, guid: 57af929b3800e8848b336f74ada1c262, type: 3}
@@ -863,6 +863,7 @@ GameObject:
   - component: {fileID: 359971554}
   - component: {fileID: 359971553}
   - component: {fileID: 359971555}
+  - component: {fileID: 359971556}
   m_Layer: 5
   m_Name: ContentPanel
   m_TagString: Untagged
@@ -934,7 +935,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 359971551}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1aa08ab6e0800fa44ae55d278d1423e3, type: 3}
   m_Name: 
@@ -957,6 +958,32 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &359971556
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 359971551}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59f8146938fff824cb5fd77236b75775, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding:
+    m_Left: 0
+    m_Right: 0
+    m_Top: 35
+    m_Bottom: 35
+  m_ChildAlignment: 1
+  m_Spacing: 75
+  m_ChildForceExpandWidth: 0
+  m_ChildForceExpandHeight: 0
+  m_ChildControlWidth: 0
+  m_ChildControlHeight: 0
+  m_ChildScaleWidth: 0
+  m_ChildScaleHeight: 0
+  m_ReverseArrangement: 0
 --- !u!1 &365859128
 GameObject:
   m_ObjectHideFlags: 0
@@ -1588,7 +1615,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 0}
+  m_TargetGraphic: {fileID: 767673141}
   m_TextViewport: {fileID: 667247015}
   m_TextComponent: {fileID: 719673162}
   m_Placeholder: {fileID: 951518508}

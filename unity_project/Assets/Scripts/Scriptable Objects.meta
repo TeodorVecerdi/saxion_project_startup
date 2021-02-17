@@ -1,3 +1,4 @@
+<<<<<<< develop
 fileFormatVersion: 2
 guid: 351fc039a8d21de4788d71d8e75806c6
 folderAsset: yes
@@ -6,3 +7,8 @@ DefaultImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
+=======
+﻿fileFormatVersion: 2
+guid: 893a58d0519b4c199c9e08dec3b1362f
+timeCreated: 1613504560
+>>>>>>> Fixed chat yPos between texts

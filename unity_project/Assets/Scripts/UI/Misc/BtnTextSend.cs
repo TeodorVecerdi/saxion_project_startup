@@ -29,8 +29,5 @@ public class BtnTextSend : MonoBehaviour
         var newMessage = Instantiate(messagePrefab, _panelRectTransform);
         var outputField = newMessage.GetComponent<TMP_InputField>();
         outputField.text = inputField.text;
-        var messageRectTransform = newMessage.GetComponent<RectTransform>();
-        messageRectTransform.Translate(0,-1 * gap * (_panelRectTransform.transform.childCount - 1f),0); //TODO: change gap
-        
     }
 }
