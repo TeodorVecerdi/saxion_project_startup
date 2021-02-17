@@ -44,6 +44,7 @@ class ServerState {
         this.messages = {};
         this.swipes = {};
         this.matches = {};
+        this.unconfirmedMatches = {};
         this.restoreBackup();
     }
 
@@ -52,7 +53,8 @@ class ServerState {
             registeredUsers: this.registeredUsers,
             messages: this.messages,
             swipes: this.swipes,
-            matches: this.matches
+            matches: this.matches,
+            unconfirmedMatches: this.unconfirmedMatches
         });
     }
 
@@ -76,6 +78,7 @@ class ServerState {
                     this.messages = backupJSON.messages || {};
                     this.swipes = backupJSON.swipes || {};
                     this.matches = backupJSON.matches || {};
+                    this.unconfirmedMatches = backupJSON.unconfirmedMatches || {};
 
                     console.log("Backup restored successfully!")
                 });
@@ -206,8 +209,15 @@ class ServerState {
             if(!this.matches.hasOwnProperty(from)) this.matches[from] = {};
             if(!this.matches.hasOwnProperty(to)) this.matches[to] = {};
 
+            if(!this.unconfirmedMatches.hasOwnProperty(from)) this.unconfirmedMatches[from] = {};
+            if(!this.unconfirmedMatches.hasOwnProperty(to)) this.unconfirmedMatches[to] = {};
+
+
             this.matches[from][to] = {};
             this.matches[to][from] = {};
+            this.unconfirmedMatches[from][to] = {}
+            this.unconfirmedMatches[to][from] = {}
+
             this.createBackup();
         }
     }
@@ -223,9 +233,22 @@ class ServerState {
         if(!this.swipes.hasOwnProperty(userId)) return [];
         let swipes = [];
         for(let key of Object.keys(this.swipes[userId])) {
-            swipes.push(this.swipes[userId][key])
+            swipes.push({"id": key, "swipe": this.swipes[userId][key]})
         }
         return swipes;
+    }
+    getUnconfirmedMatches(userId) {
+        if(!this.unconfirmedMatches.hasOwnProperty(userId)) return [];
+        return Object.keys(this.unconfirmedMatches[userId]);
+    }
+    confirmMatches(userId, ids) {
+        if(!this.unconfirmedMatches.hasOwnProperty(userId)) return;
+
+        for(let id of ids) {
+            if(this.unconfirmedMatches[userId].hasOwnProperty(id))
+                delete this.unconfirmedMatches[userId][id];
+        }
+        this.createBackup();
     }
 }
 
