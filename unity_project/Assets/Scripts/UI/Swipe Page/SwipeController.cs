@@ -9,8 +9,9 @@ using UnityCommons;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class SwipePageBuilder : MonoBehaviour {
+public class SwipeController : MonoBehaviour {
     [SerializeField] private List<GameObject> Builders;
+    [SerializeField] private UnityEvent<UserModel> OnMatch;
     private List<AccountModel> allUsers = new List<AccountModel>();
     private Dictionary<int, bool> parseCoroutines = new Dictionary<int, bool>();
 
@@ -40,9 +41,36 @@ public class SwipePageBuilder : MonoBehaviour {
     }
 
     public void OnSwipe(bool swipe) {
-        currentUser++;
-        if (currentUser >= allUsers.Count) currentUser = 0;
-        LoadUser();
+        var selfUser = UserState.Instance.UserId;
+        var other = allUsers[currentUser].UserId;
+        var swipeInt = swipe ? "1" : "0";
+
+        if (selfUser == other) {
+            currentUser++;
+            if (currentUser >= allUsers.Count) currentUser = 0;
+            LoadUser();
+            Debug.Log("Skipped swipe");
+            return;
+        }
+        
+        ServerConnection.Instance.MakeRequestAsync("/users/swipe", Method.POST, new List<(string key, string value)> {
+            ("from", selfUser),
+            ("to", other),
+            ("swipe", swipeInt)
+        }, response => {
+            var oldCurrentUser = currentUser;
+            currentUser++;
+            if (currentUser >= allUsers.Count) currentUser = 0;
+            LoadUser();
+
+            ServerConnection.Instance.MakeRequestAsync("/users/has-match", Method.GET, new List<(string key, string value)> {
+                ("from", selfUser),
+                ("to", other)
+            }, response1 => {
+                var hasMatch = bool.Parse(response1.Content);
+                if(hasMatch) OnMatch?.Invoke(allUsers[oldCurrentUser].UserModel);
+            });
+        });
     }
 
     private void Initialize() {
