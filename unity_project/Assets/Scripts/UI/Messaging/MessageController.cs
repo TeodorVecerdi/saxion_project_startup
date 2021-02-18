@@ -35,7 +35,6 @@ public class MessageController : MonoBehaviour {
             }
         });
         yield return null;
-        yield return null;
         ScrollRect.normalizedPosition = Vector2.zero;
     }
 }

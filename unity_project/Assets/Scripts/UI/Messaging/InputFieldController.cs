@@ -7,7 +7,7 @@ public class InputFieldController : MonoBehaviour {
     [SerializeField] private RectTransform SendButton;
     [SerializeField] private RectTransform MinigamesContainer;
     [SerializeField] private TMP_InputField Input;
-    [SerializeField] private MessageController MessageController;
+    [SerializeField] private ChatManager ChatManager;
     private bool sendVisible = false;
 
 
@@ -41,9 +41,8 @@ public class InputFieldController : MonoBehaviour {
         
         Input.text = "";
         Input.OnPointerClick(new PointerEventData(null));
-        
-        if (UnityEngine.Input.GetKey(KeyCode.LeftControl)) MessageController.OnMessageOther(message);
-        else MessageController.OnMessageSelf(message);
+
+        ChatManager.EmitMessage(message);
     }
 }
 
