@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using Unity;
+﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(Button))]
@@ -18,7 +15,7 @@ public class BtnSelectAnswer : MonoBehaviour
     {
         parentPanel = gameObject.transform.parent.parent;
         _lieData = parentPanel.GetComponent<SaveLieData>();
-        _btnList.AddRange(_lieData.GetOutputList());
+        _btnList = _lieData.GetOutputList();
     }
 
     public void OnSelectOption()
@@ -30,7 +27,6 @@ public class BtnSelectAnswer : MonoBehaviour
             btnSelectAnswerComp.Selected = false;
             selectAnswerList.Add(btnSelectAnswerComp);
         }
-
         Selected = true;
     }
 

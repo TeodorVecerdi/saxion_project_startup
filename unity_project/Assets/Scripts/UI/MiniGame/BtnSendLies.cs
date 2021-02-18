@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
-using Unity;
 using TMPro;
-using UnityEngine.Rendering;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
@@ -19,7 +16,7 @@ public class BtnSendLies : MonoBehaviour
     [SerializeField] [Tooltip("Please use 3 buttons")] 
     private List<Button> outputBtnObjects;
     
-    private int _lastLieIndex;
+    private int _lastLieIndex = 9;
     
 
     public void OnClick()
@@ -56,14 +53,4 @@ public class BtnSendLies : MonoBehaviour
         answerPanel.SetActive(true);
         inputPanel.SetActive(false);
     }
-
-    // public List<Button> GetOutputList()
-    // {
-    //     return outputBtnObjects;
-    // }
-    //
-    // public int GetLieIndex()
-    // {
-    //     return _lastLieIndex;
-    // }
 }

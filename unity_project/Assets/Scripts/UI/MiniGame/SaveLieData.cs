@@ -1,12 +1,11 @@
-﻿
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class SaveLieData : MonoBehaviour
 {
-    private int _lieIndex = 9;
-    private List<Button> _outputList;
+    public int _lieIndex = 9;
+    public List<Button> _outputList;
 
     public int GetLieIndex()
     {
@@ -25,8 +24,7 @@ public class SaveLieData : MonoBehaviour
 
     public void SetOutputList(List<Button> btnList)
     {
-        //_outputList = btnList;
-        _outputList.AddRange(btnList);
+        _outputList = btnList;
     }
 
 }
