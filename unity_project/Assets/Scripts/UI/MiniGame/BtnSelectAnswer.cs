@@ -20,14 +20,21 @@ public class BtnSelectAnswer : MonoBehaviour
 
     public void OnSelectOption()
     {
-        var selectAnswerList = new List<BtnSelectAnswer>();
         for (int index = 0; index < _btnList.Count; index++)
         {
             var btnSelectAnswerComp = _btnList[index].GetComponent<BtnSelectAnswer>();
             btnSelectAnswerComp.Selected = false;
-            selectAnswerList.Add(btnSelectAnswerComp);
         }
         Selected = true;
+    }
+
+    public void OnDeselect()
+    {
+        for (int index = 0; index < _btnList.Count; index++)
+        {
+            var btnSelectAnswerComp = _btnList[index].GetComponent<BtnSelectAnswer>();
+            btnSelectAnswerComp.Selected = false;
+        }
     }
 
     public bool GetSelectedBool()

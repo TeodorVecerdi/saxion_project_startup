@@ -17,40 +17,45 @@ public class BtnSendLies : MonoBehaviour
     private List<Button> outputBtnObjects;
     
     private int _lastLieIndex = 9;
-    
+
 
     public void OnClick()
     {
-        var textsCount = outputBtnObjects.Count;
-        var tempOutTexts = new List<TMP_Text>();
-
-        if(textsCount != 3) //The list must have 3 components
-            throw new Exception("The output list needs to have a size of 3");
-
-        var saveData = inputPanel.transform.parent.GetComponent<SaveLieData>();
-        saveData.SetOutputList(outputBtnObjects);
-        
-        for (int index = 0; index < textsCount; index++) // Assign _tempOutTexts TMP_Text Component
+        if (truth1.text == "" || truth2.text == "" || lie.text == "")
+            throw new Exception("Please fill all input fields");
+        else
         {
-            var txtComp = outputBtnObjects[index].transform.GetComponentInChildren<TMP_Text>();
-            tempOutTexts.Add(txtComp);
+            var textsCount = outputBtnObjects.Count;
+            var tempOutTexts = new List<TMP_Text>();
+
+            if (textsCount != 3) //The list must have 3 components
+                throw new Exception("The output list needs to have a size of 3");
+
+            var saveData = inputPanel.transform.parent.GetComponent<SaveLieData>();
+            saveData.SetOutputList(outputBtnObjects);
+
+            for (int index = 0; index < textsCount; index++) // Assign _tempOutTexts TMP_Text Component
+            {
+                var txtComp = outputBtnObjects[index].transform.GetComponentInChildren<TMP_Text>();
+                tempOutTexts.Add(txtComp);
+            }
+
+            var randomIndex = Random.Range(0, textsCount - 1);
+            _lastLieIndex = randomIndex;
+            saveData.SetLieIndex(_lastLieIndex);
+
+            tempOutTexts[randomIndex].text = lie.text;
+            tempOutTexts.Remove(tempOutTexts[randomIndex]);
+
+            randomIndex = Random.Range(0, textsCount - 1);
+            tempOutTexts[randomIndex].text = truth1.text;
+            tempOutTexts.Remove(tempOutTexts[randomIndex]);
+
+            randomIndex = 0;
+            tempOutTexts[randomIndex].text = truth2.text;
+
+            answerPanel.SetActive(true);
+            inputPanel.SetActive(false);
         }
-        
-        var randomIndex = Random.Range(0, textsCount - 1);
-        _lastLieIndex = randomIndex;
-        saveData.SetLieIndex(_lastLieIndex);
-        
-        tempOutTexts[randomIndex].text = lie.text;
-        tempOutTexts.Remove(tempOutTexts[randomIndex]);
-        
-        randomIndex = Random.Range(0, textsCount - 1);
-        tempOutTexts[randomIndex].text = truth1.text;
-        tempOutTexts.Remove(tempOutTexts[randomIndex]);
-        
-        randomIndex = 0;
-        tempOutTexts[randomIndex].text = truth2.text;
-        
-        answerPanel.SetActive(true);
-        inputPanel.SetActive(false);
     }
 }
