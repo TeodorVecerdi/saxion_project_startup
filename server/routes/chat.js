@@ -17,6 +17,12 @@ router.post('/confirm-messages', (req, res) => {
     res.status(200).end();
 })
 
+router.post('/confirm-all', (req, res) => {
+    console.log(`Confirming all messages`);
+    serverState.confirmAllMessages(req.body.from, req.body.to);
+    res.status(200).end();
+})
+
 router.get('/messages', (req, res) => {
     let messages = serverState.getMessages(req.query.from, req.query.to);
     console.log(`Getting messages: ${JSON.stringify(messages)}`)
