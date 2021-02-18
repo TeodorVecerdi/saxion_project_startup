@@ -20,12 +20,8 @@ public class MessageController : MonoBehaviour {
     }
 
     private void AddMessage(TMP_InputField prefab, string text) {
-        StartCoroutine(SpawnMessage(prefab, text));
-    }
-
-    private IEnumerator SpawnMessage(TMP_InputField prefab, string message) {
         var messageObject = Instantiate(prefab, MessageContainer);
-        messageObject.text = message;
+        messageObject.text = text;
         IDisposable cancel = null;
         cancel = UpdateUtility.Create(() => {
             var caret = messageObject.gameObject.GetComponentInChildren<TMP_SelectionCaret>(true);
@@ -34,7 +30,10 @@ public class MessageController : MonoBehaviour {
                 cancel.Dispose();
             }
         });
-        yield return null;
-        ScrollRect.normalizedPosition = Vector2.zero;
+    }
+
+    public void OnValueChanged(Vector2 newValue) {
+        if (newValue != Vector2.zero)
+            ScrollRect.normalizedPosition = Vector2.zero;
     }
 }
