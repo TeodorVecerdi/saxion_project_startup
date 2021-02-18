@@ -207,9 +207,9 @@ class ServerState {
     }
 
     newMessage(req, timestamp, msgId) {
-        let from = req.query.from;
-        let to = req.query.to;
-        let message = req.query.message;
+        let from = req.body.from;
+        let to = req.body.to;
+        let message = req.body.message;
 
         if(!this.messages.hasOwnProperty(from)) this.messages[from] = {};
         if(!this.messages[from].hasOwnProperty(to)) this.messages[from][to] = {};
@@ -227,13 +227,13 @@ class ServerState {
 
         if(!this.unconfirmedMessages.hasOwnProperty(to)) this.unconfirmedMessages[to] = {};
         if(!this.unconfirmedMessages[to].hasOwnProperty(from)) this.unconfirmedMessages[to][from] = {};
-        this.unconfirmedMessages[to][from] = {msgId: msgId};
+        this.unconfirmedMessages[to][from][msgId] = {};
 
         this.createBackup();
     }
     confirmMessages(from, to, ids) {
-        if(!this.unconfirmedMessages.hasOwnProperty(to)) return;
-        if(!this.unconfirmedMessages[to].hasOwnProperty(from)) return;
+        if(!this.unconfirmedMessages.hasOwnProperty(from)) return;
+        if(!this.unconfirmedMessages[from].hasOwnProperty(to)) return;
 
         for (let id of ids) {
             if(this.unconfirmedMessages[from][to].hasOwnProperty(id))
