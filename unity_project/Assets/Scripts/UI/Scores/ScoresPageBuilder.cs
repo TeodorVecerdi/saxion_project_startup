@@ -12,6 +12,8 @@ public class ScoresPageBuilder : MonoBehaviour {
     [SerializeField] private RectTransform MessageEntryContainer;
     [SerializeField] private GameObject MessageEntryScroll;
     [SerializeField] private GameObject MessageEntryEmpty;
+    [Space]
+    [SerializeField] private ChatManager ChatManager;
 
     public void Build(int likeCount) {
         if (likeCount == 0) {
@@ -38,9 +40,15 @@ public class ScoresPageBuilder : MonoBehaviour {
             foreach (var matchId in AppState.Instance.Matches) {
                 var messageEntry = Instantiate(MessageEntryPrefab, MessageEntryContainer);
                 messageEntry.Build(AppState.Instance.UserAccountsDict[matchId]);
+                var button = messageEntry.GetComponent<Button>();
+                button.onClick.AddListener(() => OpenChat(matchId));
             }
         }
+    }
 
+    private void OpenChat(string userId) {
+        AppState.Instance.ChattingWith = userId;
+        ChatManager.Open();
     }
 }
 

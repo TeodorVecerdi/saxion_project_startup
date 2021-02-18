@@ -20,7 +20,6 @@ public class SwipeController : MonoBehaviour {
 
     private void Start() {
         ServerConnection.Instance.MakeRequestAsync("/users/swipes", Method.GET, new List<(string key, string value)> {("id", UserState.Instance.UserId)}, swipesResponse => {
-            Debug.Log(swipesResponse.Content);
             var swipes = JArray.Parse(swipesResponse.Content);
             foreach (var swipeToken in swipes) {
                 AppState.Instance.SwipedUsers.Add(swipeToken.Value<string>("id"));
@@ -33,14 +32,12 @@ public class SwipeController : MonoBehaviour {
                 }
                 ServerConnection.Instance.MakeRequestAsync("/users/unconfirmed-matches", Method.GET, new List<(string key, string value)> {("id", UserState.Instance.UserId)}, matchesResponse => {
                     // TODO! Show notification of new matches.
-                    Debug.Log($"Confirming matches {matchesResponse.Content}");
                     ServerConnection.Instance.MakeRequestAsync("/users/confirm-matches", Method.POST, new List<(string key, string value)> {
                         ("id", UserState.Instance.UserId),
                         ("ids", matchesResponse.Content)
                     }, null);
                 });
                 ServerConnection.Instance.MakeRequestAsync("/users", Method.GET, new List<(string key, string value)>(), response => {
-                    Debug.Log("Loading users");
                     var usersArray = JArray.Parse(response.Content);
                     for (var index = 0; index < usersArray.Count; index++) {
                         var account = usersArray[index];
