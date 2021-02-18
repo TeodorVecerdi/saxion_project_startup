@@ -3,7 +3,7 @@ using DG.Tweening;
 using NaughtyAttributes;
 using UnityEngine;
 
-public class TestLikesAnimation : MonoBehaviour {
+public class LikesAnimation : MonoBehaviour {
     [SerializeField] private RectTransform Source;
     [SerializeField] private RectTransform Target;
     [SerializeField] private FadeOut Fade1;
