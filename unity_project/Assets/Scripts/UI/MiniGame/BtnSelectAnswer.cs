@@ -8,20 +8,17 @@ using UnityEngine.UI;
 [RequireComponent(typeof(Button))]
 public class BtnSelectAnswer : MonoBehaviour
 { 
-    public bool Selected = false;
+    [SerializeField] private bool Selected = false;
 
     private Transform parentPanel;
     private List<Button> _btnList;
     private SaveLieData _lieData;
-    
-    private void Awake()
+
+    private void OnEnable()
     {
         parentPanel = gameObject.transform.parent.parent;
         _lieData = parentPanel.GetComponent<SaveLieData>();
-        Debug.Log(_lieData);
-        
-        _btnList = _lieData.GetOutputList();
-
+        _btnList.AddRange(_lieData.GetOutputList());
     }
 
     public void OnSelectOption()

@@ -25,7 +25,8 @@ public class SaveLieData : MonoBehaviour
 
     public void SetOutputList(List<Button> btnList)
     {
-        _outputList = btnList;
+        //_outputList = btnList;
+        _outputList.AddRange(btnList);
     }
 
 }

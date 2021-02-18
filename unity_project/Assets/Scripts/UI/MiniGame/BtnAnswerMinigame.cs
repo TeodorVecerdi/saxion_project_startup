@@ -26,7 +26,8 @@ public class BtnAnswerMinigame : MonoBehaviour
         {
             throw new Exception("Lie index wasn't saved");
         }
-        _outputBtnObjects = _lieData.GetOutputList();
+        //_outputBtnObjects = _lieData.GetOutputList();
+        _outputBtnObjects.AddRange(_lieData.GetOutputList());
     }
 
     public void OnClick()

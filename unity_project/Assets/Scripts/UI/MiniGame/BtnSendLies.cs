@@ -31,7 +31,6 @@ public class BtnSendLies : MonoBehaviour
             throw new Exception("The output list needs to have a size of 3");
 
         var saveData = inputPanel.transform.parent.GetComponent<SaveLieData>();
-        //Debug.Log(inputPanel.transform.parent);
         saveData.SetOutputList(outputBtnObjects);
         
         for (int index = 0; index < textsCount; index++) // Assign _tempOutTexts TMP_Text Component
