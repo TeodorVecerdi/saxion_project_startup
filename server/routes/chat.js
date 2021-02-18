@@ -1,35 +1,32 @@
 let express = require('express');
 let router = express.Router();
+const {v4} = require("uuid");
 let serverState = require("../js/ServerState");
 
-router.get('/active-users', (req, res) => {
-    if(!serverState.isAuthenticated(req)) {
-        res.status(403).end();
-        return;
-    }
+router.post('/message', (req, res) => {
+    let timestamp = Date.now();
+    let msgId = v4();
 
-    let users = serverState.getUsers();
-    res.send(users).end();
-});
+    serverState.newMessage(req, timestamp, msgId);
+    res.status(200).end();
+})
+
+router.post('/confirm-messages', (req, res) => {
+    console.log(`Confirming messages ${req.body.ids}`);
+    serverState.confirmMessages(req.body.from, req.body.to, JSON.parse(req.body.ids));
+    res.status(200).end();
+})
 
 router.get('/messages', (req, res) => {
-    if(!serverState.isAuthenticated(req)) {
-        res.status(403).end();
-        return;
-    }
+    let messages = serverState.getMessages(req.query.from, req.query.to);
+    console.log(`Getting messages: ${JSON.stringify(messages)}`)
+    res.send(messages).status(200).end();
+})
 
-    let messages = serverState.getMessages(req.query.self, req.query.userId);
-    res.send(messages).end();
-});
-
-router.put('/message', (req, res) => {
-    if(!serverState.isAuthenticated(req)) {
-        res.status(403).end();
-        return;
-    }
-
-    serverState.addMessage(req.body.from, req.body.to, req.body.message);
-    res.status(200).end();
+router.get('/unconfirmed-messages', (req, res) => {
+    let messages = serverState.getUnconfirmedMessages(req.query.from, req.query.to)
+    console.log(`Getting unconfirmed messages: ${JSON.stringify(messages)}`)
+    res.send(messages).status(200).end();
 })
 
 module.exports = {url: "/chat", router: router};

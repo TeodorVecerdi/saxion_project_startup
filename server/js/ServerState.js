@@ -38,10 +38,8 @@ function makeProfile(jsonString) {
 class ServerState {
     constructor() {
         this.registeredUsers = [];
-        this.loggedUsers = {};
-        this.socketToId = {};
-        this.idToSocket = {};
         this.messages = {};
+        this.unconfirmedMessages = {};
         this.swipes = {};
         this.matches = {};
         this.unconfirmedMatches = {};
@@ -52,6 +50,7 @@ class ServerState {
         return JSON.stringify({
             registeredUsers: this.registeredUsers,
             messages: this.messages,
+            unconfirmedMessages: this.unconfirmedMessages,
             swipes: this.swipes,
             matches: this.matches,
             unconfirmedMatches: this.unconfirmedMatches
@@ -76,6 +75,7 @@ class ServerState {
 
                     this.registeredUsers = backupJSON.registeredUsers || [];
                     this.messages = backupJSON.messages || {};
+                    this.unconfirmedMessages = backupJSON.unconfirmedMessages || {};
                     this.swipes = backupJSON.swipes || {};
                     this.matches = backupJSON.matches || {};
                     this.unconfirmedMatches = backupJSON.unconfirmedMatches || {};
@@ -95,23 +95,9 @@ class ServerState {
     }
 
     loginUser(username) {
-        let account = this.getUserByUsername(username);
+        return this.getUserByUsername(username);
+    }
 
-        this.loggedUsers[account.id] = {
-            id: account.id,
-            username: username
-        }
-        this.createBackup();
-        return account;
-    }
-    logoutUser(uuid) {
-        delete this.loggedUsers[uuid]
-        this.createBackup();
-        return true;
-    }
-    userIsLoggedIn(id) {
-        return this.loggedUsers.hasOwnProperty(id);
-    }
     isAuthenticated(request) {
         return request.body.hasOwnProperty("id");
     }
@@ -124,45 +110,6 @@ class ServerState {
             users.push(user);
         }
         return users;
-    }
-
-    linkSocket(socket, userId) {
-        this.socketToId[socket.id] = userId;
-        this.idToSocket[userId] = socket;
-    }
-    unlinkSocket(socket) {
-        if(this.socketToId.hasOwnProperty(socket.id)) {
-            let userId = this.socketToId[socket.id]
-            delete this.socketToId[socket.id];
-
-            if(this.idToSocket.hasOwnProperty(userId)) {
-                delete this.idToSocket[userId];
-            }
-        }
-    }
-
-    addMessage(from, to, message) {
-        if(!this.messages.hasOwnProperty(from) || !this.messages.hasOwnProperty(to)) {
-            this.messages[from] = [];
-            this.messages[to] = [];
-        }
-        let messageObj = ({from: from, to: to, message: message});
-        this.messages[from].push(messageObj);
-        this.messages[to].push(messageObj);
-
-        this.createBackup();
-        this.emitMessage(messageObj)
-    }
-    getMessages(from, to) {
-        if(!this.messages.hasOwnProperty(from) || !this.messages.hasOwnProperty(to)) return [];
-        return this.messages[from].filter(message => (message.to == to && message.from == from) || (message.to == from && message.from == to));
-    }
-    emitMessage(message) {
-        let sendTo = message.to;
-        if(this.idToSocket.hasOwnProperty(sendTo)) {
-            let socket = this.idToSocket[sendTo];
-            socket.emit('new message', JSON.stringify(message));
-        }
     }
 
     usernameExists(username) {
@@ -257,6 +204,59 @@ class ServerState {
                 likesCount++;
         }
         return likesCount;
+    }
+
+    newMessage(req, timestamp, msgId) {
+        let from = req.query.from;
+        let to = req.query.to;
+        let message = req.query.message;
+
+        if(!this.messages.hasOwnProperty(from)) this.messages[from] = {};
+        if(!this.messages[from].hasOwnProperty(to)) this.messages[from][to] = {};
+        if(!this.messages.hasOwnProperty(to)) this.messages[to] = {};
+        if(!this.messages[to].hasOwnProperty(from)) this.messages[to][from] = {};
+
+        this.messages[from][to][msgId] = {
+            id: msgId,
+            from: from,
+            to: to,
+            message: message,
+            timestamp: timestamp
+        }
+        this.messages[to][from][msgId] = this.messages[from][to][msgId];
+
+        if(!this.unconfirmedMessages.hasOwnProperty(to)) this.unconfirmedMessages[to] = {};
+        if(!this.unconfirmedMessages[to].hasOwnProperty(from)) this.unconfirmedMessages[to][from] = {};
+        this.unconfirmedMessages[to][from] = {msgId: msgId};
+
+        this.createBackup();
+    }
+    confirmMessages(from, to, ids) {
+        if(!this.unconfirmedMessages.hasOwnProperty(to)) return;
+        if(!this.unconfirmedMessages[to].hasOwnProperty(from)) return;
+
+        for (let id of ids) {
+            if(this.unconfirmedMessages[from][to].hasOwnProperty(id))
+                delete this.unconfirmedMessages[from][to][id];
+        }
+
+        this.createBackup();
+    }
+    getMessages(from, to) {
+        if (!this.messages.hasOwnProperty(from) || !this.messages[from].hasOwnProperty(to)) return [];
+        let messages = [];
+        for(let id of Object.keys(this.messages[from][to])) {
+            messages.push(this.messages[from][to][id])
+        }
+        return messages;
+    }
+    getUnconfirmedMessages(from, to) {
+        if (!this.unconfirmedMessages.hasOwnProperty(from) || !this.unconfirmedMessages[from].hasOwnProperty(to)) return [];
+        let messages = [];
+        for(let id of Object.keys(this.unconfirmedMessages[from][to])) {
+            messages.push(this.messages[from][to][id]);
+        }
+        return messages;
     }
 }
 
