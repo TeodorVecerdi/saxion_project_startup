@@ -250,6 +250,14 @@ class ServerState {
         }
         this.createBackup();
     }
+    getLikesCount(userId) {
+        let likesCount = 0;
+        for(let id of Object.keys(this.swipes)) {
+            if(this.swipes[id].hasOwnProperty(userId) && this.swipes[id][userId] == 1)
+                likesCount++;
+        }
+        return likesCount;
+    }
 }
 
 module.exports = new ServerState();
