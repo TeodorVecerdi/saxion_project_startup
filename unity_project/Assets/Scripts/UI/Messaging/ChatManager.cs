@@ -28,7 +28,8 @@ public class ChatManager : MonoBehaviour {
         UserInfoBuilder.Cleanup();
         UserInfoBuilder.Build(chattingWith.UserModel);
         isChatOpen = true;
-        pollMessages = true;
+        pollMessages = false;
+        GetAllMessages();
     }
 
     public void Close() {
@@ -98,5 +99,36 @@ public class ChatManager : MonoBehaviour {
         }
 
         queueingMessages = false;
+    }
+
+    private void GetAllMessages() {
+        var from = UserState.Instance.UserId;
+        var to = AppState.Instance.ChattingWith;
+        queueingMessages = true;
+        ServerConnection.Instance.MakeRequestAsync("/chat/messages", Method.GET, new List<(string key, string value)> {("from", from), ("to", to)}, response => {
+            var array = JArray.Parse(response.Content);
+            var messages = new List<MessageModel>();
+            var messageIds = new List<string>();
+            
+            foreach (var jToken in array) {
+                var messageModel = MessageModel.Deserialize(jToken);
+                messages.Add(messageModel);
+                messageIds.Add(messageModel.MessageId);
+            }
+
+            if (messages.Count == 0) {
+                queueingMessages = false;
+                pollMessages = true;
+            }
+            else {
+                ServerConnection.Instance.MakeRequestAsync("/chat/confirm-all", Method.POST, new List<(string key, string value)>{("from", from), ("to", to)}, response1 => {
+                    var sorted = messages.QuickSorted((model1, model2) => string.Compare(model1.Timestamp, model2.Timestamp, StringComparison.Ordinal));
+                    foreach (var messageModel in sorted) {
+                        AddMessage(messageModel);
+                    }
+                    pollMessages = true;
+                });
+            }
+        });
     }
 }

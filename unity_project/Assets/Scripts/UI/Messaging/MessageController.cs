@@ -10,6 +10,8 @@ public class MessageController : MonoBehaviour {
     [SerializeField] private ScrollRect ScrollRect;
     [SerializeField] private TMP_InputField MessageSelfPrefab;
     [SerializeField] private TMP_InputField MessageOtherPrefab;
+
+    private bool newMessageScroll;
     
     public void OnMessageSelf(string message) {
         AddMessage(MessageSelfPrefab, message);
@@ -19,13 +21,17 @@ public class MessageController : MonoBehaviour {
         AddMessage(MessageOtherPrefab, message);
     }
 
-    private void AddMessage(TMP_InputField prefab, string text) {
-        StartCoroutine(SpawnMessage(prefab, text));
+    public void Clear() {
+        while (MessageContainer.childCount > 0) {
+            var child = MessageContainer.GetChild(0);
+            child.SetParent(null);
+            Destroy(child.gameObject);
+        }
     }
 
-    private IEnumerator SpawnMessage(TMP_InputField prefab, string message) {
+    private void AddMessage(TMP_InputField prefab, string text) {
         var messageObject = Instantiate(prefab, MessageContainer);
-        messageObject.text = message;
+        messageObject.text = text;
         IDisposable cancel = null;
         cancel = UpdateUtility.Create(() => {
             var caret = messageObject.gameObject.GetComponentInChildren<TMP_SelectionCaret>(true);
@@ -34,7 +40,23 @@ public class MessageController : MonoBehaviour {
                 cancel.Dispose();
             }
         });
-        yield return null;
-        ScrollRect.normalizedPosition = Vector2.zero;
+        StartCoroutine(SkipFrames(2, () => {
+            newMessageScroll = true;
+        }));
+    }
+
+    private IEnumerator SkipFrames(int frames, Action action) {
+        for (var i = 0; i < frames; i++) {
+            yield return new WaitForEndOfFrame();
+        }
+
+        action?.Invoke();
+    }
+
+    private void LateUpdate() {
+        if (newMessageScroll) {
+            ScrollRect.normalizedPosition = Vector2.zero;
+            newMessageScroll = false;
+        }
     }
 }

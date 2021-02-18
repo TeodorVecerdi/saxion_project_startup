@@ -242,6 +242,16 @@ class ServerState {
 
         this.createBackup();
     }
+    confirmAllMessages(from, to) {
+        if(!this.unconfirmedMessages.hasOwnProperty(from)) return;
+        if(!this.unconfirmedMessages[from].hasOwnProperty(to)) return;
+
+        for (let id of Object.keys(this.unconfirmedMessages[from][to])) {
+            delete this.unconfirmedMessages[from][to][id];
+        }
+
+        this.createBackup();
+    }
     getMessages(from, to) {
         if (!this.messages.hasOwnProperty(from) || !this.messages[from].hasOwnProperty(to)) return [];
         let messages = [];

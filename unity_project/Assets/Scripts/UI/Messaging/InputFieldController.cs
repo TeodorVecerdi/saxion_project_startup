@@ -42,7 +42,8 @@ public class InputFieldController : MonoBehaviour {
         Input.text = "";
         Input.OnPointerClick(new PointerEventData(null));
 
-        ChatManager.EmitMessage(message);
+        if(!string.IsNullOrWhiteSpace(message))
+            ChatManager.EmitMessage(message);
     }
 }
 
