@@ -9,8 +9,10 @@ public class TestLikesAnimation : MonoBehaviour {
     [SerializeField] private FadeOut Fade1;
     [SerializeField] private FadeOut Fade2;
     [SerializeField] private float AnimationDuration = 1f;
+    [SerializeField] private List<GameObject> ObjectsToHide;
+    [SerializeField] private List<GameObject> ObjectsToShow;
 
-    private Vector2 startingSize = new Vector2(192, 320);
+    private Vector2 startingSize = new Vector2(144, 240);
     private Vector2 endSize = new Vector2(288, 420);
 
     private static Vector2 anchorLeftMin = Vector2.up;
@@ -24,7 +26,7 @@ public class TestLikesAnimation : MonoBehaviour {
     private List<RectTransform> children = null;
 
     [Button]
-    public void Animate() {
+    public void Open() {
         if (children == null) {
             children = new List<RectTransform>();
             for (var i = 0; i < Source.childCount; i++) {
@@ -34,6 +36,13 @@ public class TestLikesAnimation : MonoBehaviour {
         
         Fade1.Fade(false);
         Fade2.Fade(true);
+        
+        foreach (var @object in ObjectsToHide) {
+            @object.SetActive(false);
+        }
+        foreach (var @object in ObjectsToShow) {
+            @object.SetActive(true);
+        }
 
         foreach (var child in children) {
             child.SetParent(Target, true);
@@ -41,7 +50,7 @@ public class TestLikesAnimation : MonoBehaviour {
 
         var height = ((children.Count / 3) + 1) * (endSize.y + 64f) - 64f;
         Target.sizeDelta = new Vector2(0, height);
-        for (var i = 0; i < children.Count; i++) {
+        for (var i = 0; i < Mathf.Min(children.Count, 9); i++) {
             var (anchorMin, anchorMax) = anchors[i % 3];
             var topOffset = (i / 3) * (endSize.y + 64f);
             children[i].DOAnchorMin(anchorMin, AnimationDuration);
@@ -51,12 +60,19 @@ public class TestLikesAnimation : MonoBehaviour {
             children[i].DOAnchorPosY(-topOffset, AnimationDuration);
             children[i].DOAnchorPosX(0, AnimationDuration);
         }
+        for (var i = 9; i < children.Count; i++) {
+            children[i].gameObject.SetActive(false);
+        }
     }
 
     [Button]
-    public void Animate2() {
+    public void Close() {
         Fade1.Fade(true);
         Fade2.Fade(false);
+        
+        foreach (var @object in ObjectsToHide) {
+            @object.SetActive(true);
+        }
         
         children[0].DOAnchorMin(anchorLeftMin, AnimationDuration);
         children[0].DOAnchorMax(anchorLeftMax, AnimationDuration);
@@ -67,9 +83,16 @@ public class TestLikesAnimation : MonoBehaviour {
             foreach (var child in children) {
                 child.SetParent(Source, true);
             }
+            
+            foreach (var @object in ObjectsToShow) {
+                @object.SetActive(false);
+            }
+            for (var i = 9; i < children.Count; i++) {
+                children[i].gameObject.SetActive(true);
+            }
         });
-        for (var i = 1; i < children.Count; i++) {
-            var xOffset = i * (startingSize.x + 48f);
+        for (var i = 1; i < Mathf.Min(children.Count, 9); i++) {
+            var xOffset = i * (startingSize.x + 32f);
             children[i].DOAnchorMin(anchorLeftMin, AnimationDuration);
             children[i].DOAnchorMax(anchorLeftMax, AnimationDuration);
             children[i].DOPivot(anchorLeftMin, AnimationDuration);
