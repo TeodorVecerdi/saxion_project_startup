@@ -9,29 +9,39 @@ using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
 [RequireComponent(typeof(Button))]
-public class BtnAnswerMinigames : MonoBehaviour
+public class BtnAnswerMinigame : MonoBehaviour
 {
-    [SerializeField]
-    private GameObject answerPanel;
-
-    [SerializeField] private BtnSendLies btnSendLies;
-    //[SerializeField] [Tooltip("Please use 3 buttons")]
-    private List<Button> outputBtnObjects;
+    [SerializeField] private GameObject answerPanel;
+    [SerializeField] private GameObject panels;
     
-    private int _selected = 0;
+    private List<Button> _outputBtnObjects;
+    private SaveLieData _lieData;
+    private int _lieIndex;
     
+    public void Awake()
+    {
+        if(_lieIndex != 9)
+             _lieIndex = _lieData.GetLieIndex();
+        else
+        {
+            throw new Exception("Lie index wasn't saved");
+        }
+        _outputBtnObjects = _lieData.GetOutputList();
+    }
 
-    public void OnClick() {
-        btnSendLies = gameObject.transform.GetComponentInParent<BtnSendLies>();
-        var lieIndex = btnSendLies.GetLieIndex();
-        outputBtnObjects = btnSendLies.GetOutputList();
+    public void OnClick()
+    {
+        // btnSendLies = gameObject.GetComponent<BtnSendLies>();
+        // var lieIndex = btnSendLies.GetLieIndex();
+        // _outputBtnObjects = btnSendLies.GetOutputList();
+
+        if (_outputBtnObjects[_lieIndex].GetComponent<BtnSelectAnswer>().GetSelectedBool()); //check if the lie is selected
+            //winPanel.SetActive(true);
+            Debug.Log("WIN!");
+        Debug.Log("LOSE!");
+        //losePanel.SetActive(true);
         
-
         answerPanel.SetActive(false);
     }
-
-    public void OnClickSelectOption()
-    {
-        
-    }
+    
 }
