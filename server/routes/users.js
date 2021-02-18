@@ -38,4 +38,10 @@ router.post('/confirm-matches', (req, res) => {
     res.status(200).end();
 })
 
+router.get('/likes-count', (req, res) => {
+    let likesCount = serverState.getLikesCount(req.query.id);
+    console.log(`Getting likes count for user ${req.query.id} => ${likesCount}`);
+    res.send(`${likesCount}`).status(200).end();
+})
+
 module.exports = {url: "/users", router: router};
