@@ -19,35 +19,45 @@ public class BtnSendLies : MonoBehaviour
     [SerializeField]
     private TMP_InputField lie; 
     [SerializeField] [Tooltip("Please use 3 buttons")]
-    private List<TMP_Text> outputTexts;
-
+    private List<Button> outputBtnObjects;
+    
     private int _lastLieIndex;
+    
 
     public void OnClick()
     {
-        var textsCount = outputTexts.Count;
+        var textsCount = outputBtnObjects.Count;
+        var tempOutTexts = new List<TMP_Text>();
 
-        if (textsCount != 3)
-            throw new Exception("The texts list needs to have a size of 3");
+        if(textsCount != 3) //The list must have 3 components
+            throw new Exception("The output list needs to have a size of 3");
+        
+        for (int index = 0; index < textsCount; index++) // Assign _tempOutTexts TMP_Text Component
+        {
+            var txtComp = outputBtnObjects[index].transform.GetComponentInChildren<TMP_Text>();
+            tempOutTexts.Add(txtComp);
+        }
         
         var randomIndex = Random.Range(0, textsCount - 1);
         _lastLieIndex = randomIndex;
-        outputTexts[randomIndex].text = lie.text;
-        outputTexts.Remove(outputTexts[randomIndex]);
+        
+        tempOutTexts[randomIndex].text = lie.text;
+        tempOutTexts.Remove(tempOutTexts[randomIndex]);
         
         randomIndex = Random.Range(0, textsCount - 1);
-        outputTexts[randomIndex].text = truth1.text;
-        outputTexts.Remove(outputTexts[randomIndex]);
+        tempOutTexts[randomIndex].text = truth1.text;
+        tempOutTexts.Remove(tempOutTexts[randomIndex]);
+        
         randomIndex = 0;
-        outputTexts[randomIndex].text = truth2.text;
+        tempOutTexts[randomIndex].text = truth2.text;
         
         inputPanel.SetActive(false);
     }
 
-    // public List<TMP_Text> GetTextList()
-    // {
-    //     return outputTexts;
-    // }
+    public List<Button> GetOutputList()
+    {
+        return outputBtnObjects;
+    }
     
     public int GetLieIndex()
     {
