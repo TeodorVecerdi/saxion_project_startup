@@ -68,6 +68,7 @@ public class MinigameManager : MonoBehaviour {
                 switch (gameModel.Status) {
                     case GameModel.WaitingForPrompts: {
                         if (gameModel.CurrentPlayer == Self) {
+                            SoundManager.PlaySound("Match");
                             PanelController.ShowPrompts();
                             updateGameState = false;
                         } else PanelController.ShowWaitingPrompts();
@@ -76,6 +77,7 @@ public class MinigameManager : MonoBehaviour {
                     }
                     case GameModel.WaitingForAnswer: {
                         if (gameModel.CurrentPlayer != Self) {
+                            SoundManager.PlaySound("Match");
                             PanelController.ShowAnswers(gameModel);
                             updateGameState = false;
                         } else PanelController.ShowWaitingAnswers();
@@ -88,6 +90,7 @@ public class MinigameManager : MonoBehaviour {
                         } else if (gameModel.Next[NextSelf] == 1) {
                             PanelController.ShowWaitingForNewGame();
                         } else {
+                            SoundManager.PlaySound("Match");
                             PanelController.ShowResults(gameModel);
                             updateGameState = false;
                         }
@@ -138,6 +141,7 @@ public class MinigameManager : MonoBehaviour {
         gameRequest.Status = status;
         if (status == 0) MenuController.ShowState(2);
         else {
+            SoundManager.PlaySound("Match");
             MenuController.Close();
             PanelController.Open();
             PanelController.ShowWaitingPrompts();
@@ -153,6 +157,7 @@ public class MinigameManager : MonoBehaviour {
     }
 
     public void SubmitPrompts(List<string> prompts) {
+        SoundManager.PlaySound("Match");
         PanelController.ShowWaitingAnswers();
         gameModel.Status = GameModel.WaitingForAnswer;
         ServerConnection.Instance.MakeRequestAsync("/game/add-prompts", Method.POST, new List<(string key, string value)> {
@@ -163,6 +168,7 @@ public class MinigameManager : MonoBehaviour {
     }
 
     public void SubmitAnswer(int answer) {
+        SoundManager.PlaySound("Match");
         ServerConnection.Instance.MakeRequestAsync("/game/add-answer", Method.POST, new List<(string key, string value)> {
             ("from", Self), ("to", Other), ("answer", answer.ToString())
         }, response => {

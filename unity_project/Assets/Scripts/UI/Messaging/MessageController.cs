@@ -30,6 +30,7 @@ public class MessageController : MonoBehaviour {
     }
 
     private void AddMessage(TMP_InputField prefab, string text) {
+        SoundManager.PlaySound("Message");
         var messageObject = Instantiate(prefab, MessageContainer);
         messageObject.text = text;
         IDisposable cancel = null;

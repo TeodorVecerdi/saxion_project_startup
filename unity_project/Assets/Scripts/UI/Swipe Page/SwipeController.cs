@@ -57,6 +57,7 @@ public class SwipeController : MonoBehaviour {
     }
 
     public void OnSwipe(bool swipe) {
+        SoundManager.PlaySound("Message");
         var selfUser = UserState.Instance.UserId;
         var other = AppState.Instance.UserAccounts[currentUser].UserId;
         var swipeInt = swipe ? "1" : "0";
@@ -87,6 +88,7 @@ public class SwipeController : MonoBehaviour {
                     var hasMatch = bool.Parse(response1.Content);
 
                     if (hasMatch) {
+                        SoundManager.PlaySound("Match");
                         OnMatch?.Invoke(AppState.Instance.UserAccounts[oldCurrentUser].UserModel);
 
                         ServerConnection.Instance.MakeRequestAsync("/users/confirm-matches", Method.POST, new List<(string key, string value)> {
@@ -156,8 +158,10 @@ public class SwipeController : MonoBehaviour {
         ServerConnection.Instance.MakeRequestAsync("/users/unconfirmed-matches", Method.GET, new List<(string key, string value)> {("id", UserState.Instance.UserId)},
         matchesResponse => {
                var matches = JArray.Parse(matchesResponse.Content);
-               if(matches.Count > 0)
-                    Notification.ShowNotification("You have new matches!");
+               if (matches.Count > 0) {
+                   SoundManager.PlaySound("Match");
+                   Notification.ShowNotification("You have new matches!");
+               }
                foreach (var matchToken in matches) {
                    AppState.Instance.Matches.Add(matchToken.Value<string>());
                }
