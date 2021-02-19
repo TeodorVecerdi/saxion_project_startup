@@ -43,6 +43,8 @@ class ServerState {
         this.swipes = {};
         this.matches = {};
         this.unconfirmedMatches = {};
+        this.gameRequests = {};
+        this.games = {};
         this.restoreBackup();
     }
 
@@ -53,7 +55,9 @@ class ServerState {
             unconfirmedMessages: this.unconfirmedMessages,
             swipes: this.swipes,
             matches: this.matches,
-            unconfirmedMatches: this.unconfirmedMatches
+            unconfirmedMatches: this.unconfirmedMatches,
+            gameRequests: this.gameRequests,
+            games: this.games
         });
     }
 
@@ -79,7 +83,8 @@ class ServerState {
                     this.swipes = backupJSON.swipes || {};
                     this.matches = backupJSON.matches || {};
                     this.unconfirmedMatches = backupJSON.unconfirmedMatches || {};
-
+                    this.gameRequests = backupJSON.gameRequests || {};
+                    this.games = backupJSON.games || {};
                     console.log("Backup restored successfully!")
                 });
             }
@@ -267,6 +272,64 @@ class ServerState {
             messages.push(this.messages[from][to][id]);
         }
         return messages;
+    }
+
+    requestGame(from, to) {
+        if(!this.gameRequests.hasOwnProperty(from)) this.gameRequests[from] = {};
+        if(!this.gameRequests.hasOwnProperty(to)) this.gameRequests[to] = {};
+        let gameRequest = {
+            initiator: from,
+            other: to,
+            status: -1 // unconfirmed
+        };
+        this.gameRequests[from][to] = gameRequest;
+        this.gameRequests[to][from] = gameRequest;
+        this.createBackup()
+    }
+    getGameRequest(from, to) {
+        if(!this.gameRequests.hasOwnProperty(from) || !this.gameRequests[from].hasOwnProperty(to)) return "null";
+        return this.gameRequests[from][to];
+    }
+    getGameRequests(id) {
+        if(!this.gameRequests.hasOwnProperty(id)) return [];
+        let requests = [];
+        for(let key of Object.keys(this.gameRequests[id]))
+            requests.push(this.gameRequests[id][key]);
+        return requests;
+    }
+    acknowledgeRequestStatus(from, to) {
+        if(!this.gameRequests.hasOwnProperty(from) || !this.gameRequests[from].hasOwnProperty(to) || !this.gameRequests.hasOwnProperty(to) || !this.gameRequests[to].hasOwnProperty(from)) return;
+
+        let status = this.gameRequests[from][to].status;
+        if(status == 0) { //denied, delete request, do nothing
+            delete this.gameRequests[from][to];
+            delete this.gameRequests[to][from];
+        } else if (status == 1) { // accepted, delete request, start game
+            this.createGame(this.gameRequests[from][to].initiator, this.gameRequests[from][to].other);
+            delete this.gameRequests[from][to];
+            delete this.gameRequests[to][from];
+        }
+        this.createBackup()
+    }
+    confirmGameRequest(from, to, status) {
+        // status: 0=denied, 1=accepted
+        if(!this.gameRequests.hasOwnProperty(from) || !this.gameRequests[from].hasOwnProperty(to) || !this.gameRequests.hasOwnProperty(to) || !this.gameRequests[to].hasOwnProperty(from)) return;
+        this.gameRequests[from][to].status = status;
+        this.gameRequests[to][from].status = status;
+        this.createBackup()
+    }
+    createGame(initiator, other) {
+        if(!this.gameRequests.hasOwnProperty(initiator)) this.gameRequests[initiator] = {};
+        if(!this.gameRequests.hasOwnProperty(other)) this.gameRequests[other] = {};
+        let game = {
+            initiator: initiator,
+            other: other,
+            currentPlayer: initiator,
+            status: 0 // 0=waiting for prompts, 1=waiting for answer, 2=waiting for next game
+        }
+        this.games[initiator] = game;
+        this.games[other] = game;
+        this.createBackup()
     }
 }
 

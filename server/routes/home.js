@@ -4,7 +4,7 @@ let serverState = require("../js/ServerState");
 
 /* GET home page. */
 router.get('/', (req, res, next) => {
-    if(!serverState.isAuthenticated(req) || !!serverState.userIsLoggedIn(req)) {
+    if(!serverState.isAuthenticated(req)) {
         res.redirect("/login");
         return;
     }

@@ -4,12 +4,12 @@ const serverState = require("../js/ServerState");
 
 router.get('/ping', (req, res) => {
     console.log(serverState.getJSON());
-    res.send(serverState.getJSON());
+    res.send(serverState.getJSON()).end();
 })
 
 router.get('/clear', (req, res) => {
     serverState.clearBackup();
-    res.render("pages/empty")
+    res.send("OK").end();
 })
 
 module.exports = {url: "/dev", router: router};
