@@ -12,6 +12,6 @@ EditorBuildSettings:
     path: Assets/Scenes/Menus/Onboarding.unity
     guid: 86822675be973414198023a15cb99476
   - enabled: 1
-    path: Assets/Scenes/SwipeMenu Old.unity
-    guid: 93c708c406d2a8e45846b5304fca36f4
+    path: Assets/Scenes/Menus/Swipe.unity
+    guid: c0eb02ad3b7124d4a8fb32bacfaae478
   m_configObjects: {}

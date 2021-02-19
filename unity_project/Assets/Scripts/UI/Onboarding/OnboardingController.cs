@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using DG.Tweening;
 using NaughtyAttributes;
 using RestSharp;
+using UnityCommons;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class OnboardingController : MonoBehaviour {
@@ -74,7 +76,18 @@ public class OnboardingController : MonoBehaviour {
         };
         var json = userModel.Serialize();
         ServerConnection.Instance.MakeRequestAsync("/profile", Method.POST, new List<(string key, string value)> {("id", UserState.Instance.UserId), ("profile", json)}, response => {
-            Debug.Log($"{response.IsSuccessful}\n{response.StatusCode}\n{response.StatusDescription}\n{response.Content}\n{response.ErrorMessage}");
+            SceneLoader.Instance.LoadScene(Scenes.SwipeMenu, () => {
+                IDisposable cancel = null;
+                cancel = UpdateUtility.Create(() => {
+                    if(!AppState.Instance.DoneLoadingInitial) return;
+                    
+                    cancel.Dispose();
+                    Transition.OnLoadComplete += () => {
+                        SceneManager.UnloadSceneAsync(Scenes.Onboarding);
+                    };
+                    Transition.StartWaitTimer = true;
+                });
+            });
         });
     }
 
