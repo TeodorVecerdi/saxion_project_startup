@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Unity WebGL Player | unity_project</title>
+  </head>
+  <body style="text-align: center">
+    <canvas id="unity-canvas" style="width: 475px; height: 950px; background: #D90F3F"></canvas>
+    <script src="Build/FinalWebBuild.loader.js"></script>
+    <script>
+      createUnityInstance(document.querySelector("#unity-canvas"), {
+        dataUrl: "Build/FinalWebBuild.data",
+        frameworkUrl: "Build/FinalWebBuild.framework.js",
+        codeUrl: "Build/FinalWebBuild.wasm",
+        streamingAssetsUrl: "StreamingAssets",
+        companyName: "DefaultCompany",
+        productName: "unity_project",
+        productVersion: "0.1",
+      });
+    </script>
+  </body>
+</html>
