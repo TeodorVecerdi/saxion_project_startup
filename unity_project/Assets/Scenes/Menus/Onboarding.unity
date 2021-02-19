@@ -975,6 +975,12 @@ MonoBehaviour:
   RotationMagnitude: 0
   AnimationDuration: 0.5
   RaycastBlocker: {fileID: 0}
+  OnSlideOpened:
+    m_PersistentCalls:
+      m_Calls: []
+  OnSlideClosed:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &23982417
 GameObject:
   m_ObjectHideFlags: 0
@@ -2826,6 +2832,12 @@ MonoBehaviour:
   RotationMagnitude: 10
   AnimationDuration: 0.5
   RaycastBlocker: {fileID: 0}
+  OnSlideOpened:
+    m_PersistentCalls:
+      m_Calls: []
+  OnSlideClosed:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &95015088
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6080,6 +6092,12 @@ MonoBehaviour:
   RotationMagnitude: 10
   AnimationDuration: 0.5
   RaycastBlocker: {fileID: 0}
+  OnSlideOpened:
+    m_PersistentCalls:
+      m_Calls: []
+  OnSlideClosed:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &279847223
 GameObject:
   m_ObjectHideFlags: 0
@@ -7089,6 +7107,12 @@ MonoBehaviour:
   RotationMagnitude: 0
   AnimationDuration: 0.5
   RaycastBlocker: {fileID: 0}
+  OnSlideOpened:
+    m_PersistentCalls:
+      m_Calls: []
+  OnSlideClosed:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &304284185
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7883,6 +7907,12 @@ MonoBehaviour:
   RotationMagnitude: 0
   AnimationDuration: 0.5
   RaycastBlocker: {fileID: 0}
+  OnSlideOpened:
+    m_PersistentCalls:
+      m_Calls: []
+  OnSlideClosed:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &357151450
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9068,6 +9098,12 @@ MonoBehaviour:
   RotationMagnitude: 20
   AnimationDuration: 0.5
   RaycastBlocker: {fileID: 302528985}
+  OnSlideOpened:
+    m_PersistentCalls:
+      m_Calls: []
+  OnSlideClosed:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &387516069
 GameObject:
   m_ObjectHideFlags: 0
@@ -14143,6 +14179,12 @@ MonoBehaviour:
   RotationMagnitude: 10
   AnimationDuration: 0.5
   RaycastBlocker: {fileID: 0}
+  OnSlideOpened:
+    m_PersistentCalls:
+      m_Calls: []
+  OnSlideClosed:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &571863325
 GameObject:
   m_ObjectHideFlags: 0
@@ -16739,7 +16781,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 12
   m_TargetDisplay: 0
 --- !u!224 &710527666
 RectTransform:
@@ -21024,6 +21066,7 @@ MonoBehaviour:
   LoadingText: {fileID: 1331513779}
   TransitionContainer: {fileID: 684937509}
   PleaseWaitText: {fileID: 1501599563}
+  StartWaitTimer: 0
 --- !u!1 &857831228
 GameObject:
   m_ObjectHideFlags: 0
@@ -22505,6 +22548,12 @@ MonoBehaviour:
   RotationMagnitude: 10
   AnimationDuration: 0.5
   RaycastBlocker: {fileID: 0}
+  OnSlideOpened:
+    m_PersistentCalls:
+      m_Calls: []
+  OnSlideClosed:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &928417298
 GameObject:
   m_ObjectHideFlags: 0
@@ -22919,6 +22968,12 @@ MonoBehaviour:
   RotationMagnitude: 10
   AnimationDuration: 0.5
   RaycastBlocker: {fileID: 0}
+  OnSlideOpened:
+    m_PersistentCalls:
+      m_Calls: []
+  OnSlideClosed:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &963965094
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23757,6 +23812,12 @@ MonoBehaviour:
   RotationMagnitude: 0
   AnimationDuration: 0.5
   RaycastBlocker: {fileID: 0}
+  OnSlideOpened:
+    m_PersistentCalls:
+      m_Calls: []
+  OnSlideClosed:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &999967182
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24200,6 +24261,7 @@ MonoBehaviour:
   OnBeforeFadeOut:
     m_PersistentCalls:
       m_Calls: []
+  ChangeEnabled: 0
 --- !u!1 &1020906503
 GameObject:
   m_ObjectHideFlags: 0
@@ -31131,6 +31193,12 @@ MonoBehaviour:
   RotationMagnitude: 20
   AnimationDuration: 0.5
   RaycastBlocker: {fileID: 155503142}
+  OnSlideOpened:
+    m_PersistentCalls:
+      m_Calls: []
+  OnSlideClosed:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &1254292751
 GameObject:
   m_ObjectHideFlags: 0
@@ -32716,6 +32784,12 @@ MonoBehaviour:
   RotationMagnitude: 0
   AnimationDuration: 0.5
   RaycastBlocker: {fileID: 0}
+  OnSlideOpened:
+    m_PersistentCalls:
+      m_Calls: []
+  OnSlideClosed:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &1327044577
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -33822,6 +33896,12 @@ MonoBehaviour:
   RotationMagnitude: 20
   AnimationDuration: 0.5
   RaycastBlocker: {fileID: 1332629101}
+  OnSlideOpened:
+    m_PersistentCalls:
+      m_Calls: []
+  OnSlideClosed:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &1380426614
 GameObject:
   m_ObjectHideFlags: 0
@@ -35665,6 +35745,12 @@ MonoBehaviour:
   RotationMagnitude: 10
   AnimationDuration: 0.5
   RaycastBlocker: {fileID: 0}
+  OnSlideOpened:
+    m_PersistentCalls:
+      m_Calls: []
+  OnSlideClosed:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &1472529544
 GameObject:
   m_ObjectHideFlags: 0
@@ -37029,6 +37115,12 @@ MonoBehaviour:
   RotationMagnitude: 10
   AnimationDuration: 0.5
   RaycastBlocker: {fileID: 0}
+  OnSlideOpened:
+    m_PersistentCalls:
+      m_Calls: []
+  OnSlideClosed:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &1522397190
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -37531,6 +37623,12 @@ MonoBehaviour:
   RotationMagnitude: 0
   AnimationDuration: 0.5
   RaycastBlocker: {fileID: 0}
+  OnSlideOpened:
+    m_PersistentCalls:
+      m_Calls: []
+  OnSlideClosed:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &1532725060
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -40444,6 +40542,12 @@ MonoBehaviour:
   RotationMagnitude: 20
   AnimationDuration: 0.5
   RaycastBlocker: {fileID: 2112075937}
+  OnSlideOpened:
+    m_PersistentCalls:
+      m_Calls: []
+  OnSlideClosed:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &1674410928
 GameObject:
   m_ObjectHideFlags: 0
@@ -40960,6 +41064,12 @@ MonoBehaviour:
   RotationMagnitude: 0
   AnimationDuration: 0.5
   RaycastBlocker: {fileID: 0}
+  OnSlideOpened:
+    m_PersistentCalls:
+      m_Calls: []
+  OnSlideClosed:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &1700736402
 GameObject:
   m_ObjectHideFlags: 0
@@ -41650,6 +41760,12 @@ MonoBehaviour:
   RotationMagnitude: 10
   AnimationDuration: 0.5
   RaycastBlocker: {fileID: 0}
+  OnSlideOpened:
+    m_PersistentCalls:
+      m_Calls: []
+  OnSlideClosed:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &1724709064
 GameObject:
   m_ObjectHideFlags: 0
@@ -42144,6 +42260,12 @@ MonoBehaviour:
   RotationMagnitude: 20
   AnimationDuration: 0.5
   RaycastBlocker: {fileID: 1723529409}
+  OnSlideOpened:
+    m_PersistentCalls:
+      m_Calls: []
+  OnSlideClosed:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &1748481289
 GameObject:
   m_ObjectHideFlags: 0
@@ -43495,6 +43617,12 @@ MonoBehaviour:
   RotationMagnitude: 20
   AnimationDuration: 0.5
   RaycastBlocker: {fileID: 697591703}
+  OnSlideOpened:
+    m_PersistentCalls:
+      m_Calls: []
+  OnSlideClosed:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &1804583428
 GameObject:
   m_ObjectHideFlags: 0
@@ -44435,6 +44563,12 @@ MonoBehaviour:
   RotationMagnitude: 0
   AnimationDuration: 0.5
   RaycastBlocker: {fileID: 0}
+  OnSlideOpened:
+    m_PersistentCalls:
+      m_Calls: []
+  OnSlideClosed:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &1826312881
 GameObject:
   m_ObjectHideFlags: 0
@@ -47122,6 +47256,12 @@ MonoBehaviour:
   RotationMagnitude: 20
   AnimationDuration: 0.5
   RaycastBlocker: {fileID: 397836022}
+  OnSlideOpened:
+    m_PersistentCalls:
+      m_Calls: []
+  OnSlideClosed:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!224 &1969593576
 RectTransform:
   m_ObjectHideFlags: 0
@@ -47484,6 +47624,12 @@ MonoBehaviour:
   RotationMagnitude: 10
   AnimationDuration: 0.5
   RaycastBlocker: {fileID: 0}
+  OnSlideOpened:
+    m_PersistentCalls:
+      m_Calls: []
+  OnSlideClosed:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &2001626946
 GameObject:
   m_ObjectHideFlags: 0
@@ -48425,6 +48571,12 @@ MonoBehaviour:
   RotationMagnitude: 10
   AnimationDuration: 0.5
   RaycastBlocker: {fileID: 0}
+  OnSlideOpened:
+    m_PersistentCalls:
+      m_Calls: []
+  OnSlideClosed:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &2032964342
 GameObject:
   m_ObjectHideFlags: 0

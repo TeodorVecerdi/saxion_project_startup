@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -30,6 +31,22 @@ public class ToggleGroup : MonoBehaviour {
 
         UpdateToggleValue();
         OnChange?.Invoke(groupMask);
+    }
+
+    public int GetMaskValue() {
+        return groupMask;
+    }
+
+    /// <summary>
+    /// Returns the index of the selected toggle, or <value>-1</value> if <see cref="AllowMultiple"/> is <value>true</value>
+    /// </summary>
+    public int GetSelectedIndex() {
+        if (AllowMultiple) return -1;
+        return Toggles.FindIndex(toggle => toggle.IsActive);
+    }
+
+    public List<bool> GetValues() {
+        return Toggles.Select(toggle => toggle.IsActive).ToList();
     }
 
     private void UpdateToggleValue() {

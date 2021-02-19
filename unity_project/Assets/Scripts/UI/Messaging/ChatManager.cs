@@ -12,6 +12,7 @@ public class ChatManager : MonoBehaviour {
     [SerializeField] private Slide ChatSlide;
     [SerializeField] private UserInfoBuilder UserInfoBuilder;
     [SerializeField] private MessageController MessageController;
+    [SerializeField] private MinigameManager MinigameManager;
 
     private Queue<MessageModel> messageQueue = new Queue<MessageModel>();
     
@@ -29,6 +30,7 @@ public class ChatManager : MonoBehaviour {
         UserInfoBuilder.Build(chattingWith.UserModel);
         isChatOpen = true;
         pollMessages = false;
+        MinigameManager.SetActive(true);
         GetAllMessages();
     }
 
@@ -36,6 +38,7 @@ public class ChatManager : MonoBehaviour {
         ChatSlide.SetActive(false, true);
         ScoresSlide.SetActive(true, true);
         messageQueue.Clear();
+        MinigameManager.SetActive(false);
     }
 
     public void EmitMessage(string message) {

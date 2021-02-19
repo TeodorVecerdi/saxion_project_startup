@@ -1,8 +1,10 @@
+using System;
 using System.Collections.Generic;
 using DG.Tweening;
 using Newtonsoft.Json.Linq;
 using RestSharp;
 using TMPro;
+using UnityCommons;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -13,6 +15,7 @@ public class LoginRegisterController : MonoBehaviour {
     [SerializeField] private TextMeshProUGUI LoginServerResponseText;
     [SerializeField] private TextMeshProUGUI RegisterServerResponseText;
     [SerializeField] private LoginRegisterTransition LoginRegisterTransition;
+    [SerializeField] private LoginTransition LoginTransition;
 
     private string loginUsername;
     private string loginPassword;
@@ -39,11 +42,20 @@ public class LoginRegisterController : MonoBehaviour {
         var profile = json["profile"];
         var profileSetUp = profile["name"] != null;
         if (profileSetUp) {
+            LoginTransition.Activate();
             SceneLoader.Instance.LoadScene(Scenes.SwipeMenu, () => {
-               SceneManager.UnloadSceneAsync(Scenes.LoginRegister);
+                IDisposable cancel = null;
+                cancel = UpdateUtility.Create(() => {
+                    if(!AppState.Instance.DoneLoadingInitial) return;
+                    
+                    cancel.Dispose();
+                    LoginTransition.OnLoadComplete += () => {
+                        SceneManager.UnloadSceneAsync(Scenes.LoginRegister);
+                    };
+                    LoginTransition.StartWaitTimer = true;
+                });
             });
         } else {
-            // load onboarding
            SceneLoader.Instance.LoadScene(Scenes.Onboarding, () => {
                SceneManager.UnloadSceneAsync(Scenes.LoginRegister);
            });

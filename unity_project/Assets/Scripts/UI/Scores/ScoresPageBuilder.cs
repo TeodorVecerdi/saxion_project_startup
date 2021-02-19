@@ -16,6 +16,18 @@ public class ScoresPageBuilder : MonoBehaviour {
     [SerializeField] private ChatManager ChatManager;
 
     public void Build(int likeCount) {
+        // Cleanup
+        while (BlurredAvatarContainer.childCount > 0) {
+            var child = BlurredAvatarContainer.GetChild(0);
+            child.SetParent(null);
+            Destroy(child.gameObject);
+        }
+        while (MessageEntryContainer.childCount > 0) {
+            var child = MessageEntryContainer.GetChild(0);
+            child.SetParent(null);
+            Destroy(child.gameObject);
+        }
+        
         if (likeCount == 0) {
             BlurredAvatarScroll.SetActive(false);
             BlurredAvatarEmpty.SetActive(true);
@@ -26,7 +38,10 @@ public class ScoresPageBuilder : MonoBehaviour {
             BlurredAvatarButton.enabled = true;
             
             for (var i = 0; i < likeCount; i++) {
-                Instantiate(BlurredAvatarPrefab, BlurredAvatarContainer);
+                var blurredAvatar = Instantiate(BlurredAvatarPrefab, BlurredAvatarContainer);
+                var backgroundRandomizer = blurredAvatar.GetComponent<ColorRandomizer>();
+                backgroundRandomizer.Seed = i;
+                blurredAvatar.Seed = i;
             }    
         }
 
@@ -37,6 +52,7 @@ public class ScoresPageBuilder : MonoBehaviour {
             MessageEntryScroll.SetActive(true);
             MessageEntryEmpty.SetActive(false);
 
+            
             foreach (var matchId in AppState.Instance.Matches) {
                 var messageEntry = Instantiate(MessageEntryPrefab, MessageEntryContainer);
                 messageEntry.Build(AppState.Instance.UserAccountsDict[matchId]);
