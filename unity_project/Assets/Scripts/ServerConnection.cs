@@ -6,12 +6,8 @@ using RestSharp;
 using UnityCommons;
 
 public class ServerConnection : MonoSingleton<ServerConnection> {
-    private static readonly RestClient client = new RestClient("http://18.198.156.185:3000/");
-<<<<<<< develop
-    // private static readonly RestClient client = new RestClient("http://localhost:3000/");
-=======
-    //private static readonly RestClient client = new RestClient("http://localhost:3000/");
->>>>>>> progress, still broken
+    // private static readonly RestClient client = new RestClient("http://18.198.156.185:3000/");
+    private static readonly RestClient client = new RestClient("http://localhost:3000/");
 
     protected override void OnAwake() {
         DontDestroyOnLoad(gameObject);
