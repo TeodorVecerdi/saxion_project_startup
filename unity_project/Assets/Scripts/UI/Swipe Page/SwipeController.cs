@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Newtonsoft.Json.Linq;
-using RestSharp;
 using UnityCommons;
 using UnityEngine;
 using UnityEngine.Events;

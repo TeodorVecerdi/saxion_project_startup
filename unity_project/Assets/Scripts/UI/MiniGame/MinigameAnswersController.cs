@@ -1,9 +1,6 @@
 using System.Collections.Generic;
-using DG.Tweening;
 using TMPro;
-using UnityCommons;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class MinigameAnswersController : MonoBehaviour {
     [SerializeField] private MinigameManager Manager;

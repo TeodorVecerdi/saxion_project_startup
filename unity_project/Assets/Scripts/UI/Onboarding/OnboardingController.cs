@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using DG.Tweening;
 using NaughtyAttributes;
-using RestSharp;
 using UnityCommons;
 using UnityEngine;
 using UnityEngine.SceneManagement;
