@@ -19,7 +19,7 @@ public class ShowMinigameResults : MonoBehaviour {
     [SerializeField] private float InitialHoldDuration = 1.0f;
     [SerializeField] private float HoldDuration = 2.5f;
 
-    public void Load(bool self, int lieIdx, int selectedIdx, string[] texts) {
+    public void Load(bool self, int lieIdx, int selectedIdx, List<string> texts) {
         NextButton.enabled = false;
         for (var i = 0; i < 3; i++) {
             Texts[i].text = texts[i];
@@ -35,25 +35,9 @@ public class ShowMinigameResults : MonoBehaviour {
         Prompts[selectedIdx].DOFade(1f, AnimationDuration).From(0f).SetDelay(InitialHoldDuration+AnimationDuration);
         Backgrounds[lieIdx].DOColor(CorrectColor, AnimationDuration).SetDelay(InitialHoldDuration + HoldDuration + AnimationDuration).OnComplete(() => {
             Prompts[lieIdx].text = liePrompt;
+            NextButton.enabled = true;
         });
         if (!isCorrect) Prompts[lieIdx].DOFade(1f, AnimationDuration).From(0f).SetDelay(InitialHoldDuration + HoldDuration + AnimationDuration + AnimationDuration);
-
-        Backgrounds[selectedIdx].DOColor(NormalColor, AnimationDuration).SetDelay(InitialHoldDuration + HoldDuration + HoldDuration + AnimationDuration + AnimationDuration).OnComplete(
-            () => {
-                NextButton.enabled = true;
-            });
-        Prompts[selectedIdx].DOFade(0f, AnimationDuration).SetDelay(InitialHoldDuration + HoldDuration + HoldDuration + AnimationDuration + AnimationDuration);
-        if (!isCorrect) {
-            Backgrounds[lieIdx].DOColor(NormalColor, AnimationDuration).SetDelay(InitialHoldDuration + HoldDuration + HoldDuration + AnimationDuration + AnimationDuration);
-            Prompts[lieIdx].DOFade(0f, AnimationDuration).SetDelay(InitialHoldDuration + HoldDuration + HoldDuration + AnimationDuration + AnimationDuration);
-        }
-    }
-
-    public void TestLoad() {
-        var selectedIndex = Rand.Range(0, 3);
-        var lieIndex = Rand.Range(0, 3);
-        var self = Rand.Bool;
-        Load(self, lieIndex, selectedIndex, new []{ "Lorem ipsum dolor sit amet bla bla", "It's ya boi teodor roblox esports legend", "Hello world I can properly code shit"});
     }
 }
 
