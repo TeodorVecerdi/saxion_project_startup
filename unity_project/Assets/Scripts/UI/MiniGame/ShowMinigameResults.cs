@@ -1,0 +1,59 @@
+using System.Collections.Generic;
+using DG.Tweening;
+using TMPro;
+using UnityCommons;
+using UnityEngine;
+using UnityEngine.UI;
+
+public class ShowMinigameResults : MonoBehaviour {
+    [SerializeField] private List<Graphic> Backgrounds;
+    [SerializeField] private List<TextMeshProUGUI> Texts;
+    [SerializeField] private List<TextMeshProUGUI> Prompts;
+    [Space]
+    [SerializeField] private Color NormalColor;
+    [SerializeField] private Color SelectedColor;
+    [SerializeField] private Color CorrectColor;
+    [Space]
+    [SerializeField] private Button NextButton;
+    [SerializeField] private float AnimationDuration = 0.5f;
+    [SerializeField] private float InitialHoldDuration = 1.0f;
+    [SerializeField] private float HoldDuration = 2.5f;
+
+    public void Load(bool self, int lieIdx, int selectedIdx, string[] texts) {
+        NextButton.enabled = false;
+        for (var i = 0; i < 3; i++) {
+            Texts[i].text = texts[i];
+        }
+
+        var isCorrect = lieIdx == selectedIdx;
+        var liePromptCorrect = $"And {(self ? "you" : "they")} were right!";
+        var liePrompt = isCorrect ? liePromptCorrect : "But the lie was";
+        var selectedPrompt = $"{(self ? "You" : "The other player")} chose";
+
+        Backgrounds[selectedIdx].DOColor(SelectedColor, AnimationDuration).SetDelay(InitialHoldDuration);
+        Prompts[selectedIdx].text = selectedPrompt;
+        Prompts[selectedIdx].DOFade(1f, AnimationDuration).From(0f).SetDelay(InitialHoldDuration+AnimationDuration);
+        Backgrounds[lieIdx].DOColor(CorrectColor, AnimationDuration).SetDelay(InitialHoldDuration + HoldDuration + AnimationDuration).OnComplete(() => {
+            Prompts[lieIdx].text = liePrompt;
+        });
+        if (!isCorrect) Prompts[lieIdx].DOFade(1f, AnimationDuration).From(0f).SetDelay(InitialHoldDuration + HoldDuration + AnimationDuration + AnimationDuration);
+
+        Backgrounds[selectedIdx].DOColor(NormalColor, AnimationDuration).SetDelay(InitialHoldDuration + HoldDuration + HoldDuration + AnimationDuration + AnimationDuration).OnComplete(
+            () => {
+                NextButton.enabled = true;
+            });
+        Prompts[selectedIdx].DOFade(0f, AnimationDuration).SetDelay(InitialHoldDuration + HoldDuration + HoldDuration + AnimationDuration + AnimationDuration);
+        if (!isCorrect) {
+            Backgrounds[lieIdx].DOColor(NormalColor, AnimationDuration).SetDelay(InitialHoldDuration + HoldDuration + HoldDuration + AnimationDuration + AnimationDuration);
+            Prompts[lieIdx].DOFade(0f, AnimationDuration).SetDelay(InitialHoldDuration + HoldDuration + HoldDuration + AnimationDuration + AnimationDuration);
+        }
+    }
+
+    public void TestLoad() {
+        var selectedIndex = Rand.Range(0, 3);
+        var lieIndex = Rand.Range(0, 3);
+        var self = Rand.Bool;
+        Load(self, lieIndex, selectedIndex, new []{ "Lorem ipsum dolor sit amet bla bla", "It's ya boi teodor roblox esports legend", "Hello world I can properly code shit"});
+    }
+}
+
