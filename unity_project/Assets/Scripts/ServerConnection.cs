@@ -30,10 +30,10 @@ public class ServerConnection : MonoSingleton<ServerConnection> {
     private IEnumerator RunThreadRequest(string endpoint, Method method, IReadOnlyCollection<(string key, string value)> data, Action<Response> onComplete) {
         UnityWebRequest request;
         if (method == Method.POST) {
-            request = UnityWebRequest.Post($"http://18.198.156.185:3000{(endpoint.StartsWith("/") ? endpoint : "/" + endpoint)}",
+            request = UnityWebRequest.Post($"https://18.198.156.185:3000{(endpoint.StartsWith("/") ? endpoint : "/" + endpoint)}",
                                            data.ToDictionary(tuple => tuple.key, tuple => tuple.value));
         } else {
-            var url = $"http://18.198.156.185:3000{(endpoint.StartsWith("/") ? endpoint : "/" + endpoint)}?";
+            var url = $"https://18.198.156.185:3000{(endpoint.StartsWith("/") ? endpoint : "/" + endpoint)}?";
             foreach (var (key, value) in data) {
                 url += $"{key}={Uri.EscapeDataString(value)}&";
             }
@@ -41,6 +41,8 @@ public class ServerConnection : MonoSingleton<ServerConnection> {
             url = url.Substring(0, url.Length - 1);
             request = UnityWebRequest.Get(url);
         }
+
+        request.certificateHandler = new BypassCertificateHandler();
 
         yield return request.SendWebRequest();
         
