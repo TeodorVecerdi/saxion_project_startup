@@ -21,6 +21,9 @@ public class ShowMinigameResults : MonoBehaviour {
     public void Load(bool self, int lieIdx, int selectedIdx, List<string> texts) {
         NextButton.enabled = false;
         for (var i = 0; i < 3; i++) {
+            Prompts[i].text = "";
+            Prompts[i].color = new Color(1, 1, 1, 0);
+            Backgrounds[i].color = NormalColor;
             Texts[i].text = texts[i];
         }
 

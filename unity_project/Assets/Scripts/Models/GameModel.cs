@@ -20,7 +20,6 @@ public class GameModel {
     public int Answer;
 
     public static GameModel Deserialize(JToken gameToken) {
-        Debug.Log(gameToken.ToString());
         var prompts = gameToken["prompts"].Values<string>().ToList();
         var next = gameToken["next"].Values<int>().ToList();
         return new GameModel {

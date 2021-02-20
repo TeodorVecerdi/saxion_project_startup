@@ -13,9 +13,4 @@ public class MessageEntry : MonoBehaviour {
         UserInfoBuilder.Cleanup();
         UserInfoBuilder.Build(accountModel.UserModel);
     }
-
-    public void OpenChat() {
-        // TODO!: Open chat with UserId
-        Debug.Log($"Opening chat with user [{userId}]");
-    }
 }

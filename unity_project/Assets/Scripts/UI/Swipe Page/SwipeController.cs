@@ -89,7 +89,7 @@ public class SwipeController : MonoBehaviour {
                     if (hasMatch) {
                         SoundManager.PlaySound("Match");
                         OnMatch?.Invoke(AppState.Instance.UserAccounts[oldCurrentUser].UserModel);
-
+                        AppState.Instance.Matches.Add(AppState.Instance.UserAccounts[oldCurrentUser].UserId);
                         ServerConnection.Instance.MakeRequestAsync("/users/confirm-matches", Method.POST, new List<(string key, string value)> {
                             ("id", selfUser),
                             ("ids", $"[\"{other}\"]")
@@ -160,40 +160,38 @@ public class SwipeController : MonoBehaviour {
                if (matches.Count > 0) {
                    SoundManager.PlaySound("Match");
                    Notification.ShowNotification("You have new scores!");
+                   foreach (var matchToken in matches) {
+                       AppState.Instance.Matches.Add(matchToken.Value<string>());
+                   }
+
                }
-               foreach (var matchToken in matches) {
-                   AppState.Instance.Matches.Add(matchToken.Value<string>());
-               }
+            
                ServerConnection.Instance.MakeRequestAsync("/users/confirm-matches", Method.POST,
-                                                          new List<(string key, string value)>
-                                                              {("id", UserState.Instance.UserId), ("ids", matchesResponse.Content)},
-                                                          confirmMatches => {
-                                                              
-       
-                ServerConnection.Instance.MakeRequestAsync("/users", Method.GET, new List<(string key, string value)>(), response => {
-                    var usersArray = JArray.Parse(response.Content);
-                    for (var index = 0; index < usersArray.Count; index++) {
-                        var account = usersArray[index];
-                        parseCoroutines[index] = false;
-                        StartCoroutine(ParseAccount(index, account));
-                    }
+                                                          new List<(string key, string value)> {("id", UserState.Instance.UserId), ("ids", matchesResponse.Content)}, confirmMatches => {
+                    ServerConnection.Instance.MakeRequestAsync("/users", Method.GET, new List<(string key, string value)>(), response => {
+                          var usersArray = JArray.Parse(response.Content);
+                          for (var index = 0; index < usersArray.Count; index++) {
+                              var account = usersArray[index];
+                              parseCoroutines[index] = false;
+                              StartCoroutine(ParseAccount(index, account));
+                          }
 
-                    IDisposable cancelToken = null;
-                    cancelToken = UpdateUtility.Create(() => {
-                        if (!parseCoroutines.All(pair => pair.Value))
-                            return;
+                          IDisposable cancelToken = null;
+                          cancelToken = UpdateUtility.Create(() => {
+                              if (!parseCoroutines.All(pair => pair.Value))
+                                  return;
 
-                        parseCoroutines.Clear();
-                        OnDoneLoading();
-                        loadingUsers = false;
-                        if (initial) {
-                            AppState.Instance.DoneLoadingInitial = true;
-                        }
+                              parseCoroutines.Clear();
+                              OnDoneLoading();
+                              loadingUsers = false;
+                              if (initial) {
+                                  AppState.Instance.DoneLoadingInitial = true;
+                              }
 
-                        cancelToken?.Dispose();
-                    });
-                });
-            });
+                              cancelToken?.Dispose();
+                          });
+                      });
+                  });
         });
     }
 

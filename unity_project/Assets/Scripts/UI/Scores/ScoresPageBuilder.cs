@@ -54,6 +54,8 @@ public class ScoresPageBuilder : MonoBehaviour {
 
             
             foreach (var matchId in AppState.Instance.Matches) {
+                if (!AppState.Instance.UserAccountsDict.ContainsKey(matchId)) continue;
+                
                 var messageEntry = Instantiate(MessageEntryPrefab, MessageEntryContainer);
                 messageEntry.Build(AppState.Instance.UserAccountsDict[matchId]);
                 var button = messageEntry.GetComponent<Button>();
