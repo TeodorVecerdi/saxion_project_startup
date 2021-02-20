@@ -43,7 +43,7 @@ public class ServerConnection : MonoSingleton<ServerConnection> {
         }
 
         yield return request.SendWebRequest();
-        Debug.Log(request.downloadHandler.text);
+        
         var response = new Response {
             StatusCode = (int) request.responseCode,
             Content = request.downloadHandler.text
