@@ -7,12 +7,12 @@
   </head>
   <body style="text-align: center">
     <canvas id="unity-canvas" style="width: 475px; height: 950px; background: #D90F3F"></canvas>
-    <script src="Build/FinalWebBuild.loader.js"></script>
+    <script src="Build/build.loader.js"></script>
     <script>
       createUnityInstance(document.querySelector("#unity-canvas"), {
-        dataUrl: "Build/FinalWebBuild.data",
-        frameworkUrl: "Build/FinalWebBuild.framework.js",
-        codeUrl: "Build/FinalWebBuild.wasm",
+        dataUrl: "Build/build.data",
+        frameworkUrl: "Build/build.framework.js",
+        codeUrl: "Build/build.wasm",
         streamingAssetsUrl: "StreamingAssets",
         companyName: "DefaultCompany",
         productName: "unity_project",
