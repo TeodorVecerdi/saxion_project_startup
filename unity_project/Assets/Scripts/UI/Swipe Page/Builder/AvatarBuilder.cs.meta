@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+<<<<<<< develop:unity_project/Assets/Scripts/Test/TestAvatarBuilder.cs.meta
+guid: db797d4aa5810bf4eb9570adfefbbd3e
+=======
+guid: 1d0f770bcc9737a42aea139ca2819a1c
+>>>>>>> Fixed chat yPos between texts:unity_project/Assets/Scripts/ServerTester.cs.meta
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

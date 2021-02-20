@@ -1,0 +1,53 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3eb84029d2464948a8bb400eb9990bd8, type: 3}
+  m_Name: Avatar Sprites
+  m_EditorClassIdentifier: 
+  FacialHair:
+  - {fileID: 21300000, guid: a3fa36134434012419d93d202e272cc4, type: 3}
+  - {fileID: 21300000, guid: dca4d0cb56041844696c5d7e5e0408f0, type: 3}
+  - {fileID: 21300000, guid: 9fa8fc922cbf87f41a28cfea97b4a220, type: 3}
+  - {fileID: 21300000, guid: 54e410cbee90001428330d62da33bd09, type: 3}
+  Eyebrow:
+  - {fileID: 21300000, guid: 74eac906df2d4e843b98e796228f5e89, type: 3}
+  - {fileID: 21300000, guid: aa2dea224922fc74282792a3fec47f3f, type: 3}
+  - {fileID: 21300000, guid: a24c630771e00194bb138cfa7472cd3c, type: 3}
+  - {fileID: 21300000, guid: 52967350c6d81404abcf92330b232b98, type: 3}
+  Hair:
+  - {fileID: 21300000, guid: 678011d556e722841a7a1f717cfb058a, type: 3}
+  - {fileID: 21300000, guid: 070d7594331d308469e4926f036e1162, type: 3}
+  - {fileID: 21300000, guid: 8ed7df442e615524bbad22f446c894d0, type: 3}
+  - {fileID: 21300000, guid: 388900a9be078974bbc7f1d1ee99ac8d, type: 3}
+  - {fileID: 21300000, guid: ff6aac736349d43479951be3a82b20e1, type: 3}
+  - {fileID: 21300000, guid: 7645bdb055711ea46b0a8b3363c2d5ec, type: 3}
+  Eye:
+  - {fileID: 21300000, guid: 3bc5953b831ac3d4fb48e4be16805e92, type: 3}
+  - {fileID: 21300000, guid: ed357669cbf92d646a8e2f26f03ceb89, type: 3}
+  - {fileID: 21300000, guid: d14477e36422a89468b4d4014b2d9110, type: 3}
+  - {fileID: 21300000, guid: 75421d97c21178a4e9cc367071bc6458, type: 3}
+  - {fileID: 21300000, guid: 46e0db0a5534e604085ae7b51328ed7f, type: 3}
+  - {fileID: 21300000, guid: 13edd602687117c4e99a454577cb6809, type: 3}
+  Clothing:
+  - {fileID: 21300000, guid: 1a9272e47d729d041ac3b95dfc223b0d, type: 3}
+  - {fileID: 21300000, guid: 685944eb190d300458d3f2630645dc73, type: 3}
+  - {fileID: 21300000, guid: 3690684072a654144bfe06afe1364c7b, type: 3}
+  - {fileID: 21300000, guid: 6a3434b1b5d045044941cd766a7aea2e, type: 3}
+  Mouth:
+  - {fileID: 21300000, guid: 8ef98b86c62cfed47a4378f276d98282, type: 3}
+  - {fileID: 21300000, guid: f95046796f002874e87718e60c1c4bba, type: 3}
+  - {fileID: 21300000, guid: 90b5ef8df2d818f4882f2eb83c2596fc, type: 3}
+  - {fileID: 21300000, guid: 8ab2bb2946f2c0e49a73df55d18a502d, type: 3}
+  - {fileID: 21300000, guid: 08022f84ab62cf743a6ca16ae31d6a2c, type: 3}
+  Accessory:
+  - {fileID: 21300000, guid: eac7b1433ff043f4695067aac9201c00, type: 3}
+  - {fileID: 21300000, guid: 650e6d01e359f944887f60fa7323513c, type: 3}
+  - {fileID: 21300000, guid: fc2d726400278b94a8cf0a7fd979eb6b, type: 3}

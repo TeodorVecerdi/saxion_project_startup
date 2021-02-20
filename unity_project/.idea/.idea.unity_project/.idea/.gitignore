@@ -1,0 +1,13 @@
+﻿# Default ignored files
+/shelf/
+/workspace.xml
+# Rider ignored files
+/projectSettingsUpdater.xml
+/modules.xml
+/.idea.unity_project.iml
+/contentModel.xml
+# Datasource local storage ignored files
+/../../../../../../../../../:\dev\saxion\unity\project_startup\unity_project\.idea\.idea.unity_project\.idea/dataSources/
+/dataSources.local.xml
+# Editor-based HTTP Client requests
+/httpRequests/

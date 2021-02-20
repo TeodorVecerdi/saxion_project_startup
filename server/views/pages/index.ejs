@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <% include ../partials/head.ejs %>
+</head>
+
+<body class="bg-dark">
+
+<div id="activeUsers"></div>
+<div id="activeChat">
+    <div class="" id="no-chat-open">No chat open</div>
+    <div class="d-none" id="chat">
+        <div id="chat-person">Teodor Vecerdi</div>
+        <div id="chat-messages">
+            <div class="message self">
+                <div class="message-body">Hello, world</div>
+            </div>
+            <div class="message other">
+                <div class="message-body">Hello, world indeed</div>
+            </div>
+            <div class="message other">
+                <div class="message-body">Hello, world indeed</div>
+            </div>
+            <div class="message other">
+                <div class="message-body">Hello, world indeed</div>
+            </div>
+            <div class="message other">
+                <div class="message-body">Hello, world indeed</div>
+            </div>
+            <div class="message other">
+                <div class="message-body">Hello, world indeed</div>
+            </div>
+            <div class="message other">
+                <div class="message-body">Hello, world indeed</div>
+            </div>
+            <div class="message other">
+                <div class="message-body">Hello, world indeed</div>
+            </div>
+            <div class="message other">
+                <div class="message-body">Hello, world indeed</div>
+            </div>
+            <div class="message other">
+                <div class="message-body">Hello, world indeed</div>
+            </div>
+            <div class="message other">
+                <div class="message-body">Hello, world indeed</div>
+            </div>
+            <div class="message other">
+                <div class="message-body">Hello, world indeed</div>
+            </div>
+            <div class="message other">
+                <div class="message-body">Hello, world indeed</div>
+            </div>
+            <div class="message other">
+                <div class="message-body">Hello, world indeed</div>
+            </div>
+            <div class="message other">
+                <div class="message-body">Hello, world indeed</div>
+            </div>
+            <div class="message other">
+                <div class="message-body">Hello, world indeed</div>
+            </div>
+            <div class="message other">
+                <div class="message-body">Hello, world indeed</div>
+            </div>
+            <div class="message other">
+                <div class="message-body">Hello, world indeed</div>
+            </div>
+            <div class="message other">
+                <div class="message-body">Hello, world indeed</div>
+            </div>
+            <div class="message other">
+                <div class="message-body">Hello, world indeed</div>
+            </div>
+            <div class="message other">
+                <div class="message-body">Hello, world indeed</div>
+            </div>
+            <div class="message other">
+                <div class="message-body">Hello, world indeed</div>
+            </div>
+            <div class="message other">
+                <div class="message-body">Hello, world indeed</div>
+            </div>
+            <div class="message other">
+                <div class="message-body">Hello, world indeed</div>
+            </div>
+            <div class="message other">
+                <div class="message-body">Hello, world indeed</div>
+            </div>
+            <div class="message other">
+                <div class="message-body">Hello, world indeed</div>
+            </div>
+            <div class="message other">
+                <div class="message-body">Hello, world indeed</div>
+            </div>
+            <div class="message other">
+                <div class="message-body">Hello, world indeed</div>
+            </div>
+            <div class="message other">
+                <div class="message-body">Hello, world indeed</div>
+            </div>
+            <div class="message other">
+                <div class="message-body">Hello, world indeed</div>
+            </div>
+            <div class="message other">
+                <div class="message-body">Hello, world indeed</div>
+            </div>
+            <div class="message other">
+                <div class="message-body">Hello, world indeed</div>
+            </div>
+            <div class="message other">
+                <div class="message-body">Hello, world indeed</div>
+            </div>
+            <div class="message other">
+                <div class="message-body">Hello, world indeed</div>
+            </div>
+            <div class="message other">
+                <div class="message-body">Hello, world indeed</div>
+            </div>
+            <div class="message other">
+                <div class="message-body">Hello, world indeed</div>
+            </div>
+            <div class="message other">
+                <div class="message-body">Hello, world indeed</div>
+            </div>
+            <div class="message other">
+                <div class="message-body">Hello, world indeed</div>
+            </div>
+            <div class="message other">
+                <div class="message-body">Hello, world indeed</div>
+            </div>
+            <div class="message other">
+                <div class="message-body">Hello, world indeed</div>
+            </div>
+            <div class="message other">
+                <div class="message-body">Hello, world indeed</div>
+            </div>
+            <div class="message other">
+                <div class="message-body">Hello, world indeed</div>
+            </div>
+            <div class="message self">
+                <div class="message-body">Hello, world</div>
+            </div>
+            <div class="message other">
+                <div class="message-body">Hello, world indeed</div>
+            </div>
+            <div class="message other">
+                <div class="message-body">Hello, world indeed</div>
+            </div>
+            <div class="message other">
+                <div class="message-body">Hello, world indeed</div>
+            </div>
+            <div class="message other">
+                <div class="message-body">Hello, world indeed</div>
+            </div>
+            <div class="message other">
+                <div class="message-body">Hello, world indeed</div>
+            </div>
+            <div class="message other">
+                <div class="message-body">Hello, world indeed</div>
+            </div>
+            <div class="message other">
+                <div class="message-body">Hello, world indeed</div>
+            </div>
+            <div class="message other">
+                <div class="message-body">Hello, world indeed</div>
+            </div>
+            <div class="message other">
+                <div class="message-body">Hello, world indeed</div>
+            </div>
+        </div>
+        <input id="chat-input" class="form-control" type="text" aria-label="Message" placeholder="Message">
+    </div>
+</div>
+
+<% include ../partials/footer.ejs %>
+<script type="text/javascript" src="/js/Prototypes.js"></script>
+<script>
+    let socket = io();
+    socket.on('hello', data => {
+        socket.emit('auth', Cookies.get('logged-in').substr(2));
+    });
+    socket.on('new client', () => {
+        loadActiveUsers();
+    });
+    socket.on('goodbye', () => {
+        loadActiveUsers();
+    });
+    socket.on('new message', data => {
+        let dataObject = JSON.parse(data);
+        console.log(dataObject);
+        if (dataObject.from == chattingWith) {
+            AddMessage(dataObject.from, dataObject.to, dataObject.message)
+        }
+    })
+
+    const activeUsers = $("#activeUsers");
+    let selfUser, chattingWith;
+
+    $(() => {
+        selfUser = JSON.parse(Cookies.get('logged-in').substr(2));
+        loadActiveUsers();
+
+        $('#chat-input').on('keypress', event => {
+            if (event.key == "Enter") {
+                let chat = $('#chat-input');
+                let message = chat.val().trim();
+                if (message !== '') {
+                    sendMessage(selfUser.id, chattingWith, message);
+                    AddMessage(selfUser.id, chattingWith, message)
+                    chat.val("");
+                }
+            }
+        })
+    });
+
+    function loadActiveUsers() {
+        activeUsers.html("");
+        $.ajax({
+            url: '/chat/active-users',
+            type: 'get',
+            success: data => {
+                let openWith = undefined;
+                let html = "";
+                console.log(data);
+                for (let userId in data) {
+                    let user = data[userId];
+                    if (user.id === selfUser.id) continue;
+                    if (chattingWith !== undefined && chattingWith == user.id) openWith = user.id;
+                    html += `<li class="user" data-user-id="${user.id}" data-username="${user.username}"><span title="${user.username}">${user.username}</span></li>`;
+                }
+
+                html = `
+<div class="title">Users</div>
+<ul id="userList"">${html}</ul>`;
+                activeUsers.html(html);
+
+                if (openWith !== undefined) openChat(openWith);
+
+                $('.user').on('click', event => {
+                    let user = $(event.currentTarget);
+                    let userId = user.data('user-id');
+                    openChat(userId)
+                })
+            },
+            error: err => {
+                console.error(err);
+            }
+        });
+    }
+
+    function openChat(userId) {
+        $('.user.selected').removeClass('selected');
+        let chatUser = $(`.user[data-user-id=${userId}]`);
+        chatUser.addClass('selected')
+
+        if (chattingWith === undefined) {
+            $('#no-chat-open').addClass('d-none')
+            $('#chat').removeClass('d-none');
+        }
+
+        chattingWith = userId;
+
+        $('#chat-messages').html("");
+        let chatUsername = chatUser.data('username');
+        $('#chat-person').text(chatUsername);
+
+        console.log(`Chatting with ${chattingWith}`)
+        loadMessages(userId);
+    }
+
+    function loadMessages(userId, callback) {
+        $.ajax({
+            url: '/chat/messages',
+            type: 'get',
+            data: {
+                self: selfUser.id,
+                userId: userId
+            },
+            success: data => {
+                onLoadMessages(data, callback);
+            },
+            error: err => {
+                console.error(err);
+            }
+        })
+    }
+
+    function onLoadMessages(messages, callback) {
+        for (let message of messages) {
+            AddMessage(message.from, message.to, message.message);
+        }
+
+        if (callback) callback();
+    }
+
+    function sendMessage(from, to, message) {
+        $.ajax({
+            url: '/chat/message',
+            type: 'put',
+            data: {
+                from: from,
+                to: to,
+                message: message
+            },
+            success: data => {
+                console.log("Sent message")
+            },
+            error: err => {
+                console.error(err);
+            }
+        });
+    }
+
+    function AddMessage(from, to, message) {
+        let messageContainer = $('#chat-messages');
+
+        if (from == selfUser.id) messageContainer.append(SelfMessage(message));
+        else messageContainer.append(OtherMessage(message));
+
+        messageContainer.scrollTop(messageContainer.prop('scrollHeight'));
+    }
+</script>
+</body>
+</html>

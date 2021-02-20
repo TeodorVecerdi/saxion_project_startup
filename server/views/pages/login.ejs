@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <% include ../partials/head.ejs %>
+</head>
+
+<body class="bg-dark">
+<div class="container">
+    <form id="loginForm" class="form-horizontal">
+        <fieldset>
+            <!-- Form Name -->
+            <legend class="text-white">Log In</legend>
+
+            <!-- Text input-->
+            <div class="form-group">
+                <label class="text-white col-md-4 control-label" for="username">Username</label>
+                <div class="col-md-4">
+                    <input id="username" name="username" type="text" placeholder="Username"
+                           class="form-control input-md" autocomplete="username" required>
+                </div>
+            </div>
+
+            <!-- Password input-->
+            <div class="form-group mt-2">
+                <label class="text-white col-md-4 control-label" for="password">Password</label>
+                <div class="col-md-4">
+                    <input id="password" name="password" type="password" placeholder="Password"
+                           class="form-control input-md" required>
+
+                </div>
+            </div>
+
+            <!-- Button -->
+            <div class="form-group mt-3">
+                <div class="col-md-4">
+                    <input type="submit" id="submit" value="Log In" name="submit" class="btn w-100 btn-danger">
+                </div>
+            </div>
+
+        </fieldset>
+        <output class="mt-2 col-md-4 text-warning text-center" id="loginFailedOutput"></output>
+
+        <div class="text-white col-md-4 mt-3 text-center">Don't have an account? <a class="text-info text-decoration-none" href="/register">Register now!</a></div>
+    </form>
+</div>
+
+<% include ../partials/footer.ejs %>
+
+<script>
+    $(() => {
+        $('#loginForm').on('submit', event => {
+            event.preventDefault();
+            login();
+        });
+    });
+
+    function login() {
+        let username = $('#username').val();
+        let password = $('#password').val();
+
+        $.ajax({
+            url: '/login',
+            type: 'post',
+            data: {
+                username: username,
+                password: password
+            },
+            success: () => {
+                window.location.href = "/";
+            },
+            error: err => {
+                if (err.status === 404) {
+                    $('#loginFailedOutput').text("Username and password don't match.");
+                } else {
+                    $('#loginFailedOutput').text(`Server error. Status code: ${err.status} (${err.statusText})`);
+                }
+                console.log(err);
+            }
+        });
+    }
+</script>
+</body>
+</html>

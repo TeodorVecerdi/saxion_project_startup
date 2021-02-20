@@ -1,0 +1,14 @@
+<<<<<<< develop
+fileFormatVersion: 2
+guid: fd3fa43a035c93a40982613039292e58
+folderAsset: yes
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+=======
+﻿fileFormatVersion: 2
+guid: 2d0c9bbfc37e46c09e4c3a6cff233740
+timeCreated: 1613504556
+>>>>>>> Fixed chat yPos between texts

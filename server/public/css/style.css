@@ -1,0 +1,113 @@
+#activeUsers {
+  position: absolute;
+  top: 0;
+  width: 20vw;
+  height: 100vh;
+  overflow-y: auto;
+  background-color: #0c0c11;
+  border-right: 2px solid dimgrey;
+}
+#activeUsers div.title {
+  width: 100%;
+  text-align: center;
+  text-decoration: underline;
+  font-size: 2rem;
+  color: aliceblue;
+}
+#activeUsers ul#userList {
+  padding-top: 1rem;
+  padding-left: 1rem;
+  list-style: none;
+}
+#activeUsers ul#userList li.user {
+  font-size: 1.6rem;
+  color: aliceblue;
+  cursor: pointer;
+  user-select: none;
+  overflow-x: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+#activeUsers ul#userList li.user.selected {
+  color: #39acf3;
+}
+#activeUsers ul#userList li.user:hover {
+  color: #a4bfc6;
+}
+
+#activeChat {
+  position: absolute;
+  top: 0;
+  left: 20vw;
+  width: 80vw;
+  height: 100vh;
+  overflow-y: auto;
+  background-color: #091618;
+}
+#activeChat #no-chat-open {
+  position: absolute;
+  top: 50%;
+  user-select: none;
+  transform: translateY(-100%);
+  font-size: 4rem;
+  width: 100%;
+  color: aliceblue;
+  text-align: center;
+}
+#activeChat #chat-input {
+  position: absolute;
+  bottom: 0;
+  height: 3rem;
+  border-radius: 0;
+  border: 0;
+  border-top: 2px solid dimgrey;
+  background-color: #0c0c11;
+  color: aliceblue;
+}
+#activeChat #chat-input::placeholder {
+  color: #a4bfc6;
+}
+#activeChat #chat-input:focus {
+  box-shadow: none;
+}
+#activeChat #chat-person {
+  width: 100%;
+  height: 3rem;
+  text-align: center;
+  color: aliceblue;
+  font-size: 2rem;
+  border-bottom: 1px solid dimgrey;
+}
+#activeChat #chat-messages {
+  position: absolute;
+  top: 3rem;
+  width: 80vw;
+  left: 0;
+  height: calc(100vh - 6rem);
+  padding: 1.5rem;
+  overflow-y: auto;
+}
+#activeChat #chat-messages .message {
+  color: aliceblue;
+  margin-top: 1rem;
+}
+#activeChat #chat-messages .message:nth-of-type(1) {
+  margin-top: 0;
+}
+#activeChat #chat-messages .message .message-body {
+  display: inline;
+  padding: 0.38rem 1rem;
+  background-color: #39acf3;
+}
+#activeChat #chat-messages .message.self {
+  text-align: right;
+}
+#activeChat #chat-messages .message.self .message-body {
+  border-radius: 12px 12px 0 12px;
+}
+#activeChat #chat-messages .message.other .message-body {
+  background-color: #2b4abc;
+  border-radius: 0 12px 12px 12px;
+}
+
+/*# sourceMappingURL=style.css.map */
