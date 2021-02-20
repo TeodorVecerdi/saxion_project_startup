@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Newtonsoft.Json.Linq;
-using RestSharp;
 using UnityCommons;
 using UnityEngine;
 using UnityEngine.Events;
@@ -160,7 +159,7 @@ public class SwipeController : MonoBehaviour {
                var matches = JArray.Parse(matchesResponse.Content);
                if (matches.Count > 0) {
                    SoundManager.PlaySound("Match");
-                   Notification.ShowNotification("You have new matches!");
+                   Notification.ShowNotification("You have new scores!");
                }
                foreach (var matchToken in matches) {
                    AppState.Instance.Matches.Add(matchToken.Value<string>());

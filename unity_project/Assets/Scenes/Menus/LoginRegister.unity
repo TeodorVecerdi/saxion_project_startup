@@ -1045,6 +1045,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8950012084937526325, guid: c6bcb5ed8cf75554a97dd0c8774cbd89, type: 3}
+      propertyPath: m_CaretWidth
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8950012084937526325, guid: c6bcb5ed8cf75554a97dd0c8774cbd89, type: 3}
       propertyPath: m_Navigation.m_SelectOnDown
       value: 
       objectReference: {fileID: 1536502860}

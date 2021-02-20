@@ -1,12 +1,5 @@
 {
   "dependencies": {
-    "com.adrenak.restsharp.unity": {
-      "version": "1.1.0",
-      "depth": 0,
-      "source": "registry",
-      "dependencies": {},
-      "url": "https://package.openupm.com"
-    },
     "com.coffee.csharp-compiler-settings": {
       "version": "1.4.0",
       "depth": 0,
@@ -29,13 +22,6 @@
         "com.unity.textmeshpro": "2.0.0",
         "com.dbrizov.naughtyattributes": "2.0.8"
       },
-      "url": "https://package.openupm.com"
-    },
-    "com.glitchenzo.nugetforunity": {
-      "version": "1.2.3",
-      "depth": 0,
-      "source": "registry",
-      "dependencies": {},
       "url": "https://package.openupm.com"
     },
     "com.unity.2d.sprite": {

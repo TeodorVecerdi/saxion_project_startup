@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using RestSharp;
 using UnityEngine;
 
 public class MinigameManager : MonoBehaviour {
@@ -105,7 +104,7 @@ public class MinigameManager : MonoBehaviour {
                 if (gameRequest.Status == GameRequestModel.Unconfirmed) {
                     MenuController.ShowState(1);
                 } else {
-                    ServerConnection.Instance.MakeRequest("/game/acknowledge-request-status", Method.POST, new List<(string key, string value)> {("from", Self), ("to", Other)});
+                    ServerConnection.Instance.MakeRequestAsync("/game/acknowledge-request-status", Method.POST, new List<(string key, string value)> {("from", Self), ("to", Other)}, null);
                     if (gameRequest.Status == GameRequestModel.Denied) {
                         MenuController.ShowState(2);
                     } else {
@@ -150,9 +149,9 @@ public class MinigameManager : MonoBehaviour {
         ServerConnection.Instance.MakeRequestAsync("/game/confirm-request", Method.POST, new List<(string key, string value)> {
             ("from", Self), ("to", Other), ("status", status.ToString())
         }, response => {
-            ServerConnection.Instance.MakeRequest("/game/acknowledge-request-status", Method.POST, new List<(string key, string value)> {
+            ServerConnection.Instance.MakeRequestAsync("/game/acknowledge-request-status", Method.POST, new List<(string key, string value)> {
                 ("from", Self), ("to", Other)
-            });
+            }, null);
         });
     }
 

@@ -1,8 +1,6 @@
 using System;
 using System.Collections.Generic;
-using DG.Tweening;
 using Newtonsoft.Json.Linq;
-using RestSharp;
 using TMPro;
 using UnityCommons;
 using UnityEngine;
@@ -25,7 +23,7 @@ public class LoginRegisterController : MonoBehaviour {
     private string registerRepeatPassword;
 
     public void OnLoginClick() {
-        ServerConnection.Instance.MakeRequestAsync("login", Method.POST, new List<(string key, string value)> {("username", loginUsername), ("password", loginPassword)},
+        ServerConnection.Instance.MakeRequestAsync("/login", Method.POST, new List<(string key, string value)> {("username", loginUsername), ("password", loginPassword)},
                                                    response => {
                                                        if (response.StatusCode == 404) {
                                                            LoginServerResponseText.text = "Invalid username or password";
@@ -63,7 +61,7 @@ public class LoginRegisterController : MonoBehaviour {
     }
 
     public void OnRegisterClick() {
-        ServerConnection.Instance.MakeRequestAsync("register", Method.POST, new List<(string key, string value)> {("username", registerUsername), ("password", registerPassword)},
+        ServerConnection.Instance.MakeRequestAsync("/register", Method.POST, new List<(string key, string value)> {("username", registerUsername), ("password", registerPassword)},
                                                    response => {
                                                        if (response.StatusCode == 409) {
                                                            RegisterServerResponseText.text = "Username already exists";

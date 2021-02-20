@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 8942301350069824247}
   - component: {fileID: 910085949726438511}
   - component: {fileID: 2359625280815418157}
+  - component: {fileID: 8424848823715881510}
   m_Layer: 5
   m_Name: Blurred Avatar
   m_TagString: Untagged
@@ -63,7 +64,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 0.8, g: 0.8, b: 0.8, a: 1}
-  m_RaycastTarget: 0
+  m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -111,6 +112,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 6044c259efc54dd4cab82c32225fb436, type: 3}
   - {fileID: 21300000, guid: bc61440042065744692b2d7287078c6c, type: 3}
   AvatarImage: {fileID: 8942301350130744336}
+  Seed: 0
 --- !u!114 &2359625280815418157
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -127,6 +129,63 @@ MonoBehaviour:
   HueRange: {x: 0, y: 1}
   SaturationRange: {x: 0, y: 0.2}
   ValueRange: {x: 0.7, y: 1}
+  Seed: 0
+--- !u!114 &8424848823715881510
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8942301350069824235}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Navigation:
+    m_Mode: 3
+    m_WrapAround: 0
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 1
+  m_Colors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_SelectedTrigger: Selected
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 8942301350069824245}
+  m_OnClick:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5958821684107978901, guid: abb8dc5a203861947852163f00d2ae28, type: 3}
+        m_TargetAssemblyTypeName: Popup, Assembly-CSharp
+        m_MethodName: Show
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Seeing your likes
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &8942301350130744342
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using RestSharp;
 using UnityCommons;
 using UnityEngine;
 
@@ -42,6 +40,7 @@ public class ChatManager : MonoBehaviour {
     }
 
     public void EmitMessage(string message) {
+        SoundManager.PlaySound("Message");
         MessageController.OnMessageSelf(message);
         var from = UserState.Instance.UserId;
         var to = AppState.Instance.ChattingWith;
@@ -50,6 +49,7 @@ public class ChatManager : MonoBehaviour {
 
     private void Update() {
         if (!queueingMessages && messageQueue.Count > 0) {
+            SoundManager.PlaySound("Message");
             AddMessage(messageQueue.Dequeue());
         }
         
