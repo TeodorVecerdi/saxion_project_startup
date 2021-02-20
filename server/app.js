@@ -4,13 +4,18 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const bodyParser = require('body-parser');
-const http = require('http');
+const https = require('https');
 const sio = require('socket.io')
+const fs = require('fs')
+const cors = require('cors');
 
 const socketSetup = require('./js/SocketSetup');
 
 let app = express();
-const server = http.createServer(app);
+const server = https.createServer({
+    key: fs.readFileSync('cert/server.key'),
+    cert: fs.readFileSync('cert/server.cert')
+}, app);
 let io = sio(server);
 
 app.set('views', path.join(__dirname, 'views'));
@@ -22,6 +27,7 @@ app.use(express.urlencoded({extended: true}));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(cookieParser());
 app.use(bodyParser.json());
+app.use(cors())
 
 let routes = require('./routes/_router');
 routes.forEach(route => app.use(route.url, route.router));
