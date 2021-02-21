@@ -16282,6 +16282,7 @@ GameObject:
   m_Component:
   - component: {fileID: 684937510}
   - component: {fileID: 684937512}
+  - component: {fileID: 684937511}
   m_Layer: 5
   m_Name: Transition
   m_TagString: Untagged
@@ -16311,6 +16312,25 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &684937511
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 684937509}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50fcaeb8f522c8346813de28844b3d71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Background: {fileID: 1889530116}
+  SlideIndexController: {fileID: 544021257}
+  SpinnerImage: {fileID: 200627477}
+  LoadingText: {fileID: 1331513779}
+  TransitionContainer: {fileID: 684937509}
+  PleaseWaitText: {fileID: 1501599563}
+  StartWaitTimer: 0
 --- !u!222 &684937512
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -16487,7 +16507,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &699611107
 RectTransform:
   m_ObjectHideFlags: 0
@@ -17784,7 +17804,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &758363721
 RectTransform:
   m_ObjectHideFlags: 0
@@ -20937,7 +20957,6 @@ GameObject:
   - component: {fileID: 857583540}
   - component: {fileID: 857583539}
   - component: {fileID: 857583542}
-  - component: {fileID: 857583543}
   m_Layer: 5
   m_Name: Slide Container
   m_TagString: Untagged
@@ -21046,27 +21065,8 @@ MonoBehaviour:
   GameGenreButton: {fileID: 787744131}
   GamesPlayedButton: {fileID: 857831230}
   Slides: {fileID: 1731461142}
-  Transition: {fileID: 857583543}
+  Transition: {fileID: 684937511}
   Customizer: {fileID: 401650125}
---- !u!114 &857583543
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 857583537}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 50fcaeb8f522c8346813de28844b3d71, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Background: {fileID: 1889530116}
-  SlideIndexController: {fileID: 544021257}
-  SpinnerImage: {fileID: 200627477}
-  LoadingText: {fileID: 1331513779}
-  TransitionContainer: {fileID: 684937509}
-  PleaseWaitText: {fileID: 1501599563}
-  StartWaitTimer: 0
 --- !u!1 &857831228
 GameObject:
   m_ObjectHideFlags: 0

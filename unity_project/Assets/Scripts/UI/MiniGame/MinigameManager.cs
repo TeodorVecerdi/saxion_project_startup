@@ -124,7 +124,6 @@ public class MinigameManager : MonoBehaviour {
     }
 
     public void RequestMinigame() {
-        Debug.Log("Requesting minigame");
         gameRequest = new GameRequestModel {
             Initiator = Self,
             Other = Other,
@@ -136,7 +135,6 @@ public class MinigameManager : MonoBehaviour {
     }
 
     public void ConfirmRequest(int status) {
-        Debug.Log("Confirming request");
         gameRequest.Status = status;
         if (status == 0) MenuController.ShowState(2);
         else {

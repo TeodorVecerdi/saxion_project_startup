@@ -35,7 +35,6 @@ public class OnboardingTransition : MonoBehaviour {
         PleaseWaitText.DOFade(1.0f, 0.25f).SetDelay(3.5f);
         DOTween.To(() => spinnerAlpha, value => spinnerAlpha = value, 1.0f, 1.0f).From(0.0f).OnComplete(() => {
             animateSpinnerAlpha = false;
-            Destroy(this);
         }).SetDelay(3.5f);
         spinnerTransform.localScale = Vector3.zero;
         spinnerTransform.DOScale(1.0f, 0.25f).From(0.0f).SetDelay(3.5f);
@@ -54,7 +53,7 @@ public class OnboardingTransition : MonoBehaviour {
 
         if (StartWaitTimer) {
             waitTimer += Time.deltaTime;
-            if (waitTimer >= 6.0f) {
+            if (waitTimer >= 5.0f) {
                 waitTimer = 0f;
                 StartWaitTimer = false;
                 OnLoadComplete?.Invoke();

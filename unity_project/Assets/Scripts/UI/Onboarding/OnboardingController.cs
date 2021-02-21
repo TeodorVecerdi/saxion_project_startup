@@ -39,11 +39,7 @@ public class OnboardingController : MonoBehaviour {
     private ProfilePictureType profilePictureType = ProfilePictureType.Avatar;
 
     public void Finish() {
-        if (profilePictureType == ProfilePictureType.Avatar) {
-            ShowAvatar();
-        } else {
-            FinishProfile();
-        }
+        ShowAvatar();
     }
 
     public void AvatarComplete() {
@@ -74,20 +70,19 @@ public class OnboardingController : MonoBehaviour {
             Avatar = avatarConfiguration
         };
         var json = userModel.Serialize();
-        ServerConnection.Instance.MakeRequestAsync("/profile", Method.POST, new List<(string key, string value)> {("id", UserState.Instance.UserId), ("profile", json)}, response => {
-            SceneLoader.Instance.LoadScene(Scenes.SwipeMenu, () => {
-                IDisposable cancel = null;
-                cancel = UpdateUtility.Create(() => {
-                    if(!AppState.Instance.DoneLoadingInitial) return;
-                    
-                    cancel.Dispose();
-                    Transition.OnLoadComplete += () => {
-                        SceneManager.UnloadSceneAsync(Scenes.Onboarding);
-                    };
-                    Transition.StartWaitTimer = true;
-                });
-            });
-        });
+        ServerConnection.Instance.MakeRequestAsync("/profile", Method.POST, new List<(string key, string value)> {("id", UserState.Instance.UserId), ("profile", json)},
+        response => {
+           SceneLoader.Instance.LoadScene(Scenes.SwipeMenu, () => {
+               IDisposable cancel = null;
+               cancel = UpdateUtility.Create(() => {
+                   if (!AppState.Instance.DoneLoadingInitial) return;
+
+                   cancel.Dispose();
+                   Transition.OnLoadComplete += () => { SceneManager.UnloadSceneAsync(Scenes.Onboarding); };
+                   Transition.StartWaitTimer = true;
+               });
+           });
+       });
     }
 
     public void OnGenderChange(int mask) {
@@ -108,12 +103,12 @@ public class OnboardingController : MonoBehaviour {
         gameGenres = (GameGenre) Enum.ToObject(typeof(GameGenre), mask);
         GameGenreButton.interactable = gameGenres != GameGenre.None;
     }
-    
+
     public void OnGamesPlayedChange(int mask) {
         gamesPlayed = (GamePlayed) Enum.ToObject(typeof(GamePlayed), mask);
         GamesPlayedButton.interactable = gamesPlayed != GamePlayed.None;
     }
-    
+
     public void OnProfilePictureTypeChange(int mask) {
         profilePictureType = (ProfilePictureType) Enum.ToObject(typeof(ProfilePictureType), mask);
     }

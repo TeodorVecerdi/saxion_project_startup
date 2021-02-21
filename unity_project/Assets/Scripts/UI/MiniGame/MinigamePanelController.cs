@@ -88,7 +88,6 @@ public class MinigamePanelController : MonoBehaviour {
 
     private void ShowState(CanvasGroup state) {
         if(state == currentState) return;
-        Debug.Log($"Showing state {state.gameObject}");
         if (currentState != null) {
             var oldState = currentState;
             currentState.DOFade(0f, 0.25f).From(1f).OnComplete(()=>oldState.gameObject.SetActive(false));
